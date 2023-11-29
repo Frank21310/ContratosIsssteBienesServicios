@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_rol');
+            $table->string('nombre_rol');
+            $table->foreignId('permiso_id')
+            ->references('id_permiso')
+            ->on('permisos');   
             $table->timestamps();
         });
     }

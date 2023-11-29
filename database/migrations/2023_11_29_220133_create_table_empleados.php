@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('empleados', function (Blueprint $table) {
-            $table->id();
+            $table->id('num_empleado');
+            $table->string('nombre',50);
+            $table->string('apellido_paterno',50);
+            $table->string('apellido_materno',50);
+            $table->foreignId('cargo_id')
+            ->references('id_cargo')
+            ->on('cargos');
+            $table->foreignId('dependencia_id')
+            ->references('id_dependencia')  
+            ->on('dependencias');
             $table->timestamps();
         });
     }

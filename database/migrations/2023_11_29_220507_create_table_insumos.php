@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('insumos', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_cucop');
+            $table->bigInteger('clave_cucop');
+            $table->foreignId('partida_id')
+            ->references('id_partida')
+            ->on('partidas'); 
+            $table->string('descripcion');
+            $table->string('CABM');
+            $table->string('tipo_contratacion');
             $table->timestamps();
         });
     }

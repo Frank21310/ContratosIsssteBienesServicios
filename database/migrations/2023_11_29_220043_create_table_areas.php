@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('areas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_area');
+            $table->string('nombre_area');
+            $table->foreignId('dependencia_id')
+            ->references('id_dependencia')
+            ->on('dependencias'); 
             $table->timestamps();
         });
     }
