@@ -27,11 +27,11 @@
     <div id="app" class="wrapper">
         @guest
         @else
-            @include('layouts.SideBar')
+            @include('layouts.sidebar')
         @endguest
 
         <div id="content">
-            @include('layouts.TopBar')
+            @include('layouts.topbar')
 
             <main class="principal">
                 @yield('content')

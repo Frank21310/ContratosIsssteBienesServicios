@@ -15,7 +15,7 @@
 <body>
     <!--Topbar -->
     <div>
-        @include('layouts.TopBar')
+        @include('layouts.topbar')
     </div>
     <!-- End of Topbar -->
     <div class="container">
