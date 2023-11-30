@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,9 +20,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'empleado_num',
         'email',
         'password',
+        'rol_id'
+
     ];
 
     /**
@@ -32,6 +36,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function Empleados(): HasOne
+    {
+        return $this->hasOne(Empleado::class, 'num_empleado', 'empleado_num');
+    }
+    public function Roles(): BelongsTo
+    {
+        return $this->belongsTo(Rol::class, 'rol_id', 'id_rol');
+    }
 
     /**
      * The attributes that should be cast.

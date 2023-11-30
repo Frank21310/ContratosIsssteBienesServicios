@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Medida extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id_medida';
+    protected $table = 'medida';
+    protected $fillable = [
+        'nombre_medida',
+    ];
 }
