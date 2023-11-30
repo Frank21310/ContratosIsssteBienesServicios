@@ -1,6 +1,23 @@
 <?php
 
+use App\Http\Controllers\AdminContratos\SoloAdminContratosController;
+use App\Http\Controllers\Administrador\EmpleadosController;
+use App\Http\Controllers\Administrador\RolesController;
+use App\Http\Controllers\Administrador\SoloAdminController;
+use App\Http\Controllers\Administrador\UsuariosController;
+use App\Http\Controllers\AreaNormativa\SoloAreaNormativaController;
+use App\Http\Controllers\Contratante\ContratosController;
+use App\Http\Controllers\Contratante\RequisicionesFinalizadasController;
+use App\Http\Controllers\Contratante\RequisicionesSeguimientoController;
+use App\Http\Controllers\Contratante\SoloContratanteController;
+use App\Http\Controllers\Finanzas\SoloFinanzasController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Requirente\InsumosController;
+use App\Http\Controllers\Requirente\RequisicionesController;
+use App\Http\Controllers\Requirente\SoloRequirenteController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,19 +29,97 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/*
+|--------------------------------------------------------------------------
+| Web Routes pages of Login and welcome home
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/Registro',function () {
+    return view('Registro');
+} )->name('Registro');
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes auth
+|--------------------------------------------------------------------------
+*/
 Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+|--------------------------------------------------------------------------
+| Web Routes Administrador
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/Administrador', [SoloAdminController::class, 'index'])->name(' administrador');
+    Route::resource('roles', RolesController::class);
+    Route::resource('Empleados', EmpleadosController::class);
+    Route::resource('Usuarios', UsuariosController::class);
+})->namespace('root');
+/*
+|--------------------------------------------------------------------------
+| Web Routes Peticiones
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/Peticiones', [SoloRequirenteController::class, 'index'])->name(' Peticiones');
 
-Auth::routes();
+    Route::get('/fclaveCucop', [RequisicionesController::class, 'fclaveCucop'])->name('fclaveCucop');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('Requesiciones', RequisicionesController::class);
 
-Auth::routes();
+    Route::get('/Requesiciones/{id}/generar-pdf', [RequisicionesController::class, 'generarPdf'])->name('Requisiciones.generarPdf');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('CUCop', InsumosController::class);
+    
+})->namespace('Peticiones');
+/*
+|----------------------------------------------------------------- ---------
+| Web Routes Contratante
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/Contratante', [SoloContratanteController::class, 'index'])->name(' Contratante');
+    Route::resource('SeguimientoRequisicion', RequisicionesSeguimientoController::class);
+    Route::resource('RequisicionesFinalizadas', RequisicionesFinalizadasController::class);
+    Route::resource('Contratos', ContratosController::class);
+    Route::get('SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'edit'])->name('SeguimientoRequisicion.edit');
+
+})->namespace('Contratante');
+/*
+|----------------------------------------------------------------- ---------
+| Web Routes AdminContratos
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/AdminContratos', [SoloAdminContratosController::class, 'index'])->name(' AdminContratos');
+
+})->namespace('admincontratos');
+/*
+|----------------------------------------------------------------- ---------
+| Web Routes Finanzas
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/Finanzas', [SoloFinanzasController::class, 'index'])->name(' Finanzas');
+
+})->namespace('Finanzas');
+/*
+|----------------------------------------------------------------- ---------
+| Web Routes AreaNormatica
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/Anormativa', [SoloAreaNormativaController::class, 'index'])->name(' Anormativa');
+
+})->namespace('Anormativa');
