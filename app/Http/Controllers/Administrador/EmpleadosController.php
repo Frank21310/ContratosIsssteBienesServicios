@@ -43,7 +43,7 @@ class EmpleadosController extends Controller
                 ->orWhere('dependencia_id', 'like', '%' . $request->search . '%');
         }
         $Empleados = $Empleados->paginate($limit)->appends($request->all());
-        return view('Empleados.index', compact('Empleados'));
+        return view('Administrador.Empleados.index', compact('Empleados'));
     }
 
     /**
@@ -53,7 +53,7 @@ class EmpleadosController extends Controller
     {
         $cargos = Cargo::all();
         $dependecias = Dependencia::all();
-        return view('Empleados.create', compact('cargos','dependecias'));
+        return view('Administrador.Empleados.create', compact('cargos', 'dependecias'));
     }
 
     /**
@@ -71,8 +71,8 @@ class EmpleadosController extends Controller
         $Empleado->nombre = $request->nombre;
         $Empleado->apellido_paterno = $request->apellido_paterno;
         $Empleado->apellido_materno = $request->apellido_materno;
-        $Empleado->cargo_id = $request->cargo_id_cargo;
-        $Empleado->dependencia_id = $request->dependencia_id_dependencia;
+        $Empleado->cargo_id = $request->cargo_id;
+        $Empleado->dependencia_id = $request->dependencia_id;
         $Empleado->save();
         return  $Empleado;
     }
@@ -85,7 +85,7 @@ class EmpleadosController extends Controller
         $cargos = Cargo::all();
         $dependecias = Dependencia::all();
         $Empleado = Empleado::where('num_empleado', $id)->firstOrFail();
-        return view('Empleados.show', compact('Empleado','cargos','dependecias'));
+        return view('Administrador.Empleados.show', compact('Empleado', 'cargos', 'dependecias'));
     }
 
     /**
@@ -96,7 +96,7 @@ class EmpleadosController extends Controller
         $cargos = Cargo::all();
         $dependecias = Dependencia::all();
         $Empleado = Empleado::where('num_empleado', $id)->firstOrFail();
-        return view('Empleados.edit', compact('Empleado','cargos','dependecias'));
+        return view('Administrador.Empleados.edit', compact('Empleado', 'cargos', 'dependecias'));
     }
 
     /**
@@ -114,16 +114,17 @@ class EmpleadosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(string $id)
     {
-        $Empleado = Empleado::findOrFail($id);
         try {
+            $Empleado = Empleado::findOrFail($id);
             $Empleado->delete();
-            return redirect()
-                ->route('Empleados.index');
-        } catch (QueryException $e) {
-            return redirect()
-                ->route('Empleados.index');
+
+            return redirect()->route('Empleados.index');
+        } catch (\Exception $e) {
+            // Maneja la excepción aquí (puedes mostrar un mensaje de error, registrar la excepción, etc.)
+            return redirect()->route('Empleados.index')->with('error', 'No se pudo eliminar el registro.');
         }
     }
 }

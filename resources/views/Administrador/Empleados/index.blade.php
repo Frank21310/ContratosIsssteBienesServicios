@@ -87,24 +87,23 @@
                                     <td class="custom-td">{{ $Empleado->nombre }}</td>
                                     <td class="custom-td">{{ $Empleado->apellido_paterno }}</td>
                                     <td class="custom-td">{{ $Empleado->apellido_materno }}</td>
-                                    <td class="custom-td">{{ $Empleado->cargo->nombre_cargo }}</td>
-                                    <td class="custom-td">{{ $Empleado->dependencia->nombre }}</td>
+                                    <td class="custom-td">{{ $Empleado->cargo_id }}</td>
+                                    <td class="custom-td">{{ $Empleado->Dependencias->nombre_dependencia }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('Empleados.show', $Empleado->num_empleado) }}"
                                                 class="btn btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('Empleados.edit', $Empleado->num_empleado) }}"
                                                 class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger "
-                                                form="detele_{{ $Empleado->num_empleado }}"
-                                                onclick="return confirm('¿Estas seguro de eliminar el registro?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
                                             <form action="{{ route('Empleados.destroy', $Empleado->num_empleado) }}"
-                                                id="delete_{{ $Empleado->num_empleado }}" method="post"
-                                                enctype="multipart/form-data" hidden>
+                                                id="delete_{{ $Empleado->num_empleado }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>

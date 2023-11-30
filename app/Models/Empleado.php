@@ -24,12 +24,12 @@ class Empleado extends Model
     }
     public function Cargos()
     {
-        return $this->belongsTo(Cargo::class, 'cargo_id_cargo', 'id_cargo');
+        return $this->belongsTo(Cargo::class, 'cargo_id', 'id_cargo');
     }
 
     public function Dependencias()
     {
-        return $this->belongsTo(Dependencia::class, 'dependencia_id_dependencia', 'id_dependencia');
+        return $this->belongsTo(Dependencia::class, 'dependencia_id', 'id_dependencia');
     }
 }
 
