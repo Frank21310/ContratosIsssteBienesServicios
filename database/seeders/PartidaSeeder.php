@@ -12,6 +12,6 @@ class PartidaSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
     }
 }

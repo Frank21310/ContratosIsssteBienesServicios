@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Metodo;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,8 @@ class MetodoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Metodo::create([
+            'nombre_metodos'=>'Ninguno',
+        ]);
     }
 }
