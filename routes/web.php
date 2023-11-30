@@ -39,7 +39,7 @@ Route::get('/', function () {
 });
 
 Route::get('/Registro',function () {
-    return view('Registro');
+    return view('auth.Registro');
 } )->name('Registro');
 
 /*
