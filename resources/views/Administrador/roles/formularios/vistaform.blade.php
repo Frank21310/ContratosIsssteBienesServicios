@@ -1,9 +1,9 @@
 @csrf
-<div class="row">
+<div class="row d-grid gap-2 col-6 mx-auto">
     <div class="col-12">
         <div class="form-group">
             <label for="">Nombre del Rol</label>
-            <span type="text" class="form-control" name="nombre_rol">
+            <span type="text" class="form-control custom-span" name="nombre_rol">
                 {{ isset($rol) ? $rol->nombre_rol : old('nombre_rol') }}
             </span>
             
@@ -12,8 +12,8 @@
     <div class="col-12">
         <div class="form-group">
             <label for="">Permisos</label>
-            <span type="text" class="form-control" name="permiso_id_permisos">
-                {{ isset($rol) ? $rol->permisorol->nombre_permiso : old('permiso_id_permisos') }}
+            <span type="text" class="form-control custom-span" name="permiso_id">
+                {{ isset($rol) ? $rol->Permisos->nombre_permiso : old('permiso_id') }}
             </span>
     </div>
 

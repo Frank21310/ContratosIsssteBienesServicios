@@ -37,7 +37,7 @@ class RolesController extends Controller
                 ->orWhere('nombre_rol', 'like', '%' . $request->search . '%');
         }
         $rols = $rols->paginate($limit)->appends($request->all());
-        return view('roles.index', compact('rols'));
+        return view('Administrador.roles.index', compact('rols'));
     }
 
     /**
@@ -47,7 +47,7 @@ class RolesController extends Controller
     {
         $permisos = Permisos::all();
 
-        return view('roles.create', compact('permisos'));
+        return view('Administrador.roles.create', compact('permisos'));
     }
 
     /**
@@ -76,7 +76,7 @@ class RolesController extends Controller
     {
         $permisos = Permisos::all();
         $rol = Rol::where('id_rol', $id)->firstOrFail();
-        return view('roles.show', compact('rol', 'permisos'));
+        return view('Administrador.roles.show', compact('rol', 'permisos'));
     }
 
     /**
@@ -86,7 +86,7 @@ class RolesController extends Controller
     {
         $permisos = Permisos::all();
         $rol = Rol::where('id_rol', $id)->firstOrFail();
-        return view('roles.edit', compact('rol','permisos'));
+        return view('Administrador.roles.edit', compact('rol','permisos'));
     }
 
     /**
@@ -105,16 +105,16 @@ class RolesController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
+{
+    try {
         $rol = Rol::findOrFail($id);
-        try {
-            $rol->delete();
-            return redirect()
-                ->route('roles.index');
-        } catch (QueryException $e) {
-            return redirect()
-                ->route('roles.index');
-        }
+        $rol->delete();
+        
+        return redirect()->route('roles.index');
+    } catch (\Exception $e) {
+        // Maneja la excepción aquí (puedes mostrar un mensaje de error, registrar la excepción, etc.)
+        return redirect()->route('roles.index')->with('error', 'No se pudo eliminar el registro.');
     }
+}
 }
 

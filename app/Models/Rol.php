@@ -18,6 +18,6 @@ class Rol extends Model
     ];
     public function Permisos(): BelongsTo
     {
-        return $this->belongsTo(Permisos::class, 'permiso_id', 'id_permisos');
+        return $this->belongsTo(Permisos::class, 'permiso_id', 'id_permiso');
     }
 }

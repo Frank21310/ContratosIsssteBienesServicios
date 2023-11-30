@@ -88,15 +88,15 @@
                                                     class="fas fa-eye"></i></a>
                                             <a href="{{ route('roles.edit', $rol->id_rol) }}" class="btn btn-primary"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger " form="detele_{{ $rol->id_rol }}"
-                                                onclick="return confirm('¿Estas seguro de eliminar el registro?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
                                             <form action="{{ route('roles.destroy', $rol->id_rol) }}"
-                                                id="delete_{{ $rol->id_rol }}" method="post"
-                                                enctype="multipart/form-data" hidden>
+                                                id="delete_{{ $rol->id_rol }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>
@@ -112,7 +112,7 @@
                 {{ $rols->links() }}
             @endif
         </div>
-        
+
     </div>
 
     <Script type="text/javascript">

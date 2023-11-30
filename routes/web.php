@@ -57,9 +57,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 */
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/Administrador', [SoloAdminController::class, 'index'])->name(' administrador');
-    Route::resource('roles', RolesController::class);
-    Route::resource('Empleados', EmpleadosController::class);
-    Route::resource('Usuarios', UsuariosController::class);
+
+
+    Route::resource('/Administrador/roles', RolesController::class);
+    Route::resource('/Administrador/Empleados', EmpleadosController::class);
+    Route::resource('/Administrador/Usuarios', UsuariosController::class);
 })->namespace('root');
 /*
 |--------------------------------------------------------------------------
