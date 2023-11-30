@@ -14,16 +14,16 @@ class MedidaSeeder extends Seeder
     public function run(): void
     {
         Medida::create([
-            'descripcion_medida'=>'Servicio',
+            'nombre_medida'=>'Servicio',
         ]);
         Medida::create([
-            'descripcion_medida'=>'Pieza',
+            'nombre_medida'=>'Pieza',
         ]);
         Medida::create([
-            'descripcion_medida'=>'Kilogramo',
+            'nombre_medida'=>'Kilogramo',
         ]);
         Medida::create([
-            'descripcion_medida'=>'Litro',
+            'nombre_medida'=>'Litro',
         ]);
     }
 }
