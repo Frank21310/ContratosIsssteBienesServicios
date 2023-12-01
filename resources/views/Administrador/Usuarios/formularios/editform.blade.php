@@ -4,15 +4,15 @@
     <label for="empleado_num" class="col-md-4 col-form-label text-md-end">{{ __('Empleado') }}</label>
 
     <div class="col-md-6">
-        <select id="empleado_num" class="form-control @error('empleado_num') is-invalid @enderror" name="empleado_num"
-            required autocomplete="empleado_num" autofocus>
-            <option value="">Selecciona un empleado</option>
+        <select class="form-control select-partida custom-select" name="empleado_num" readonly>
+            <option value="">Selecciona</option>
             @foreach ($empleados as $empleado)
-                <option value="{{ $empleado->num_empleado }}">{{ $empleado->nombre }} {{ $empleado->apellido_paterno }}
+                <option value="{{ $empleado->empleado_num }}" class="form-control"
+                    @if ($empleado->empleado_num == $empleado->empleado_num) selected @endif>
+                    {{ $empleado->nombre }} {{ $empleado->apellido_paterno }}
                 </option>
             @endforeach
         </select>
-
         @error('empleado_num')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -25,11 +25,13 @@
     <label for="id_rol" class="col-md-4 col-form-label text-md-end">{{ __('Rol') }}</label>
 
     <div class="col-md-6">
-        <select id="id_rol" class="form-control @error('id_rol') is-invalid @enderror" name="id_rol" required
-            autocomplete="id_rol" autofocus>
+        <select id="id_rol" class="custom-select form-control @error('id_rol') is-invalid @enderror" name="id_rol" required autocomplete="id_rol" autofocus>
             <option value="" disabled selected>Seleccionar Rol</option>
             @foreach ($roles as $rol)
-                <option value="{{ $rol->id_rol }}">{{ $rol->nombre_rol }}</option>
+                <option value="{{ $rol->id_rol }}" class="form-control"
+                    @if ($rol->id_rol == $rol->id_rol) selected @endif>
+                    {{ $rol->nombre_rol}}
+                </option>
             @endforeach
         </select>
 
@@ -45,7 +47,7 @@
     <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Correo') }}</label>
 
     <div class="col-md-6">
-        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+        <input id="email" type="email" class="custom-input form-control @error('email') is-invalid @enderror" name="email"
             value="{{ isset($User) ? $User->email : old('email') }}" required autocomplete="email">
 
         @error('email')
@@ -60,7 +62,7 @@
     <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Contraseña') }}</label>
 
     <div class="col-md-6">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+        <input id="password" type="password" class="custom-input form-control @error('password') is-invalid @enderror"
             name="password" required autocomplete="new-password" value="{{ isset($User) ? $User->password : old('password') }}">
 
         @error('password')
@@ -75,7 +77,7 @@
     <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
     <div class="col-md-6">
-        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
+        <input id="password-confirm" type="password" class="custom-input form-control" name="password_confirmation" required
             autocomplete="new-password" >
     </div>
 </div>

@@ -8,7 +8,7 @@
                     <h2 class="">Usuarios</h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
-                    <a id="BtnAgregar" href="{{ route('Usuarios.create') }}" class="btn btn-primary ml-auto">
+                    <a id="BtnAgregar" href="{{ route('Usuarios.create') }}" class="btn btn-primary ml-auto BotonRojo">
                         <i class="fas fa-plus"></i>
                         Agregar
                     </a>
@@ -81,22 +81,21 @@
                                 <tr>
                                     <td class="custom-td">{{ $User->empleado_num }}</td>
                                     <td class="custom-td">{{ $User->email }}</td>
-                                    <td class="custom-td">{{ $User->rol->nombre_rol }}</td>
+                                    <td class="custom-td">{{ $User->Roles->nombre_rol }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('Usuarios.show', $User->empleado_num) }}" class="btn btn-info"><i
-                                                    class="fas fa-eye"></i></a>
-                                            <a href="{{ route('Usuarios.edit', $User->empleado_num) }}" class="btn btn-primary"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger " form="detele_{{ $User->empleado_num }}"
-                                                onclick="return confirm('¿Estas seguro de eliminar el registro? {{ $User->empleado_num }}')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            <a href="{{ route('Usuarios.show', $User->empleado_num) }}"
+                                                class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ route('Usuarios.edit', $User->empleado_num) }}"
+                                                class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                             <form action="{{ route('Usuarios.destroy', $User->empleado_num) }}"
-                                                id="delete_{{ $User->empleado_num }}" method="post"
-                                                enctype="multipart/form-data" hidden>
+                                                id="delete_{{ $User->empleado_num }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>

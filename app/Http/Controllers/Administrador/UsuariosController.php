@@ -44,7 +44,7 @@ class UsuariosController extends Controller
                 ->orWhere('rol_id', 'like', '%' . $request->search . '%');
         }
         $Users = $Users->paginate($limit)->appends($request->all());
-        return view('Usuarios.index', compact('Users'));
+        return view('Administrador.Usuarios.index', compact('Users'));
     }
 
 
@@ -56,7 +56,7 @@ class UsuariosController extends Controller
         $empleados = Empleado::all();
         $roles = Rol::all();
 
-        return view('Usuarios.create', compact('empleados', 'roles'));
+        return view('Administrador.Usuarios.create', compact('empleados', 'roles'));
     }
 
     /**
@@ -78,9 +78,9 @@ class UsuariosController extends Controller
             'rol_id' => $data['id_rol'],
         ]);
 
-        $Users = User::all(); // Obtener todos los usuarios
+        $users = User::all(); // Obtener todos los usuarios
 
-        return view('Usuarios.index', compact('users'));
+        return view('Administrador.Usuarios.index', compact('users'));
     }
 
     /**
@@ -89,7 +89,7 @@ class UsuariosController extends Controller
     public function show(string $id)
     {
         $Users = User::where('empleado_num', $id)->firstOrFail();
-        return view('Usuarios.show', compact('Users'));
+        return view('Administrador.Usuarios.show', compact('Users'));
     }
 
     /**
@@ -101,7 +101,7 @@ class UsuariosController extends Controller
         $roles = Rol::all();
 
         $User = User::where('empleado_num', $id)->firstOrFail();
-        return view('Usuarios.edit', compact('User','empleados','roles'));
+        return view('Administrador.Usuarios.edit', compact('User', 'empleados', 'roles'));
     }
 
     /**
@@ -125,7 +125,7 @@ class UsuariosController extends Controller
 
         $users = User::all(); // Obtener todos los usuarios
 
-        return view('Usuarios.index', compact('users'));
+        return view('Administrador.Usuarios.index', compact('users'));
     }
 
 
@@ -133,17 +133,17 @@ class UsuariosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    
     public function destroy(string $id)
     {
-        $User = User::findOrFail($id);
         try {
+            $User = User::findOrFail($id);
             $User->delete();
-            return redirect()
-                ->route('Usuarios.index');
-        } catch (QueryException $e) {
-            return redirect()
-                ->route('Usuarios.index');
+
+            return redirect()->route('Usuarios.index');
+        } catch (\Exception $e) {
+            // Maneja la excepción aquí (puedes mostrar un mensaje de error, registrar la excepción, etc.)
+            return redirect()->route('Usuarios.index')->with('error', 'No se pudo eliminar el registro.');
         }
     }
 }
-

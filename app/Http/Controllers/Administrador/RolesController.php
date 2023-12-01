@@ -86,7 +86,7 @@ class RolesController extends Controller
     {
         $permisos = Permisos::all();
         $rol = Rol::where('id_rol', $id)->firstOrFail();
-        return view('Administrador.roles.edit', compact('rol','permisos'));
+        return view('Administrador.roles.edit', compact('rol', 'permisos'));
     }
 
     /**
@@ -105,16 +105,15 @@ class RolesController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-{
-    try {
-        $rol = Rol::findOrFail($id);
-        $rol->delete();
-        
-        return redirect()->route('roles.index');
-    } catch (\Exception $e) {
-        // Maneja la excepción aquí (puedes mostrar un mensaje de error, registrar la excepción, etc.)
-        return redirect()->route('roles.index')->with('error', 'No se pudo eliminar el registro.');
+    {
+        try {
+            $rol = Rol::findOrFail($id);
+            $rol->delete();
+
+            return redirect()->route('roles.index');
+        } catch (\Exception $e) {
+            // Maneja la excepción aquí (puedes mostrar un mensaje de error, registrar la excepción, etc.)
+            return redirect()->route('roles.index')->with('error', 'No se pudo eliminar el registro.');
+        }
     }
 }
-}
-
