@@ -30,7 +30,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $rols = Rol::select('*')->orderBy('id_rol', 'ASC');
-        $limit = (isset($request->limit)) ? $request->limit : 10;
+        $limit = (isset($request->limit)) ? $request->limit : 4;
 
         if (isset($request->search)) {
             $rols = $rols->where('id_rol', 'like', '%' . $request->search . '%')

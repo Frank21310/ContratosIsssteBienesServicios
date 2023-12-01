@@ -16,7 +16,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('roles.index') }}"
-                        class="nav-link {{ 'roles' == request()->path() ? 'active' : '' }}">
+                        class="nav-link {{ 'Administrador/roles' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-user-tie"></i>
                         Roles
                     </a>
@@ -24,14 +24,14 @@
 
                 <li class="nav-item">
                     <a href="{{ route('Empleados.index') }}"
-                        class="nav-link {{ 'Empleados' == request()->path() ? 'active' : '' }}">
+                        class="nav-link {{ 'Administrador/Empleados' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-user-tie"></i>
                         Empleados
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('Usuarios.index') }}"
-                        class="nav-link {{ 'Usuarios' == request()->path() ? 'active' : '' }}">
+                        class="nav-link {{ 'Administrador/Usuarios' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-user"></i>
                         Usuarios
                     </a>

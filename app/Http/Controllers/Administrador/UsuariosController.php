@@ -36,7 +36,7 @@ class UsuariosController extends Controller
     public function index(Request $request)
     {
         $Users = User::select('*')->orderBy('id', 'ASC');
-        $limit = (isset($request->limit)) ? $request->limit : 10;
+        $limit = (isset($request->limit)) ? $request->limit : 4;
 
         if (isset($request->search)) {
             $Users = $Users->where('empleado_num', 'like', '%' . $request->search . '%')

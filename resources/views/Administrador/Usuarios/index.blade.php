@@ -70,7 +70,7 @@
                     <table class="table custom-table">
                         <thead class="custom-thead">
                             <tr>
-                                <th class="custom-th">Num. Empleadp</th>
+                                <th class="custom-th">Num. Empleado</th>
                                 <th class="custom-th">Email</th>
                                 <th class="custom-th">Rol</th>
                                 <th class="col-2 custom-th">Acciones</th>
@@ -115,6 +115,7 @@
     </div>
 
     <Script type="text/javascript">
+    
         $('#limit').on('change', function() {
             window.location.href = "{{ route('Usuarios.index') }}?limit=" + $(this).val() + '&search=' + $(
                 '#search').val()
@@ -122,8 +123,9 @@
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('Usuarios.index') }}?limit=" + $('#limit').val() + '&search=' + $(
-                    this).val()
+                window.location.href = "{{ route('Usuarios.index') }}?limit=" + $('#limit').val() +
+                    '&search=' +
+                    $(this).val()
             }
         })
     </Script>
