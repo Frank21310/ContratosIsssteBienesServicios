@@ -7,7 +7,7 @@
                     <h2 class="">Vista de la solicitud</h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
-                    <a id="BtnAgregar" href="{{ route('Requesiciones.index') }}" class="btn btn-primary ml-auto BotonRojo">
+                    <a id="BtnAgregar" href="{{ route('Requisiciones.index') }}" class="btn btn-primary ml-auto BotonRojo">
                         <i class="fas fa-arrow-left"></i>
                         Volver
                     </a>
@@ -16,8 +16,8 @@
         </div>
         <hr>
         <div class="card-body">
-            <form action="{{ route('Requesiciones.store') }}" method="POST" enctype="multipart/form-data" id="create">
-                @include('Requesiciones.formularios.formdetalle')
+            <form action="{{ route('Requisiciones.store') }}" method="POST" enctype="multipart/form-data" id="create">
+                @include('Requirente.Requisiciones.formularios.formdetalle')
             </form>
         </div>
         

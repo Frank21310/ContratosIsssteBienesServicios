@@ -46,18 +46,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('Requesiciones.index') }}"
-                        class="nav-link  {{ 'Requesiciones' == Request::is('Requesiciones*') ? 'active' : '' }}">
+                    <a href="{{ route('Requisiciones.index') }}"
+                        class="nav-link  {{ '/Requirente/Requisiciones' == Request::is('Requirente/Requisiciones*') ? 'active' : '' }}">
                         <i class="fas fa-plus bi me-2"></i>
                         Requisiciones
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('CUCop.index') }}"
-                        class="nav-link {{ 'CUCop' == Request::is('CUCop*') ? 'active' : '' }}">
+                    <a href="{{ route('Insumos.index') }}"
+                        class="nav-link {{ 'Requirente/Insumos' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-file me-2"></i>
-                        CUCop
+                        Insumos
                     </a>
                 </li>
             @endif
@@ -69,8 +69,8 @@
                         Inicio
                     </a>
                 </li>
-                <li class="nav-item" >
-                    <a href="#menurequisiciones" data-toggle="collapse" aria-expanded="true" class="nav-link" >
+                <li class="nav-item">
+                    <a href="#menurequisiciones" data-toggle="collapse" aria-expanded="true" class="nav-link">
                         <i class="fas fa-file-alt"></i>
                         Requisiciones</a>
                     <ul class="collapse list-unstyled" id="menurequisiciones">
@@ -91,13 +91,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('Contratos.index')  }}"
+                    <a href="{{ route('Contratos.index') }}"
                         class="nav-link {{ 'Contratos' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Contratos
                     </a>
                 </li>
-                
             @endif
         </ul>
         <hr>

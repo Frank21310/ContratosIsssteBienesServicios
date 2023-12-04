@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('insumos', function (Blueprint $table) {
             $table->id('id_cucop');
-            $table->bigInteger('clave_cucop');
+            $table->string('clave_cucop');
             $table->foreignId('partida_id')
             ->references('id_partida')
             ->on('partidas'); 

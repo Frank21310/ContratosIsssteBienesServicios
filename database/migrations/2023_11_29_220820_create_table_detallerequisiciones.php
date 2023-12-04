@@ -17,9 +17,8 @@ return new class extends Migration
             ->references('id_requisicion')
             ->on('requisiciones');
 
-            $table->foreignId('num_partida')
-            ->references('id_partida')
-            ->on('partidas');
+            $table->string('num_partida');
+
 
             $table->foreignId('cucop')
             ->references('id_cucop')

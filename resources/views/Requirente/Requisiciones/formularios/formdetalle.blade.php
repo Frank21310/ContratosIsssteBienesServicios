@@ -4,14 +4,14 @@
     {{-- Dependencia --}}
     <div class="col">
         <label>Nombre de la dependencia o entidad:</label>
-        <span type="text" name="dependencia_id_dependencia"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->dependenciarequesicion->nombre : old('dependencia_id_dependencia') }}</span>
+        <span type="text" name="dependencia_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Dependencias->nombre_dependencia : old('dependencia_id') }}</span>
     </div>
     {{-- Area Requeriente  --}}
     <div class="col">
         <label>Area requirente:</label>
-        <span type="text" name="area_id_area"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->arearequesicion->nombre_area : old('area_id_area') }}</span>
+        <span type="text" name="area_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Areas->nombre_area : old('area_id') }}</span>
     </div>
 </div>
 
@@ -25,8 +25,8 @@
     {{-- Numero de requisicion --}}
     <div class="col">
         <label>No. requisicion: </label>
-        <span type="text" name="no_requesicion"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->no_requesicion : old('no_requesicion') }}</span>
+        <span type="text" name="no_requisicion"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->no_requisicion : old('no_requisicion') }}</span>
     </div>
     {{-- Fecha requerida --}}
     <div class="col">
@@ -63,11 +63,11 @@
             <tr>
                 <td class="custom-td">{{ $detalle->num_partida }}</td>
                 <td class="custom-td">{{ $detalle->cucop }}</td>
-                <td class="custom-td">{{ $detalle->insumo->descripcion_insumo }}</td>
+                <td class="custom-td">{{ $detalle->Insumos->descripcion_insumo }}</td>
                 <td class="custom-td">{{ $detalle->cantidad }}</td>
-                <td class="custom-td">{{ $detalle->UnidadMedida->descripcion_unidad }}</td>
+                <td class="custom-td">{{ $detalle->Medidas->nombre_medida }}</td>
                 <td class="custom-td">{{ $detalle->precio }}</td>
-                <td class="custom-td">{{ $detalle->importe }}</td>
+                <td class="custom-td importes">{{ $detalle->importe }}</td>
             </tr>
         @endforeach
     </tbody>
@@ -98,7 +98,7 @@
 
 {{-- Gravamientos --}}
 <div class="row">
-    <div class="col mx-auto p-2  d-flex align-items-end flex-column">
+    <div class="col mx-auto p-2  d-flex align-items-end flex-column gravamientos">
         <label>Otros Gravamientos: </label>
     </div>
     <div class="col-4  mx-auto p-2  d-flex align-items-end flex-column">
@@ -179,14 +179,14 @@
     {{-- Pais --}}
     <div class="col mx-auto p-2">
         <label>Pais de Origen: </label>
-        <span type="text" name="pais_id_pais"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->pais->nombre_pais : old('pais_id_pais') }}</span>
+        <span type="text" name="pais_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Paises->nombre_pais : old('pais_id') }}</span>
     </div>
     {{-- Metodos de prueba --}}
     <div class="col mx-auto p-2">
         <label>Metodos de prueba: </label>
-        <span type="text" name="metodos_id_metodos"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->metodosrequesicion->nombre_metodos  : old('metodos_id_metodos') }}</span>
+        <span type="text" name="metodos_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Metodos->nombre_metodos  : old('metodos_id') }}</span>
 
     </div>
 </div>
@@ -198,14 +198,44 @@
             {{-- Garantia --}}
             <div class="col-5">
                 <label>Tipo de garantia: </label>
-                <span type="text" name="garantia_id_garantia"
-                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->garantiarequesicion->nombre_garantia : old('garantia_id_garantia') }}</span>
+                <span type="text" name="garantia1_id"
+                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Garantias->nombre_garantia : old('garantia1_id') }}</span>
             </div>
             {{-- Porcentaje --}}
             <div class="col-2">
                 <label>Porcentaje: </label>
-                <span type="text" name="porcentaje"
-                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->porcentaje : old('porcentaje') }}</span>
+                <span type="text" name="porcentaje_1"
+                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->porcentaje_1 : old('porcentaje_1') }}</span>
+
+            </div>
+        </div>
+        <div class="row">
+            {{-- Garantia --}}
+            <div class="col-5">
+                <label>Tipo de garantia: </label>
+                <span type="text" name="garantia_2_id"
+                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Garantias->nombre_garantia : old('garantia_2_id') }}</span>
+            </div>
+            {{-- Porcentaje --}}
+            <div class="col-2">
+                <label>Porcentaje: </label>
+                <span type="text" name="porcentaje_2"
+                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->porcentaje_2 : old('porcentaje_2') }}</span>
+
+            </div>
+        </div>
+        <div class="row">
+            {{-- Garantia --}}
+            <div class="col-5">
+                <label>Tipo de garantia: </label>
+                <span type="text" name="garantia_3_id"
+                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Garantias->nombre_garantia : old('garantia_3_id') }}</span>
+            </div>
+            {{-- Porcentaje --}}
+            <div class="col-2">
+                <label>Porcentaje: </label>
+                <span type="text" name="porcentaje_3"
+                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->porcentaje_3 : old('porcentaje_3') }}</span>
 
             </div>
         </div>
@@ -215,8 +245,8 @@
                 {{-- Condiciones --}}
                 <div class="col-5">
                     <label>Condiciones de entrega: </label>
-                    <span type="text" name="condicion_id_condicion"
-                        class="form-control custom-span">{{ isset($requisicion) ? $requisicion->condicionrequesicion->nombre_condicion : old('condicion_id_condicion') }}</span>
+                    <span type="text" name="condicion_id"
+                        class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Condiciones->nombre_condicion : old('condicion_id') }}</span>
                 </div>
             </div>
         </div>
@@ -268,16 +298,37 @@
         <label>Autoriza: </label>
         <span type="text" name="autoriza"
             class="form-control custom-span">{{ isset($requisicion) ? $requisicion->autoriza : old('autoriza') }}</span>
-
     </div>  
 </div>
-<div class="card-body">
-    <a href="{{ route('Requisiciones.generarPdf', ['id' => $requisicion->id_requisicion]) }}" target="_blank">
-        Generar PDF
-    </a>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Obtener todos los elementos con la clase 'custom-td'
+    const importes = document.querySelectorAll('.importes');
+    const gravamientos = document.getElementById('gravamientos');
+
+    // Calcular el subtotal sumando todos los importes
+    let subtotal = 0;
+    let gravamiento = parseFloat(gravamientos.textContent.replace('$', '')); // Obtener el valor de gravamientos
+    importes.forEach((element) => {
+      // Eliminar el signo '$' y convertir el texto a un número
+      const importe = parseFloat(element.textContent.replace('$', ''));
+      subtotal += importe;
+    });
+
+    // Calcular el IVA (suponiendo un 16%)
+    const iva = subtotal * 0.16;
+
+    // Calcular el total sumando el subtotal, el IVA y los gravamientos
+    const total = subtotal + iva + gravamiento;
+
+    // Mostrar los resultados en los spans correspondientes
+    document.getElementById('subtotal').textContent = `$ ${subtotal.toFixed(2)}`;
+    document.getElementById('iva').textContent = `$ ${iva.toFixed(2)}`;
+    document.getElementById('total').textContent = `$ ${total.toFixed(2)}`;
+</script>
+
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

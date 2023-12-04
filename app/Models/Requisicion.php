@@ -30,11 +30,11 @@ class Requisicion extends Model
         'capacitacion',
         'pais_id',
         'metodo_id',
-        'garantia_id_1',
+        'garantia1_id',
         'porcentaje_1',
-        'garantia_id_2',
+        'garantia_2_id',
         'porcentaje_2',
-        'garantia_id_3',
+        'garantia_3_id',
         'porcentaje_3',
         'pluralidad',
         'penas_convencionales',
@@ -46,36 +46,35 @@ class Requisicion extends Model
     ];
     public function Detalles()
     {
-        return $this->hasMany(DetalleRequesicion::class, 'requisicion_id');
+        return $this->hasMany(DetalleRequisicion::class, 'requisicion_id');
     }
     public function Paises(): HasOne
     {
-        return $this->hasOne(Pais::class, 'id_pais','pais_id' );
+        return $this->hasOne(Pais::class, 'id_pais', 'pais_id');
     }
 
     public function Dependencias(): HasOne
     {
-        return $this->hasOne(Dependencia::class, 'id_dependencia','dependencia_id' );
+        return $this->hasOne(Dependencia::class, 'id_dependencia', 'dependencia_id');
     }
     public function Areas(): HasOne
     {
-        return $this->hasOne(Area::class, 'id_area','area_id' );
+        return $this->hasOne(Area::class, 'id_area', 'area_id');
     }
     public function Metodos(): HasOne
     {
-        return $this->hasOne(Metodo::class, 'id_metodos','metodos_id' );
+        return $this->hasOne(Metodo::class, 'id_metodo', 'metodo_id');
     }
     public function Garantias(): HasOne
     {
-        return $this->hasOne(Garantia::class, 'id_garantia','garantia_id' );
+        return $this->hasOne(Garantia::class, 'id_garantia', 'garantia1_id');
     }
     public function Condiciones(): HasOne
     {
-        return $this->hasOne(Condicion::class, 'id_condicion','condicion_id' );
+        return $this->hasOne(Condicion::class, 'id_condicion', 'condicion_id');
     }
     public function Estatus(): HasOne
     {
-        return $this->hasOne(Estado::class, 'id_estatus','estatus' );
+        return $this->hasOne(Estado::class, 'id_estatus', 'estatus');
     }
-    
 }

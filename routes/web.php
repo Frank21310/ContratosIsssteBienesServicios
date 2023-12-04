@@ -68,17 +68,16 @@ Route::group(['middleware' => ['auth']], function () {
 */
 Route::group(['middleware' => ['auth']], function () {
     
-    Route::get('/Peticiones', [SoloRequirenteController::class, 'index'])->name(' Peticiones');
+    Route::get('/Requirente', [SoloRequirenteController::class, 'index'])->name(' Peticiones');
 
-    Route::get('/fclaveCucop', [RequisicionesController::class, 'fclaveCucop'])->name('fclaveCucop');
+    Route::get('/Requirente/Requisiciones/fclaveCucop', [RequisicionesController::class, 'fclaveCucop'])->name('fclaveCucop');
 
-    Route::resource('Requesiciones', RequisicionesController::class);
+    Route::resource('/Requirente/Requisiciones', RequisicionesController::class);
 
-    Route::get('/Requesiciones/{id}/generar-pdf', [RequisicionesController::class, 'generarPdf'])->name('Requisiciones.generarPdf');
 
-    Route::resource('CUCop', InsumosController::class);
+    Route::resource('Requirente/Insumos', InsumosController::class);
     
-})->namespace('Peticiones');
+})->namespace('Requirente');
 /*
 |----------------------------------------------------------------- ---------
 | Web Routes Contratante

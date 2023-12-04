@@ -36,7 +36,7 @@ class DetalleRequisicion extends Model
     }
     public function Medidas()
     {
-        return $this->belongsTo(Medida::class, 'unidad_medida');
+        return $this->belongsTo(Medida::class, 'medida_id');
     }
 }
 

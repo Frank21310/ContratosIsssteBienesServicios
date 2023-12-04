@@ -8,7 +8,7 @@
                     <h2 class="">Crear Nueva Requisición</h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
-                    <a href="{{ route('Requesiciones.create') }}" class="btn btn-primary ml-auto BotonRojo">
+                    <a href="{{ route('Requisiciones.create') }}" class="btn btn-primary ml-auto BotonRojo">
                         <i class="fas fa-plus"></i>
                         Crear
                     </a>
@@ -83,14 +83,14 @@
                             @foreach ($requisiciones as $requisicion)
                                 <tr>
                                     <td class="custom-td">{{ $requisicion->id_requisicion }}</td>
-                                    <td class="custom-td">{{ $requisicion->dependenciarequesicion->nombre }}</td>
+                                    <td class="custom-td">{{ $requisicion->Dependencias->nombre_dependencia }}</td>
                                     <td class="custom-td">{{ $requisicion->fecha_elaboracion }}</td>
                                     <td class="custom-td">{{ $requisicion->solicita }}</td>
                                     <td class="custom-td">{{ $requisicion->autoriza }}</td>
                                     <td class="custom-td">Pendiente</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('Requesiciones.show', $requisicion->id_requisicion) }}"
+                                            <a href="{{ route('Requisiciones.show', $requisicion->id_requisicion) }}"
                                                 class="btn btn-info"><i class="fas fa-eye"></i></a>
 
                                         </div>
@@ -112,13 +112,13 @@
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('Requesiciones.index') }}?limit=" + $(this).val() + '&search=' + $(
+            window.location.href = "{{ route('Requisiciones.index') }}?limit=" + $(this).val() + '&search=' + $(
                 '#search').val()
         })
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('Requesiciones.index') }}?limit=" + $('#limit').val() +
+                window.location.href = "{{ route('Requisiciones.index') }}?limit=" + $('#limit').val() +
                     '&search=' +
                     $(this).val()
             }
