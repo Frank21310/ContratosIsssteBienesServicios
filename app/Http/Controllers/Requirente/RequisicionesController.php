@@ -14,11 +14,12 @@ use App\Models\Metodo;
 use App\Models\Pais;
 use App\Models\Partida;
 use App\Models\Requisicion;
-use Dotenv\Validator;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class RequisicionesController extends Controller
 {
@@ -56,6 +57,8 @@ class RequisicionesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    
+
     public function create(Request $request)
     {
         
@@ -207,6 +210,14 @@ class RequisicionesController extends Controller
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
 
         return view('/Requirente/Requisiciones.show', compact('requisicion'));
+    }
+    public function imprimirRequisicion($id)
+    {
+        $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
+
+        $pdf = Pdf::loadView('Requirente.Requisiciones.imprimir', compact('requisicion'));
+
+        return $pdf->download('requisicion_' . $id . '.pdf');
     }
 
     /**

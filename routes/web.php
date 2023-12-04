@@ -74,6 +74,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('/Requirente/Requisiciones', RequisicionesController::class);
 
+    Route::get('/Requirente/Requisiciones/{id}/imprimir', [RequisicionesController::class, 'imprimirRequisicion'])->name('requisiciones.imprimir');
+
 
     Route::resource('Requirente/Insumos', InsumosController::class);
     

@@ -94,6 +94,11 @@
                                                 class="btn btn-info"><i class="fas fa-eye"></i></a>
 
                                         </div>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('requisiciones.imprimir', $requisicion->id_requisicion) }}"
+                                                class="btn btn-primary"><i class="fas fa-print"></i></a>
+
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
