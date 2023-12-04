@@ -20,17 +20,16 @@
 
                 @include('Requirente.Requisiciones.formularios.form')
                 
-                <button class="btn btn-primary ml-auto BotonGris" form="create">
-                    <i class="fas fa-plus"></i>
-                    Crear
-                </button>
             </form>
         </div>
         <hr>
         <div class="card-footer">
-            
-
-
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary ml-auto BotonGris" form="create">
+                    <i class="fas fa-plus"></i>
+                    Crear
+                </button>
+            </div>
         </div>
     </div>
 

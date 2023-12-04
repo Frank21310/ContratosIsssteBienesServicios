@@ -50,30 +50,29 @@
         <div class="table-responsive">
             <div class="table table-striped">
                 <table class="table">
-                    <thead>
+                    <thead class="custom-thead">
                         <tr>
-                            <th>N° Requisicion</th>
-                            <th>Dependencia</th>
-                            <th>Fecha de elaboracion</th>
-                            <th>Solicita</th>
-                            <th>Autoriza</th>
-                            <th>Estatus</th>
-                            <th>Acciones</th>
+                            <th class="custom-th">N° Requisicion</th>
+                            <th class="custom-th">Dependencia</th>
+                            <th class="custom-th">Fecha de elaboracion</th>
+                            <th class="custom-th">Solicita</th>
+                            <th class="custom-th">Autoriza</th>
+                            <th class="custom-th">Estatus</th>
+                            <th class="custom-th">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($requisiciones as $requisicion)
                             <tr>
-                                <td>{{ $requisicion->id_requisicion }}</td>
-                                <td>{{ $requisicion->dependencia_id_dependencia }}</td>
-                                <td>{{ $requisicion->fecha_elaboracion }}</td>
-                                <td>{{ $requisicion->solicita }}</td>
-                                <td>{{ $requisicion->autoriza }}</td>
-                                <td>{{ $requisicion->estado }}</td>
-                                <td>
+                                <td class="custom-td">{{ $requisicion->id_requisicion }}</td>
+                                <td class="custom-td">{{ $requisicion->Dependencias->nombre_dependencia }}</td>
+                                <td class="custom-td">{{ $requisicion->fecha_elaboracion }}</td>
+                                <td class="custom-td">{{ $requisicion->solicita }}</td>
+                                <td class="custom-td">{{ $requisicion->autoriza }}</td>
+                                <td class="custom-td">{{ $requisicion->Estatus->nombre_estatus }}</td>
+                                <td class="custom-td">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('RequisicionesFinalizadas.show', $requisicion->id_requisicion) }}"
-                                            class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                        <a class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -89,13 +88,14 @@
         </div>
     </div>
 
-    
+
     </div>
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('RequisicionesFinalizadas.index') }}?limit=" + $(this).val() + '&search=' + $(
-                '#search').val()
+            window.location.href = "{{ route('RequisicionesFinalizadas.index') }}?limit=" + $(this).val() +
+                '&search=' + $(
+                    '#search').val()
         })
 
         $('#search').on('keyup', function(e) {

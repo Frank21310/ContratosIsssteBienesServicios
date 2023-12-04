@@ -18,15 +18,18 @@
         <div class="card-body">
             <form action="{{ route('SeguimientoRequisicion.update', $requisicion->id_requisicion) }}" method="POST" enctype="multipart/form-data" id="create">
                 @method('PUT')
-                @include('SeguimientoRequisicion.formularios.editableform')
+                @include('Contratante.SeguimientoRequisicion.formularios.editableform')
             </form>
         </div>
         <hr>
         <div class="card-footer">
-            <button class="btn btn-primary ml-auto BotonRojo" form="create">
-                <i class="fas fa-plus"></i>
-                Editar
-            </button>
+            
+            <div class="d-grid gap-2 col-5 mx-auto">
+                <button class="btn btn-primary ml-auto BotonRojo" form="create">
+                    <i class="fas fa-plus"></i>
+                    Siguiente
+                </button>
+            </div>
 
         </div>
     </div>

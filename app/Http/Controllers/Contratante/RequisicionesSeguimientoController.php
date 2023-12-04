@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Contratante;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetalleRequisicion;
+use App\Models\Garantia;
 use App\Models\Insumo;
 use App\Models\Medida;
 use App\Models\Partida;
@@ -18,7 +19,7 @@ class RequisicionesSeguimientoController extends Controller
      */
     public function index(Request $request)
     {
-        $requisiciones = Requisicion::where('estado', '1')->orderBy('id_requisicion', 'DESC');
+        $requisiciones = Requisicion::where('estatus', '1')->orderBy('id_requisicion', 'DESC');
         $limit = (isset($request->limit)) ? $request->limit : 5;
 
         if (isset($request->search)) {
@@ -26,23 +27,27 @@ class RequisicionesSeguimientoController extends Controller
                 ->orWhere('no_requesicion', 'like', '%' . $request->search . '%');
         }
         $requisiciones = $requisiciones->paginate($limit)->appends($request->all());
-        return view('SeguimientoRequisicion.index', compact('requisiciones'));
+        return view('Contratante.SeguimientoRequisicion.index', compact('requisiciones'));
     }
     public function Updaterequisicion(Request $request, $requisicion)
     {
         if ($request->has('requisicion_id')) {
             $requisicion->requisicion_id = $request->requisicion_id;
         }
-        $requisicion->no_requesicion = $request->no_requesicion;
+        $requisicion->no_requisicion = $request->no_requisicion;
         $requisicion->lugar_entrega = $request->lugar_entrega;
         $requisicion->otros_gravamientos = $request->otros_gravamientos;
         $requisicion->total = $request->total;
         $requisicion->aticipos = $request->aticipos;
         $requisicion->observaciones = $request->observaciones;
-        $requisicion->garantia_id_garantia = $request->garantia_id_garantia;
-        $requisicion->porcentaje = $request->porcentaje;
+        $requisicion->garantia1_id = $request->garantia1_id;
+        $requisicion->porcentaje_1 = $request->porcentaje_1;
+        $requisicion->garantia_2_id = $request->garantia_2_id;
+        $requisicion->porcentaje_2 = $request->porcentaje_2;
+        $requisicion->garantia_3_id = $request->garantia_3_id;
+        $requisicion->porcentaje_3 = $request->porcentaje_3;
         $requisicion->autoriza = $request->autoriza;
-        $requisicion->estado = $request->estado;
+        $requisicion->estatus = $request->estatus;
         $requisicion->save();
         return  $requisicion;
     }
@@ -57,7 +62,7 @@ class RequisicionesSeguimientoController extends Controller
         $detalle->cucop = $request->cucop;
         $detalle->descripcion = $request->descripcion;
         $detalle->cantidad = $request->cantidad;
-        $detalle->unidad_medida = $request->unidad_medida;
+        $detalle->medida_id = $request->medida_id;
         $detalle->precio = $request->precio;
         $detalle->importe = $request->importe;
 
@@ -71,10 +76,11 @@ class RequisicionesSeguimientoController extends Controller
     public function edit(string $id)
     {
         $unidades = Medida::all();
+        $Garantias = Garantia::all();
         $partidas = Partida::all();
         $cucops = Insumo::all();
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
-        return view('SeguimientoRequisicion.edit', compact('requisicion', 'partidas', 'cucops', 'unidades'));
+        return view('Contratante.SeguimientoRequisicion.edit', compact('requisicion', 'partidas', 'cucops', 'unidades','Garantias'));
     }
 
     /**
@@ -82,10 +88,11 @@ class RequisicionesSeguimientoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $detalle = DetalleRequisicion::where('id', $id)->firstOrFail();
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
-        $detalle = $this->Updatedetalle($request, $detalle);
+        $detalle = DetalleRequisicion::where('id', $id)->firstOrFail();
         $requisicion = $this->Updaterequisicion($request, $requisicion);
+        $detalle = $this->Updatedetalle($request, $detalle);
+
         return redirect()
             ->route('SeguimientoRequisicion.index');
     }

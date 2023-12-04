@@ -78,11 +78,11 @@
                             @foreach ($requisiciones as $requisicion)
                                 <tr>
                                     <td class="custom-td">{{ $requisicion->id_requisicion }}</td>
-                                    <td class="custom-td">{{ $requisicion->dependenciarequesicion->nombre }}</td>
+                                    <td class="custom-td">{{ $requisicion->Dependencias->nombre_dependencia }}</td>
                                     <td class="custom-td">{{ $requisicion->fecha_elaboracion }}</td>
                                     <td class="custom-td">{{ $requisicion->solicita }}</td>
                                     <td class="custom-td">{{ $requisicion->autoriza }}</td>
-                                    <td class="custom-td">{{ $requisicion->estadorequisicion->nombre_estado }}</td>
+                                    <td class="custom-td">{{ $requisicion->Estatus->nombre_estatus }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
@@ -105,13 +105,13 @@
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('Requesiciones.index') }}?limit=" + $(this).val() + '&search=' + $(
+            window.location.href = "{{ route('Requisiciones.index') }}?limit=" + $(this).val() + '&search=' + $(
                 '#search').val()
         })
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('Requesiciones.index') }}?limit=" + $('#limit').val() +
+                window.location.href = "{{ route('Requisiciones.index') }}?limit=" + $('#limit').val() +
                     '&search=' +
                     $(this).val()
             }

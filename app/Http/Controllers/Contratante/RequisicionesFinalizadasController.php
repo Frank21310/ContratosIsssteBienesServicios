@@ -13,7 +13,7 @@ class RequisicionesFinalizadasController extends Controller
      */
     public function index(Request $request)
     {
-        $requisiciones = Requisicion::where('estado', '3')->orderBy('id_requisicion', 'DESC');
+        $requisiciones = Requisicion::where('estatus', '3')->orderBy('id_requisicion', 'DESC');
         $limit = (isset($request->limit)) ? $request->limit : 5;
 
         if (isset($request->search)) {
@@ -21,7 +21,7 @@ class RequisicionesFinalizadasController extends Controller
                 ->orWhere('no_requesicion', 'like', '%' . $request->search . '%');
         }
         $requisiciones = $requisiciones->paginate($limit)->appends($request->all());
-        return view('RequisicionesFinalizadas.index', compact('requisiciones'));
+        return view('Contratante.SeguimientoRequisicion.index', compact('requisiciones'));
     }
 
     /**

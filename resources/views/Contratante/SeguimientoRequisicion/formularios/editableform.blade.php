@@ -4,14 +4,14 @@
     {{-- Dependencia --}}
     <div class="col">
         <label>Nombre de la dependencia o entidad:</label>
-        <span type="text" name="dependencia_id_dependencia"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->dependenciarequesicion->nombre : old('nombre') }}</span>
+        <span type="text" name="dependencia_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Dependencias->nombre_dependencia : old('nombre') }}</span>
     </div>
     {{-- Area Requeriente  --}}
     <div class="col">
         <label>Area requirente:</label>
         <span type="text" name="area_id_area"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->arearequesicion->nombre_area : old('area_id_area') }}</span>
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Areas->nombre_area : old('area_id_area') }}</span>
     </div>
 </div>
 
@@ -25,8 +25,8 @@
     {{-- Numero de requisicion --}}
     <div class="col">
         <label>No. requisicion: </label>
-        <input type="text" name="no_requesicion" class="form-control custom-input"
-            value="{{ isset($requisicion) ? $requisicion->no_requesicion : old('no_requesicion') }}">
+        <input type="text" name="no_requisicion" class="form-control custom-input"
+            value="{{ isset($requisicion) ? $requisicion->no_requisicion : old('no_requisicion') }} " required>
     </div>
     {{-- Fecha requerida --}}
     <div class="col">
@@ -39,8 +39,8 @@
 <div class="row">
     <div class="col">
         <label>Lugar de entrega: </label>
-        <span type="text" name="lugar_entrega"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->lugar_entrega : old('lugar_entrega') }}</span>
+        <input type="text" name="lugar_entrega" class="form-control custom-span"
+            value="{{ isset($requisicion) ? $requisicion->lugar_entrega : old('lugar_entrega') }}" required>
     </div>
 </div>
 
@@ -63,70 +63,61 @@
         <tbody>
             @foreach ($requisicion->detalles as $detalle)
                 <tr id="filaEjemplo">
-                    <form action="{{ route('SeguimientoRequisicion.update', $detalle->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <td>
-                            <label>Partida:</label>
-                            <select class="form-control select-partida custom-select" name="detalles[0][num_partida]" readonly>
-                                <option value="">Selecciona</option>
-                                @foreach ($partidas as $partida)
-                                    <option value="{{ $partida->id_partida_especifica }}" class="form-control"
-                                        @if ($detalle->num_partida == $partida->id_partida_especifica) selected @endif>
-                                        {{ $partida->id_partida_especifica }} - {{ $partida->descripcion }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </td>
+                    @csrf
+                    @method('PUT')
+                    <td>
+                        <label>Partida:</label>
+                        <select class="form-control select-partida custom-select" name="detalles[0][num_partida]"
+                            readonly>
+                            <option value="">Selecciona</option>
+                            @foreach ($partidas as $partida)
+                                <option value="{{ $partida->id_partida }}" class="form-control"
+                                    @if ($detalle->num_partida == $partida->id_partida) selected @endif>
+                                    {{ $partida->id_partida }} - {{ $partida->descripcion }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <label>CUCoP:</label>
+                        <input type="text" class="form-control span-cucop custom-input" name="detalles[0][cucop]"
+                            value="{{ $detalle->cucop }}" readonly>
+                    </td>
+                    <td>
+                        <label>Descripcion:</label>
+                        <input type="text" class="form-control custom-input" name="descripcion"
+                            value="{{ $detalle->Insumos->descripcion }}">
+                    </td>
+                    <td>
+                        <label>Cantidad:</label>
+                        <input type="number" name="detalles[0][cantidad]" min="0" placeholder="1.0"
+                            step="0.01" class="form-control custom-input" value="{{ $detalle->cantidad }}">
+                    </td>
+                    <td>
+                        <label>Medida:</label>
+                        <select class="form-control custom-select" name="detalles[0][medida_id]">
+                            @foreach ($unidades as $unidad)
+                                <option value="{{ $unidad->id_medida }}" class="form-control"
+                                    @if ($detalle->medida_id == $unidad->id_medida) selected @endif>
+                                    {{ $unidad->nombre_medida }}
+                                </option>
+                            @endforeach
 
-                        <td>
-                            <label>CUCoP:</label>
-                            <input type="text" class="form-control span-cucop custom-input" name="detalles[0][cucop]"
-                                value="{{ $detalle->cucop }}" readonly>
-                        </td>
-
-                        <td>
-                            <label>Descripcion:</label>
-                            <input type="text" class="form-control custom-input" name="descripcion"
-                                value="{{ $detalle->insumo->descripcion_insumo }}">
-                        </td>
-
-                        <td>
-                            <label>Cantidad:</label>
-                            <input type="number" name="detalles[0][cantidad]" min="0" placeholder="1.0"
-                                step="0.01" class="form-control custom-input" value="{{ $detalle->cantidad }}">
-
-                        </td>
-
-                        <td>
-                            <label>Medida:</label>
-                            <select class="form-control custom-select" name="detalles[0][unidad_medida]">
-                                @foreach ($unidades as $unidad)
-                                    <option value="{{ $unidad->idunidad_medida }}" class="form-control"
-                                        @if ($detalle->num_partida == $unidad->idunidad_medida) selected @endif>
-                                        {{ $unidad->descripcion_unidad }}
-                                    </option>
-                                @endforeach
-
-                            </select>
-                        </td>
-
-                        <td>
-                            <label>Precio: </label>
-                            <input type="number" name="detalles[0][precio]" min="0" placeholder="1.0"
-                                step="0.01" class="form-control custom-input" value="{{ $detalle->precio }}">
-                        </td>
-
-                        <td>
-                            <label>Importe:</label>
-                            <input type="number" class="form-control importe custom-input" name="detalles[0][importe]"
-                                value="{{ $detalle->importe }}" readonly>
-                        </td>
-
-                        <td>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-save	"></i></i></button>
-                            <button type="button" class="btn btn-danger borrarFila"><i class="fas fa-trash "></i></button>
-                            {{--<button type="submit" class="btn btn-danger " form="detele_{{ $detalle->id }}"
+                        </select>
+                    </td>
+                    <td>
+                        <label>Precio: </label>
+                        <input type="number" name="detalles[0][precio]" min="0" placeholder="1.0" step="0.01"
+                            class="form-control custom-input" value="{{ $detalle->precio }}">
+                    </td>
+                    <td>
+                        <label>Importe:</label>
+                        <input type="number" class="form-control importe custom-input" name="detalles[0][importe]"
+                            value="{{ $detalle->importe }}" readonly>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger borrarFila"><i class="fas fa-trash "></i></button>
+                        {{-- <button type="submit" class="btn btn-danger " form="detele_{{ $detalle->id }}"
                                 onclick="return confirm('¿Estas seguro de eliminar el registro?')">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -134,20 +125,16 @@
                                 id="delete_{{ $detalle->id }}" method="post" enctype="multipart/form-data" hidden>
                                 @csrf
                                 @method('DELETE')
-                            </form>--}}
-                        </td>
-                    </form>
+                            </form> --}}
+                    </td>
                 </tr>
             @endforeach
-
         </tbody>
     </table>
     <div class="d-grid gap-2 p-4 col-3 mx-auto">
         <button type="button" id="agregarFila" class="btn btn-primary BotonGris">Añadir</button>
     </div>
 </div>
-
-
 
 {{-- Sub Total --}}
 <div class="row">
@@ -254,14 +241,14 @@
     {{-- Pais --}}
     <div class="col mx-auto p-2">
         <label>Pais de Origen: </label>
-        <span type="text" name="pais_id_pais"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->pais_id_pais : old('pais_id_pais') }}</span>
+        <span type="text" name="pais_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Paises->nombre_pais : old('pais_id') }}</span>
     </div>
     {{-- Metodos de prueba --}}
     <div class="col mx-auto p-2">
         <label>Metodos de prueba: </label>
-        <span type="text" name="metodos_id_metodos"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->metodos_id_metodos : old('metodos_id_metodos') }}</span>
+        <span type="text" name="metodo_id"
+            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Metodos->nombre_metodo : old('metodo_id') }}</span>
 
     </div>
 </div>
@@ -271,31 +258,86 @@
     <div class="col-6">
         <div class="row">
             {{-- Garantia --}}
-            <div class="col-4">
+            <div class="col-3">
                 <label>Tipo de garantia: </label>
-                <span type="text" name="garantia_id_garantia"
-                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->garantia_id_garantia : old('garantia_id_garantia') }}</span>
+                <select class="form-control select-partida custom-select" name="garantia1_id" readonly>
+                    @foreach ($Garantias as $Garantia)
+                        <option value="{{ $Garantia->id_garantia }}" class="form-control"
+                            @if ($detalle->garantia1_id == $Garantia->id_garantia) selected @endif>
+                            {{ $Garantia->nombre_garantia }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <span type="text" name="porcentaje"
-                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->porcentaje : old('porcentaje') }}</span>
-
+                <select name="porcentaje_1" class="form-control custom-select">
+                    <option value="{{ '100%' }}">100%</option>
+                    <option value="{{ '75%' }}">75%</option>
+                    <option value="{{ '50%' }}">50%</option>
+                    <option value="{{ '25%' }}">25%</option>
+                    <option value="{{ '10% ' }}">10%</option>
+                    <option value="{{ '0% ' }}">0%</option>
+                </select>
             </div>
         </div>
-        <br>
+
         <div class="row">
-            <div class="row">
-                {{-- Condiciones --}}
-                <div class="col-5">
-                    <label>Condiciones de entrega: </label>
-                    <span type="text" name="condicion_id_condicion"
-                        class="form-control custom-span">{{ isset($requisicion) ? $requisicion->condicion_id_condicion : old('condicion_id_condicion') }}</span>
-                </div>
+            {{-- Garantia --}}
+            <div class="col-3">
+                <label>Tipo de garantia: </label>
+                <select class="form-control select-partida custom-select" name="garantia_2_id" readonly>
+                    @foreach ($Garantias as $Garantia)
+                        <option value="{{ $Garantia->id_garantia }}" class="form-control"
+                            @if ($detalle->garantia1_id == $Garantia->id_garantia) selected @endif>
+                            {{ $Garantia->nombre_garantia }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- Porcentaje --}}
+            <div class="col-3">
+                <label>Porcentaje: </label>
+                <select name="porcentaje_2" class="form-control custom-select">
+                    <option value="{{ '100%' }}">100%</option>
+                    <option value="{{ '75%' }}">75%</option>
+                    <option value="{{ '50%' }}">50%</option>
+                    <option value="{{ '25%' }}">25%</option>
+                    <option value="{{ '10% ' }}">10%</option>
+                    <option value="{{ '0% ' }}">0%</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            {{-- Garantia --}}
+            <div class="col-3">
+                <label>Tipo de garantia: </label>
+                <select class="form-control select-partida custom-select" name="garantia_3_id" readonly>
+                    @foreach ($Garantias as $Garantia)
+                        <option value="{{ $Garantia->id_garantia }}" class="form-control"
+                            @if ($detalle->garantia1_id == $Garantia->id_garantia) selected @endif>
+                            {{ $Garantia->nombre_garantia }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- Porcentaje --}}
+            <div class="col-3">
+                <label>Porcentaje: </label>
+                <select name="porcentaje_3" class="form-control custom-select">
+                    <option value="{{ '100%' }}">100%</option>
+                    <option value="{{ '75%' }}">75%</option>
+                    <option value="{{ '50%' }}">50%</option>
+                    <option value="{{ '25%' }}">25%</option>
+                    <option value="{{ '10% ' }}">10%</option>
+                    <option value="{{ '0% ' }}">0%</option>
+                </select>
             </div>
         </div>
     </div>
+    
     <div class="col-6">
         {{-- Plurianualidad --}}
         <div class="row">
@@ -308,7 +350,7 @@
                 <label>Meses: </label>
                 <span type="text" name="meses"
                     class="form-control custom-span">{{ isset($requisicion) ? $requisicion->meses : old('meses') }}</span>
-
+    
             </div>
         </div>
         {{-- Garantia --}}
@@ -328,8 +370,22 @@
             </div>
         </div>
     </div>
+
+</div>
+<br>
+<div class="row">
+    <div class="row">
+        {{-- Condiciones --}}
+        <div class="col-5">
+            <label>Condiciones de entrega: </label>
+            <span type="text" name="condicion_id"
+                class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Condiciones->nombre_condicion : old('condicion_id') }}</span>
+        </div>
+    </div>
 </div>
 <hr>
+
+
 
 <div class="row">
     {{-- Solicita --}}
@@ -341,9 +397,10 @@
     {{-- Autoriza --}}
     <div class="col">
         <label>Autoriza: </label>
-        <span type="text" name="autoriza"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->autoriza : old('autoriza') }}</span>
-
+        <input type="text" name="autoriza" class="form-control custom-span"
+            value="{{ isset($requisicion) ? $requisicion->autoriza : old('autoriza') }}">
+            <input type="text" name="estatus" class="form-control custom-span"
+            value="2" hidden>
     </div>
 </div>
 

@@ -40,7 +40,7 @@
             @if (Auth::user()->rol_id == 2)
                 <li class="nav-item">
                     <a href="{{ url('/home') }}"
-                        class="nav-link {{ 'Peticiones' == request()->path() ? 'active' : '' }}">
+                        class="nav-link {{ 'home' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Inicio
                     </a>
@@ -64,7 +64,7 @@
             @if (Auth::user()->rol_id == 3)
                 <li class="nav-item">
                     <a href="{{ url('/home') }}"
-                        class="nav-link {{ 'Peticiones' == request()->path() ? 'active' : '' }}">
+                        class="nav-link {{ 'home' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Inicio
                     </a>
@@ -76,14 +76,14 @@
                     <ul class="collapse list-unstyled" id="menurequisiciones">
                         <li class="nav-item">
                             <a href="{{ route('SeguimientoRequisicion.index') }}"
-                                class="nav-link {{ 'SeguimientoRequisicion' == request()->path() ? 'active' : '' }}">
+                                class="nav-link {{ '/Contratante/SeguimientoRequisicion' == request()->path() ? 'active' : '' }}">
                                 <i class="fas fa-pen"></i>
                                 Seguimiento
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('RequisicionesFinalizadas.index') }}"
-                                class="nav-link {{ 'RequisicionesFinalizadas' == request()->path() ? 'active' : '' }}">
+                                class="nav-link {{ '/Contratante/RequisicionesFinalizadas' == request()->path() ? 'active' : '' }}">
                                 <i class="fas fa-check"></i>
                                 Finalizadas
                             </a>
@@ -92,7 +92,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('Contratos.index') }}"
-                        class="nav-link {{ 'Contratos' == request()->path() ? 'active' : '' }}">
+                        class="nav-link {{ '/Contratante/Contratos' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Contratos
                     </a>

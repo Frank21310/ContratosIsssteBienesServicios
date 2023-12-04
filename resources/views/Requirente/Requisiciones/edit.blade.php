@@ -23,10 +23,12 @@
         </div>
         <hr>
         <div class="card-footer">
-            <button class="btn btn-primary ml-auto" form="create">
-                <i class="fas fa-plus"></i>
-                Editar
-            </button>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary ml-auto BotonGris" form="create">
+                    <i class="fas fa-plus"></i>
+                    Editar
+                </button>
+            </div>
 
         </div>
     </div>
