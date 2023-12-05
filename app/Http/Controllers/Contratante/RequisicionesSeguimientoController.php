@@ -80,7 +80,7 @@ class RequisicionesSeguimientoController extends Controller
         $partidas = Partida::all();
         $cucops = Insumo::all();
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
-        return view('Contratante.SeguimientoRequisicion.edit', compact('requisicion', 'partidas', 'cucops', 'unidades','Garantias'));
+        return view('Contratante.SeguimientoRequisicion.edit', compact('requisicion', 'partidas', 'cucops', 'unidades', 'Garantias'));
     }
 
     /**
@@ -89,13 +89,18 @@ class RequisicionesSeguimientoController extends Controller
     public function update(Request $request, string $id)
     {
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
-        $detalle = DetalleRequisicion::where('id', $id)->firstOrFail();
+
+        $detalle = DetalleRequisicion::where('requisicion_id', $requisicion->id)->firstOrFail();
+
+        // Actualiza la requisición
         $requisicion = $this->Updaterequisicion($request, $requisicion);
+
+        // Actualiza el detalle
         $detalle = $this->Updatedetalle($request, $detalle);
 
-        return redirect()
-            ->route('SeguimientoRequisicion.index');
+        return redirect()->route('SeguimientoRequisicion.index');
     }
+
 
     public function destroy(string $id)
     {
@@ -108,4 +113,3 @@ class RequisicionesSeguimientoController extends Controller
         }
     }
 }
-

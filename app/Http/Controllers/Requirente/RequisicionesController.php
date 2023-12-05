@@ -200,24 +200,22 @@ class RequisicionesController extends Controller
         return redirect()
             ->route('Requisiciones.index');
     }
-
-
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
-
         return view('/Requirente/Requisiciones.show', compact('requisicion'));
     }
+    
     public function imprimirRequisicion($id)
     {
+        $image = '/assets/img/LogoConvinado.jpg';
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
-
-        $pdf = Pdf::loadView('Requirente.Requisiciones.imprimir', compact('requisicion'));
-
-        return $pdf->download('requisicion_' . $id . '.pdf');
+        
+        $pdf = Pdf::loadView('Requirente.Requisiciones.imprimir', compact('requisicion', 'image'));
+        return $pdf->setPaper('a4','landscape')->stream('requisicion_' . $id . '.pdf');
     }
 
     /**
