@@ -143,6 +143,11 @@ ul.CTAs a {
     background-color: #faf7f2;
     border-color: #c9a46e;
 }
+.sselect {
+    background-color: #f3e4cb;
+    border-color: #c9a46e;
+    
+}
 
 /* Custom */
 .custom-table tr .custom-th{
@@ -168,9 +173,6 @@ ul.CTAs a {
     background-color:#f4efe1;
     color:#000000;
    }
-   
-   
-
 
 
 /* ---------------------------------------------------

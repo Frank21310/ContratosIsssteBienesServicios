@@ -64,6 +64,9 @@ return new class extends Migration
             $table->foreignId('estatus')
             ->references('id_estatus')
             ->on('estatus');
+            $table->foreignId('tipo_id')
+            ->references('id_tipo')
+            ->on('tipocontratacion');
             $table->timestamps();
         });
     }

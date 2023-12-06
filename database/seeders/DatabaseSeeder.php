@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\TipoContrato;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,5 +33,8 @@ class DatabaseSeeder extends Seeder
         $this->call(GarantiaSeeder::class);
         $this->call(CondicionSeeder::class);
         $this->call(EstadoSeeder::class);
+        $this->call(TipoContratoSeeder::class);
+
+
     }
 }

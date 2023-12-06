@@ -43,6 +43,7 @@ class Requisicion extends Model
         'solicita',
         'autoriza',
         'estatus',
+        'tipo_id',
     ];
     public function Detalles()
     {
@@ -76,5 +77,9 @@ class Requisicion extends Model
     public function Estatus(): HasOne
     {
         return $this->hasOne(Estado::class, 'id_estatus', 'estatus');
+    }
+    public function Tipos()
+    {
+        return $this->hasMany(TipoContrato::class, 'tipo_id');
     }
 }

@@ -19,9 +19,8 @@ class RequisicionesSeguimientoController extends Controller
      */
     public function index(Request $request)
     {
-        $requisiciones = Requisicion::where('estatus', '1')->orderBy('id_requisicion', 'DESC');
+        $requisiciones = Requisicion::whereIn('estatus', ['1', '2'])->orderBy('id_requisicion', 'DESC');
         $limit = (isset($request->limit)) ? $request->limit : 5;
-
         if (isset($request->search)) {
             $requisiciones = $requisiciones->where('id_requisicion', 'like', '%' . $request->search . '%')
                 ->orWhere('no_requesicion', 'like', '%' . $request->search . '%');
@@ -37,9 +36,6 @@ class RequisicionesSeguimientoController extends Controller
         $requisicion->no_requisicion = $request->no_requisicion;
         $requisicion->lugar_entrega = $request->lugar_entrega;
         $requisicion->otros_gravamientos = $request->otros_gravamientos;
-        $requisicion->total = $request->total;
-        $requisicion->aticipos = $request->aticipos;
-        $requisicion->observaciones = $request->observaciones;
         $requisicion->garantia1_id = $request->garantia1_id;
         $requisicion->porcentaje_1 = $request->porcentaje_1;
         $requisicion->garantia_2_id = $request->garantia_2_id;
@@ -80,6 +76,8 @@ class RequisicionesSeguimientoController extends Controller
         $partidas = Partida::all();
         $cucops = Insumo::all();
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
+        $detalles = DetalleRequisicion::where('requisicion_id', $requisicion->id)->get();
+
         return view('Contratante.SeguimientoRequisicion.edit', compact('requisicion', 'partidas', 'cucops', 'unidades', 'Garantias'));
     }
 
@@ -89,18 +87,13 @@ class RequisicionesSeguimientoController extends Controller
     public function update(Request $request, string $id)
     {
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
-
-        $detalle = DetalleRequisicion::where('requisicion_id', $requisicion->id)->firstOrFail();
-
-        // Actualiza la requisición
-        $requisicion = $this->Updaterequisicion($request, $requisicion);
-
-        // Actualiza el detalle
-        $detalle = $this->Updatedetalle($request, $detalle);
-
+        $detalles = DetalleRequisicion::where('requisicion_id', $requisicion->id)->get();
+        foreach ($detalles as $detalle) {
+            $this->Updatedetalle($request, $detalle);
+        }
+        $this->Updaterequisicion($request, $requisicion);
         return redirect()->route('SeguimientoRequisicion.index');
     }
-
 
     public function destroy(string $id)
     {

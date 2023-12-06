@@ -25,7 +25,7 @@
     {{-- Numero de requisicion --}}
     <div class="col">
         <label>No. requisicion: </label>
-        <input type="text" name="no_requisicion" class="form-control custom-input"
+        <input type="text" name="no_requisicion" class="form-control sselect"
             value="{{ isset($requisicion) ? $requisicion->no_requisicion : old('no_requisicion') }} " required>
     </div>
     {{-- Fecha requerida --}}
@@ -39,13 +39,11 @@
 <div class="row">
     <div class="col">
         <label>Lugar de entrega: </label>
-        <input type="text" name="lugar_entrega" class="form-control custom-span"
+        <input type="text" name="lugar_entrega" class="form-control sselect"
             value="{{ isset($requisicion) ? $requisicion->lugar_entrega : old('lugar_entrega') }}" required>
     </div>
 </div>
-
 <hr>
-
 <div>
     <table id="tablaDetalles">
         <thead>
@@ -67,7 +65,7 @@
                     @method('PUT')
                     <td>
                         <label>Partida:</label>
-                        <select class="form-control select-partida custom-select" name="detalles[0][num_partida]"
+                        <select class="form-control select-partida sselect" name="detalles[0][num_partida]"
                             readonly>
                             <option value="">Selecciona</option>
                             @foreach ($partidas as $partida)
@@ -80,22 +78,22 @@
                     </td>
                     <td>
                         <label>CUCoP:</label>
-                        <input type="text" class="form-control span-cucop custom-input" name="detalles[0][cucop]"
+                        <input type="text" class="form-control span-cucop sselect" name="detalles[0][cucop]"
                             value="{{ $detalle->cucop }}" readonly>
                     </td>
                     <td>
                         <label>Descripcion:</label>
-                        <input type="text" class="form-control custom-input" name="descripcion"
+                        <input type="text" class="form-control sselect" name="descripcion"
                             value="{{ $detalle->Insumos->descripcion }}">
                     </td>
                     <td>
                         <label>Cantidad:</label>
                         <input type="number" name="detalles[0][cantidad]" min="0" placeholder="1.0"
-                            step="0.01" class="form-control custom-input" value="{{ $detalle->cantidad }}">
+                            step="0.01" class="form-control sselect" value="{{ $detalle->cantidad }}">
                     </td>
                     <td>
                         <label>Medida:</label>
-                        <select class="form-control custom-select" name="detalles[0][medida_id]">
+                        <select class="form-control sselect" name="detalles[0][medida_id]">
                             @foreach ($unidades as $unidad)
                                 <option value="{{ $unidad->id_medida }}" class="form-control"
                                     @if ($detalle->medida_id == $unidad->id_medida) selected @endif>
@@ -108,7 +106,7 @@
                     <td>
                         <label>Precio: </label>
                         <input type="number" name="detalles[0][precio]" min="0" placeholder="1.0" step="0.01"
-                            class="form-control custom-input" value="{{ $detalle->precio }}">
+                            class="form-control sselect" value="{{ $detalle->precio }}">
                     </td>
                     <td>
                         <label>Importe:</label>
@@ -165,7 +163,7 @@
     </div>
     <div class="col-4  mx-auto p-2  d-flex align-items-end flex-column">
         <input name="otros_gravamientos" id="gravamientos" min="0" placeholder="0.00" step="0.01"
-            type="text" class="form-control custom-input"
+            type="text" class="form-control sselect"
             value="{{ isset($requisicion) ? $requisicion->otros_gravamientos : old('otros_gravamientos') }}" readonly>
     </div>
 </div>
@@ -249,10 +247,8 @@
         <label>Metodos de prueba: </label>
         <span type="text" name="metodo_id"
             class="form-control custom-span">{{ isset($requisicion) ? $requisicion->Metodos->nombre_metodo : old('metodo_id') }}</span>
-
     </div>
 </div>
-
 <hr>
 <div class="row">
     <div class="col-6">
@@ -260,10 +256,10 @@
             {{-- Garantia --}}
             <div class="col-3">
                 <label>Tipo de garantia: </label>
-                <select class="form-control select-partida custom-select" name="garantia1_id" readonly>
+                <select class="form-control select-partida sselect" name="garantia1_id" readonly>
                     @foreach ($Garantias as $Garantia)
                         <option value="{{ $Garantia->id_garantia }}" class="form-control"
-                            @if ($detalle->garantia1_id == $Garantia->id_garantia) selected @endif>
+                            @if ($requisicion->garantia1_id == $Garantia->id_garantia) selected @endif>
                             {{ $Garantia->nombre_garantia }}
                         </option>
                     @endforeach
@@ -272,7 +268,7 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_1" class="form-control custom-select">
+                <select name="porcentaje_1" class="form-control sselect">
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -287,10 +283,10 @@
             {{-- Garantia --}}
             <div class="col-3">
                 <label>Tipo de garantia: </label>
-                <select class="form-control select-partida custom-select" name="garantia_2_id" readonly>
+                <select class="form-control select-partida sselect" name="garantia_2_id" readonly>
                     @foreach ($Garantias as $Garantia)
                         <option value="{{ $Garantia->id_garantia }}" class="form-control"
-                            @if ($detalle->garantia1_id == $Garantia->id_garantia) selected @endif>
+                            @if ($requisicion->garantia1_id == $Garantia->id_garantia) selected @endif>
                             {{ $Garantia->nombre_garantia }}
                         </option>
                     @endforeach
@@ -299,7 +295,7 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_2" class="form-control custom-select">
+                <select name="porcentaje_2" class="form-control sselect">
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -314,10 +310,10 @@
             {{-- Garantia --}}
             <div class="col-3">
                 <label>Tipo de garantia: </label>
-                <select class="form-control select-partida custom-select" name="garantia_3_id" readonly>
+                <select class="form-control select-partida sselect" name="garantia_3_id" readonly>
                     @foreach ($Garantias as $Garantia)
                         <option value="{{ $Garantia->id_garantia }}" class="form-control"
-                            @if ($detalle->garantia1_id == $Garantia->id_garantia) selected @endif>
+                            @if ($requisicion->garantia1_id == $Garantia->id_garantia) selected @endif>
                             {{ $Garantia->nombre_garantia }}
                         </option>
                     @endforeach
@@ -326,7 +322,7 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_3" class="form-control custom-select">
+                <select name="porcentaje_3" class="form-control sselect">
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -384,9 +380,6 @@
     </div>
 </div>
 <hr>
-
-
-
 <div class="row">
     {{-- Solicita --}}
     <div class="col">
@@ -397,7 +390,7 @@
     {{-- Autoriza --}}
     <div class="col">
         <label>Autoriza: </label>
-        <input type="text" name="autoriza" class="form-control custom-span"
+        <input type="text" name="autoriza" class="form-control sselect"
             value="{{ isset($requisicion) ? $requisicion->autoriza : old('autoriza') }}">
             <input type="text" name="estatus" class="form-control custom-span"
             value="2" hidden>
