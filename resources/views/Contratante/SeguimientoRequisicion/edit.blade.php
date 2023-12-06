@@ -26,15 +26,14 @@
         <hr>
         <div class="card-footer">
             <div class="d-grid gap-2 col-5 mx-auto">
-                <button class="btn btn-primary ml-auto BotonRojo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="create">
+                <button class="btn btn-primary ml-auto BotonRojo" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <i class="fas fa-plus"></i>
                     Siguiente
                 </button>
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -55,10 +54,41 @@
                     </div>
                     <div class="modal-footer d-grid gap-2 d-md-flex justify-content-center">
                         <button type="button" class="btn btn-secondary BotonGris" data-bs-dismiss="modal">Regresar</button>
-                        <button type="button" class="btn btn-primary BotonRojo" id="create">Guardar</button>
+                        <button type="button" class="btn btn-primary BotonRojo" id="updateTipo">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Escuchar el clic del botón "Guardar" del modal
+        document.getElementById('updateTipo').addEventListener('click', function () {
+            // Simular actualización del tipo_id (reemplaza esto con tu lógica)
+            var tipoId = 1; // Aquí obtén el tipo deseado
+    
+            // Envía la petición al servidor para actualizar el tipo_id
+            fetch('/updateTipo/' + requisicionId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Asegúrate de tener el token CSRF correcto
+                },
+                body: JSON.stringify({
+                    tipo_id: tipoId // Envía el tipo deseado al servidor
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redireccionar al index después de la actualización
+                    window.location.href = '{{ route("SeguimientoRequisicion.index") }}';
+                } else {
+                    // Manejar errores si es necesario
+                }
+            })
+            .catch(error => {
+                // Manejar errores si es necesario
+            });
+        });
+    </script>
 @endsection

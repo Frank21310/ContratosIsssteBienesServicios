@@ -161,6 +161,7 @@ class RequisicionesController extends Controller
             'solicita' => $request->solicita,
             'autoriza' => $request->autoriza,
             'estatus' => $request->estatus,
+            'tipo_id' => $request->tipo_id,
 
         ]);
 

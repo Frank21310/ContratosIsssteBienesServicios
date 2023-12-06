@@ -105,4 +105,16 @@ class RequisicionesSeguimientoController extends Controller
             return redirect()->route('SeguimientoRequisicion.edit', ['id' => $detalle->requisicion_id]);
         }
     }
+
+    public function updateTipo(Request $request, string $id)
+    {
+        $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
+
+        // Actualiza solo el tipo_id sin afectar otros campos
+        $requisicion->tipo_id = $request->tipo_id;
+        $requisicion->save();
+
+        // Devuelve una respuesta si es necesario
+        return response()->json(['message' => 'Tipo actualizado correctamente']);
+    }
 }

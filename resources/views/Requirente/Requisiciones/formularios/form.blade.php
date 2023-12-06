@@ -410,6 +410,7 @@
         <label>Autoriza: </label>
         <input type="text" name="autoriza" class="form-control custom-input">
         <input type="text" name="estatus" class="form-control custom-input" value="1" hidden>
+        <input type="text" name="tipo_id" value="4" hidden>
     </div>
 </div>
 <br>
