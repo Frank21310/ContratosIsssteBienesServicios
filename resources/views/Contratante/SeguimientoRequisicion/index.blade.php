@@ -70,7 +70,9 @@
                                 <th class="custom-th">Fecha de elaboracion</th>
                                 <th class="custom-th">Solicita</th>
                                 <th class="custom-th">Autoriza</th>
+                                <th class="custom-th">Tipo</th>
                                 <th class="custom-th">Estatus</th>
+
                                 <th class="custom-th">Acciones</th>
                             </tr>
                         </thead>
@@ -82,6 +84,7 @@
                                     <td class="custom-td">{{ $requisicion->fecha_elaboracion }}</td>
                                     <td class="custom-td">{{ $requisicion->solicita }}</td>
                                     <td class="custom-td">{{ $requisicion->autoriza }}</td>
+                                    <td class="custom-td">{{ $requisicion->Tipos->nombre_tipo }}</td>
                                     <td class="custom-td">{{ $requisicion->Estatus->nombre_estatus }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">

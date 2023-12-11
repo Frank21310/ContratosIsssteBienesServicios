@@ -29,7 +29,7 @@
     max-width: 250px;
     font-family: 'Montserrat', sans-serif;
     box-shadow: 0px 0px 6px -2px #212529;
-    transition: all 0.3s;
+    transition: all 0.5s;
     background-color: #f8f4eb !important;
     border-right-width:1px;
     z-index:115;
@@ -173,6 +173,30 @@ ul.CTAs a {
     background-color:#f4efe1;
     color:#000000;
    }
+
+
+
+   ol.roman {
+    list-style: none;
+    counter-reset: roman-counter;
+  }
+  
+  ol.roman > li::before {
+    content: counter(roman-counter, upper-roman) ". ";
+    counter-increment: roman-counter;
+  }
+  
+  ol.decimal {
+    list-style: none;
+    counter-reset: decimal-counter;
+  }
+  
+  ol.decimal > li::before {
+    content: counter(roman-counter, upper-roman) "." counter(decimal-counter) " ";
+    counter-increment: decimal-counter;
+  }
+  
+  
 
 
 /* ---------------------------------------------------

@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; display: none;">
         <a class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
             <img class="fs-4" src="{{ asset('assets/img/logo_2_issste.png') }}" alt="Logo" width="170"
                 height="auto">
@@ -91,7 +91,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('Contratos.index') }}"
+                    <a href=""
                         class="nav-link {{ '/Contratante/Contratos' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Contratos

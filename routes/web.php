@@ -88,10 +88,15 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/Contratante', [SoloContratanteController::class, 'index'])->name(' Contratante');
-    Route::resource('SeguimientoRequisicion', RequisicionesSeguimientoController::class);
-    Route::resource('RequisicionesFinalizadas', RequisicionesFinalizadasController::class);
-    Route::resource('Contratos', ContratosController::class);
-    Route::get('SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'edit'])->name('SeguimientoRequisicion.edit');
+    Route::resource('/Contratante/SeguimientoRequisicion', RequisicionesSeguimientoController::class);
+    Route::resource('/Contratante/RequisicionesFinalizadas', RequisicionesFinalizadasController::class);
+
+    Route::get('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'edit'])->name('SeguimientoRequisicion.edit');
+    Route::put('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'updateTipoContratacion'])->name('SeguimientoRequisicion.updateTipoContratacion');
+    Route::get('/Contratante/contratos/create/{requisicion_id}', [ContratosController::class, 'create'])->name('Contratos.create');
+    Route::get('/Contratante/contratos/create/obtenerCargo/{numEmpleado}', [ContratosController::class, 'obtenerCargo']);
+
+
 
 })->namespace('Contratante');
 /*

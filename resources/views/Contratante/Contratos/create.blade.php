@@ -4,10 +4,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <h2 class="">Editar empleado {{$Empleado->num_empleado}} </h2>
+                    <h2 class="">Contrato A D </h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
-                    <a id="BtnAgregar" href="{{ route('Empleados.index') }}" class="btn btn-primary ml-auto">
+                    <a id="BtnAgregar" href="" class="btn btn-primary ml-auto BotonRojo">
                         <i class="fas fa-arrow-left"></i>
                         Volver
                     </a>
@@ -16,16 +16,15 @@
         </div>
         <hr>
         <div class="card-body">
-            <form action="{{ route('Empleados.update', $rol->id_rol) }}" method="POST" enctype="multipart/form-data" id="create">
-                @method('PUT')
-                @include('Empleados.formularios.form')
+            <form action="" method="POST" enctype="multipart/form-data" id="create">
+                @include('Contratante.Contratos.formularios.form')
             </form>
         </div>
         <hr>
         <div class="card-footer">
-            <button class="btn btn-primary ml-auto" form="create">
+            <button class="btn btn-primary ml-auto BotonGris" form="create">
                 <i class="fas fa-plus"></i>
-                Editar
+                Crear
             </button>
 
         </div>

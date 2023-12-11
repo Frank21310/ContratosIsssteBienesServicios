@@ -105,6 +105,33 @@ class RequisicionesSeguimientoController extends Controller
             return redirect()->route('SeguimientoRequisicion.edit', ['id' => $detalle->requisicion_id]);
         }
     }
+    public function updateTipoContratacion(Request $request, string $id)
+    {
+        $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
+        switch ($request->tipo_id) {
+            case 1:
+                // Actualiza el tipo de contratación
+                $requisicion->tipo_id = '1';
+                $requisicion->save();
+                
+                // Redirige a la ruta de creación de contrato con el mismo ID de requisición
+                return redirect()->route('Contratos.create', ['requisicion_id' => $requisicion->id_requisicion]);
+                break;
+            case 2:
+                $requisicion->tipo_id = '2';
+                $requisicion->save();
+                return redirect()->route('SeguimientoRequisicion.index');
+
+                break;
+            case 3:
+                // Código similar para el tipo_id 3
+                break;
+            default:
+                // Redirige al index si el tipo_id no coincide con ninguno de los casos
+                return redirect()->route('SeguimientoRequisicion.index');
+        }
+    }
+
 
     public function updateTipo(Request $request, string $id)
     {

@@ -78,8 +78,8 @@ class Requisicion extends Model
     {
         return $this->hasOne(Estado::class, 'id_estatus', 'estatus');
     }
-    public function Tipos()
+    public function Tipos(): HasOne
     {
-        return $this->hasMany(TipoContrato::class, 'tipo_id');
+        return $this->hasOne(TipoContrato::class, 'id_tipo', 'tipo_id');
     }
 }
