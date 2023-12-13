@@ -4,7 +4,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <h2 class="">Contrato A D </h2>
+                    <h2 class="">Contrato de {{ isset($requisicion) ? $requisicion->Tipos->nombre_tipo : old('no_requisicion') }} de la requisición No.{{ isset($requisicion) ? $requisicion->no_requisicion : old('no_requisicion') }} </h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
                     <a id="BtnAgregar" href="" class="btn btn-primary ml-auto BotonRojo">
@@ -17,15 +17,18 @@
         <hr>
         <div class="card-body">
             <form action="" method="POST" enctype="multipart/form-data" id="create">
-                @include('Contratante.Contratos.formularios.form')
+                @include('Contratante.Contratos.formularios.forminfo  ')
             </form>
         </div>
         <hr>
         <div class="card-footer">
-            <button class="btn btn-primary ml-auto BotonGris" form="create">
-                <i class="fas fa-plus"></i>
-                Crear
-            </button>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary ml-auto BotonGris" form="create">
+                    <i class="fas fa-plus"></i>
+                    Crear
+                </button>
+              </div>
+            
 
         </div>
     </div>

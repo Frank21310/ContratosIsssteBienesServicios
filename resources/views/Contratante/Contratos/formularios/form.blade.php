@@ -250,7 +250,7 @@
                                 grado de cumplimiento <strong>{{ $porcentaje_garantia }}</strong>, por lo que
                                 <strong>“LA
                                     DEPENDENCIA”</strong> determina procedente efectuar la reducción del monto de la
-                                garantía por un porcentaje de <input type="text" name="reduccion_porcentaje"
+                                    garantía por un porcentaje de <input type="text" name="reduccion_porcentaje"
                                     placeholder="0%">.
                             </p>
                         </li>
