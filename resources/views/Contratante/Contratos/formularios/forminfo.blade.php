@@ -239,8 +239,6 @@
 </div>
 
 
-
-
 <script>
     function mostrarCampos() {
         var tipoSeleccionado = document.getElementById("tipo_proveedor").value;
