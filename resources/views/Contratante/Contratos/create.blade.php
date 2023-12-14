@@ -16,7 +16,7 @@
         </div>
         <hr>
         <div class="card-body">
-            <form action="" method="POST" enctype="multipart/form-data" id="create">
+            <form action="{{ route('Contratos.store') }}" method="POST" enctype="multipart/form-data" id="create">
                 @include('Contratante.Contratos.formularios.forminfo  ')
             </form>
         </div>
@@ -25,11 +25,9 @@
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-primary ml-auto BotonGris" form="create">
                     <i class="fas fa-plus"></i>
-                    Crear
+                    Crear contrato
                 </button>
               </div>
-            
-
         </div>
     </div>
 @endsection

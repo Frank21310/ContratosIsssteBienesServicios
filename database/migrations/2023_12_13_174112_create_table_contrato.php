@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('tipo_contrato_id')
                 ->references('id_tipo_contrato')
                 ->on('tipocontrato');
+            $table->string('descripcion_contrato');
             $table->string('vigencia_contrato');
             $table->foreignId('empleado_num')
                 ->references('num_empleado')

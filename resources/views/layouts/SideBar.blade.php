@@ -91,7 +91,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href=""
+                    <a href="{{ route('Contratos.index') }}"
                         class="nav-link {{ '/Contratante/Contratos' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Contratos

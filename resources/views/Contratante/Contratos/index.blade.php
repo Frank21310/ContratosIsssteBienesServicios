@@ -19,7 +19,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h3>Insumos</h3>
+                    <h3>Contratos elaborados</h3>
                 </div>
             </div>
             <br>
@@ -71,21 +71,19 @@
                     <table class="table custom-table">
                         <thead class="custom-thead">
                             <tr>
-                                <th class="custom-th">Clave</th>
-                                <th class="custom-th">Partida</th>
-                                <th class="custom-th">Descripcion</th>
-                                <th class="custom-th">CABM</th>
-                                <th class="custom-th">Tipos de contratacion</th>
+                                <th class="custom-th">No Requisición</th>
+                                <th class="custom-th">tipo_contrato_id</th>
+                                <th class="custom-th">descripcion</th>
+                                <th class="custom-th">vigencia_contrato</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($CUCops as $CUCop)
+                            @foreach ($contratos as $contrato)
                                 <tr>
-                                    <td class="custom-td">{{ $CUCop->id_cucop }}</td>
-                                    <td class="custom-td">{{ $CUCop->partida_id }}</td>
-                                    <td class="custom-td">{{ $CUCop->descripcion }}</td>
-                                    <td class="custom-td">{{ $CUCop->CABM }}</td>
-                                    <td class="custom-td">{{ $CUCop->tipo_contratacion }}</td>
+                                    <td class="custom-td">{{ $contrato->requisicion_id }}</td>
+                                    <td class="custom-td">{{ $contrato->tipo_contrato_id }}</td>
+                                    <td class="custom-td">{{ $contrato->descripcion }}</td>
+                                    <td class="custom-td">{{ $contrato->vigencia_contrato }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -95,8 +93,8 @@
             </div>
         </div>
         <div class="card-footer">
-            @if ($CUCops->total() > 10)
-                {{ $CUCops->links() }}
+            @if ($contratos->total() > 10)
+                {{ $contratos->links() }}
             @endif
         </div>
 
@@ -106,13 +104,13 @@
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('Insumos.index') }}?limit=" + $(this).val() + '&search=' + $(
+            window.location.href = "{{ route('Contratos.index') }}?limit=" + $(this).val() + '&search=' + $(
                 '#search').val()
         })
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('Insumos.index') }}?limit=" + $('#limit').val() +
+                window.location.href = "{{ route('Contratos.index') }}?limit=" + $('#limit').val() +
                     '&search=' +
                     $(this).val()
             }

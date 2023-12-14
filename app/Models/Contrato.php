@@ -15,6 +15,7 @@ class Contrato extends Model
         'requisicion_id',
         'tipo_contrato_id',
         'vigencia_contrato',
+        'empleado_num', 
         'oficio_suficiencia',
         'fecha_oficio_suficiencia',
         'oficio_plurianualidad',

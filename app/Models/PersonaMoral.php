@@ -23,8 +23,10 @@ class PersonaMoral extends Model
         'fiolio_registro',
         'fecha_registro',
         'repesentante_nombre',
+        'tipo_caracter_id',
         'instrumento_notarial',
         'instrumento_publico_representante',
+
     ];
     public function Contratos(): BelongsTo
     {
