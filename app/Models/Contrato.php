@@ -28,6 +28,11 @@ class Contrato extends Model
     }
     public function TipoContratos(): BelongsTo
     {
-        return $this->belongsTo(TipoPersona::class, 'tipo_contrato_id', 'id_tipo_contrato');
+        return $this->belongsTo(TipoC::class, 'tipo_contrato_id', 'id_tipo_contrato');
     }
+    public function AdminContratos(): BelongsTo
+    {
+        return $this->belongsTo(Empleado::class, 'empleado_num', 'num_empleado');
+    }
+    
 }

@@ -72,18 +72,25 @@
                         <thead class="custom-thead">
                             <tr>
                                 <th class="custom-th">No Requisición</th>
-                                <th class="custom-th">tipo_contrato_id</th>
-                                <th class="custom-th">descripcion</th>
-                                <th class="custom-th">vigencia_contrato</th>
+                                <th class="custom-th">Tipo de contrato</th>
+                                <th class="custom-th">Descripcion</th>
+                                <th class="custom-th">Vigencia del contrato</th>
+                                <th class="custom-th">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($contratos as $contrato)
                                 <tr>
-                                    <td class="custom-td">{{ $contrato->requisicion_id }}</td>
-                                    <td class="custom-td">{{ $contrato->tipo_contrato_id }}</td>
-                                    <td class="custom-td">{{ $contrato->descripcion }}</td>
+                                    <td class="custom-td">{{ $contrato->Requisiciones->no_requisicion }}</td>
+                                    <td class="custom-td">{{ $contrato->TipoContratos->nombre_tipo_contrato }}</td>
+                                    <td class="custom-td">{{ $contrato->descripcion_contrato }}</td>
                                     <td class="custom-td">{{ $contrato->vigencia_contrato }}</td>
+                                    <td class="custom-td">
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('Contratos.imprimir', $contrato->id_contrato) }}"
+                                                class="btn btn-primary"><i class="fas fa-print"></i></a>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

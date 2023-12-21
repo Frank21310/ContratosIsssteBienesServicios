@@ -36,4 +36,9 @@ class PersonaMoral extends Model
     {
         return $this->belongsTo(TipoPersona::class, 'tipo_persona_id', 'id_tipo_persona');
     }
+    public function Caracter(): BelongsTo
+    {
+        return $this->belongsTo(TipoCaracter::class, 'tipo_caracter_id', 'id_tipo_caracter');
+    }
+    
 }

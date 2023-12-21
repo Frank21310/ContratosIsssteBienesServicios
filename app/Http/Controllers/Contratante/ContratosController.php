@@ -12,6 +12,7 @@ use App\Models\TipoC;
 use App\Models\TipoCaracter;
 use App\Models\TipoContrato;
 use App\Models\TipoPersona;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ContratosController extends Controller
@@ -43,10 +44,9 @@ class ContratosController extends Controller
     public function create(Request $request, $requisicion_id)
     {
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $requisicion_id)->firstOrFail();
-        $empleado = Empleado::where('cargo_id', '3')
+        $empleadosubdelegado = Empleado::where('cargo_id', '3')
             ->where('dependencia_id', '1')
             ->first();
-        $AdminContratos = Empleado::all();
         $empleadomateriales = Empleado::where('cargo_id', '7')
             ->where('dependencia_id', '1')
             ->first();
@@ -77,7 +77,7 @@ class ContratosController extends Controller
     public function store(Request $request)
     {
         $contrato = Contrato::create([
-            
+
             'requisicion_id' => $request->requisicion_id,
             'tipo_contrato_id' => $request->tipo_contrato_id,
             'descripcion_contrato' => $request->descripcion_contrato,
@@ -89,7 +89,7 @@ class ContratosController extends Controller
             'reduccion' => $request->reduccion,
             'autorizacion_previa' => $request->autorizacion_previa,
 
-            
+
         ]);
 
         if ($request->tipo_persona_id == 1) {
@@ -124,36 +124,50 @@ class ContratosController extends Controller
         return redirect()
             ->route('Contratos.index');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function imprimirContrato($id)
     {
-        //
+        $image = '/assets/img/LogoNew.png';
+        $empleadosubdelegado = Empleado::where('cargo_id', '3')
+            ->where('dependencia_id', '1')
+            ->first();
+        $empleadomateriales = Empleado::where('cargo_id', '7')
+            ->where('dependencia_id', '1')
+            ->first();
+        $empleadofinanzas = Empleado::where('cargo_id', '5')
+            ->where('dependencia_id', '1')
+            ->first();
+
+        // Obtener el contrato específico
+        $contrato = Contrato::where('id_contrato', $id)->firstOrFail();
+
+        // Obtener la requisición asociada a ese contrato
+        $requisicion = Requisicion::where('id_requisicion', $contrato->requisicion_id)->with('detalles')->firstOrFail();
+
+        // Obtener la persona física asociada al contrato (si existe)
+        $personafisica = PersonaFisica::where('contrato_id', $id)->first();
+
+        // Obtener la persona moral asociada al contrato (si existe)
+        $personamoral = PersonaMoral::where('contrato_id', $id)->first();
+
+        // Verificar si hay una sola persona asociada al contrato
+        if ($personamoral !== null && $personafisica !== null) {
+            // Puedes agregar lógica para manejar este caso específico
+        } else {
+            // Si solo hay una persona (ya sea física o moral), asignarla a una variable
+            $persona = $personamoral !== null ? $personamoral : $personafisica;
+
+            // Cargar la vista del contrato con la información obtenida
+            $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'persona','empleadosubdelegado'));
+            $pdf->render();
+
+            // Devolver el PDF generado
+            return $pdf->setPaper('a4', 'portrait')->stream('contrato_' . $id . '.pdf');
+        }
+
+        // Manejar el caso donde no se encuentra ninguna persona asociada al contrato
+        // Puedes agregar lógica adicional según tus requerimientos
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
