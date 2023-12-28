@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contratante;
 use App\Http\Controllers\Controller;
 use App\Models\Contrato;
 use App\Models\Empleado;
+use App\Models\Partida;
 use App\Models\PersonaFisica;
 use App\Models\PersonaMoral;
 use App\Models\Requisicion;
@@ -44,6 +45,7 @@ class ContratosController extends Controller
     public function create(Request $request, $requisicion_id)
     {
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $requisicion_id)->firstOrFail();
+        $AdminContratos = Empleado::all();
         $empleadosubdelegado = Empleado::where('cargo_id', '3')
             ->where('dependencia_id', '1')
             ->first();
@@ -57,12 +59,11 @@ class ContratosController extends Controller
         $tipopersona = TipoPersona::all();
         $tipocaracters = TipoCaracter::all();
 
-        return view(
-            '/Contratante/Contratos.create',
+        return view('Contratante.Contratos.create',
             compact(
                 'requisicion',
-                'empleado',
                 'AdminContratos',
+                'empleadosubdelegado',
                 'empleadomateriales',
                 'empleadofinanzas',
                 'tiposcontratos',
@@ -127,6 +128,7 @@ class ContratosController extends Controller
     public function imprimirContrato($id)
     {
         $image = '/assets/img/LogoNew.png';
+        $partidas = Partida::all();
         $empleadosubdelegado = Empleado::where('cargo_id', '3')
             ->where('dependencia_id', '1')
             ->first();
@@ -157,7 +159,7 @@ class ContratosController extends Controller
             $persona = $personamoral !== null ? $personamoral : $personafisica;
 
             // Cargar la vista del contrato con la información obtenida
-            $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'persona','empleadosubdelegado'));
+            $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'persona','empleadosubdelegado','empleadomateriales','empleadofinanzas'));
             $pdf->render();
 
             // Devolver el PDF generado
