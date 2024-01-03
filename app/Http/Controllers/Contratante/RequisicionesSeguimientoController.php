@@ -19,7 +19,7 @@ class RequisicionesSeguimientoController extends Controller
      */
     public function index(Request $request)
     {
-        $requisiciones = Requisicion::whereIn('estatus', ['1', '2'])->orderBy('id_requisicion', 'DESC');
+        $requisiciones = Requisicion::whereIn('estatus', ['1', '2','3','4'])->orderBy('id_requisicion', 'DESC');
         $limit = (isset($request->limit)) ? $request->limit : 5;
         if (isset($request->search)) {
             $requisiciones = $requisiciones->where('id_requisicion', 'like', '%' . $request->search . '%')
@@ -69,6 +69,7 @@ class RequisicionesSeguimientoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    
     public function edit(string $id)
     {
         $unidades = Medida::all();
@@ -87,24 +88,15 @@ class RequisicionesSeguimientoController extends Controller
     public function update(Request $request, string $id)
     {
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
+        $this->Updaterequisicion($request, $requisicion);
         $detalles = DetalleRequisicion::where('requisicion_id', $requisicion->id)->get();
         foreach ($detalles as $detalle) {
             $this->Updatedetalle($request, $detalle);
         }
-        $this->Updaterequisicion($request, $requisicion);
+        
         return redirect()->route('SeguimientoRequisicion.index');
     }
 
-    public function destroy(string $id)
-    {
-        $detalle = DetalleRequisicion::findOrFail($id);
-        try {
-            $detalle->delete();
-            return redirect()->route('SeguimientoRequisicion.edit', ['id' => $detalle->requisicion_id]);
-        } catch (QueryException $e) {
-            return redirect()->route('SeguimientoRequisicion.edit', ['id' => $detalle->requisicion_id]);
-        }
-    }
     public function updateTipoContratacion(Request $request, string $id)
     {
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
@@ -112,6 +104,7 @@ class RequisicionesSeguimientoController extends Controller
             case 1:
                 // Actualiza el tipo de contratación
                 $requisicion->tipo_id = '1';
+                $requisicion->estatus = '4';
                 $requisicion->save();
                 
                 // Redirige a la ruta de creación de contrato con el mismo ID de requisición
@@ -119,12 +112,16 @@ class RequisicionesSeguimientoController extends Controller
                 break;
             case 2:
                 $requisicion->tipo_id = '2';
+                $requisicion->estatus = '3';
                 $requisicion->save();
                 return redirect()->route('SeguimientoRequisicion.index');
 
                 break;
             case 3:
-                // Código similar para el tipo_id 3
+                $requisicion->tipo_id = '3';
+                $requisicion->estatus = '4';
+                $requisicion->save();
+                return redirect()->route('SeguimientoRequisicion.index');
                 break;
             default:
                 // Redirige al index si el tipo_id no coincide con ninguno de los casos

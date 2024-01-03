@@ -61,8 +61,7 @@
         <tbody>
             @foreach ($requisicion->detalles as $detalle)
                 <tr id="filaEjemplo">
-                    @csrf
-                    @method('PUT')
+
                     <td>
                         <label>Partida:</label>
                         <select class="form-control select-partida sselect" name="detalles[0][num_partida]"
@@ -115,16 +114,6 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-danger borrarFila"><i class="fas fa-trash "></i></button>
-                        {{-- <button type="submit" class="btn btn-danger " form="detele_{{ $detalle->id }}"
-                                onclick="return confirm('¿Estas seguro de eliminar el registro?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <form action="{{ route('SeguimientoRequisicion.destroy', $detalle->id) }}"
-                                id="delete_{{ $detalle->id }}" method="post" enctype="multipart/form-data" hidden>
-                                @csrf
-                                @method('DELETE')
-                            </form> --}}
-                    </td>
                 </tr>
             @endforeach
         </tbody>

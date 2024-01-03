@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/Contratante/SeguimientoRequisicion', RequisicionesSeguimientoController::class);
     Route::get('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'edit'])->name('SeguimientoRequisicion.edit');
     Route::put('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'updateTipoContratacion'])->name('SeguimientoRequisicion.updateTipoContratacion');
+    Route::put('/Contratante/SeguimientoRequisicion/store', [RequisicionesSeguimientoController::class, 'store'])->name('SeguimientoRequisicion.store');
+
 
     Route::resource('/Contratante/RequisicionesFinalizadas', RequisicionesFinalizadasController::class);
 

@@ -126,6 +126,14 @@ class ContratosController extends Controller
                 'instrumento_publico_representante' => $request->instrumento_notarial,
             ]);
         }
+        // Obtener el ID de la requisición relacionada con este contrato
+        $requisicion_id = $contrato->requisicion_id;
+
+        // Buscar la requisición relacionada con el ID obtenido
+        $requisicion = Requisicion::where('id_requisicion', $requisicion_id)->firstOrFail();
+        $requisicion->estatus = '5';
+        $requisicion->save();
+
         return redirect()
             ->route('Contratos.index');
     }
@@ -217,7 +225,7 @@ class ContratosController extends Controller
             // Agregar encabezado
             $header = $section->addHeader();
             // Obtener el contenido del encabezado desde la vista
-            $encabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion','contrato','persona'))->render();
+            $encabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion', 'contrato', 'persona'))->render();
             \PhpOffice\PhpWord\Shared\Html::addHtml($header, $encabezado, false, false);
 
             // Agregar pie de página

@@ -152,14 +152,9 @@
     </div>
 </div>
 <div class="row">
-    <div class="col" id="input_proveedor_fisica" style="display: none;">
+    <div class="col">
         <label>Nombre del proveedor</label>
-        <input type="text" name="nombre_proveedor" id="nombre_proveedor_fisica" class="form-control custom-input"
-            placeholder="Nombre de la persona fisica">
-    </div>
-    <div class="col" id="input_proveedor_moral" style="display: none;">
-        <label>Nombre del proveedor</label>
-        <input type="text" name="nombre_proveedor" id="nombre_proveedor_moral" class="form-control custom-input"
+        <input type="text" name="nombre_proveedor" class="form-control custom-input"
             placeholder="Nombre de la persona moral">
     </div>
 </div>
@@ -260,23 +255,18 @@
 
         if (tipoSeleccionado === "1") {
 
-            document.getElementById("input_proveedor_fisica").style.display = "block";
-            document.getElementById("input_proveedor_moral").style.display = "none";
             document.getElementById("campos_persona_fisica").style.display = "block";
             document.getElementById("campos_persona_moral").style.display = "none";
             document.getElementById("datos_proveedor_moral").style.display = "none";
             document.getElementById("representante_moral").style.display = "none";
 
         } else if (tipoSeleccionado === "2") {
-            document.getElementById("input_proveedor_fisica").style.display = "none";
-            document.getElementById("input_proveedor_moral").style.display = "block";
             document.getElementById("campos_persona_fisica").style.display = "none";
             document.getElementById("campos_persona_moral").style.display = "block";
             document.getElementById("datos_proveedor_moral").style.display = "block";
             document.getElementById("representante_moral").style.display = "block";
         } else {
-            document.getElementById("input_proveedor_fisica").style.display = "none";
-            document.getElementById("input_proveedor_moral").style.display = "none";
+
             document.getElementById("campos_persona_fisica").style.display = "none";
             document.getElementById("campos_persona_moral").style.display = "none";
             document.getElementById("datos_proveedor_moral").style.display = "none";
