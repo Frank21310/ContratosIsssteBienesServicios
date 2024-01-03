@@ -15,6 +15,9 @@ use App\Models\TipoContrato;
 use App\Models\TipoPersona;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+
 
 class ContratosController extends Controller
 {
@@ -59,7 +62,8 @@ class ContratosController extends Controller
         $tipopersona = TipoPersona::all();
         $tipocaracters = TipoCaracter::all();
 
-        return view('Contratante.Contratos.create',
+        return view(
+            'Contratante.Contratos.create',
             compact(
                 'requisicion',
                 'AdminContratos',
@@ -127,6 +131,7 @@ class ContratosController extends Controller
     }
     public function imprimirContrato($id)
     {
+
         $image = '/assets/img/LogoNew.png';
         $partidas = Partida::all();
         $empleadosubdelegado = Empleado::where('cargo_id', '3')
@@ -159,7 +164,7 @@ class ContratosController extends Controller
             $persona = $personamoral !== null ? $personamoral : $personafisica;
 
             // Cargar la vista del contrato con la información obtenida
-            $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'persona','empleadosubdelegado','empleadomateriales','empleadofinanzas'));
+            $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'));
             $pdf->render();
 
             // Devolver el PDF generado
@@ -169,7 +174,77 @@ class ContratosController extends Controller
         // Manejar el caso donde no se encuentra ninguna persona asociada al contrato
         // Puedes agregar lógica adicional según tus requerimientos
     }
+    public function wordContrato($id)
+    {
+        $partidas = Partida::all();
+        $empleadosubdelegado = Empleado::where('cargo_id', '3')
+            ->where('dependencia_id', '1')
+            ->first();
+        $empleadomateriales = Empleado::where('cargo_id', '7')
+            ->where('dependencia_id', '1')
+            ->first();
+        $empleadofinanzas = Empleado::where('cargo_id', '5')
+            ->where('dependencia_id', '1')
+            ->first();
+        $logo = asset('assets/img/LogoNew2.png');
 
 
+        // Obtener el contrato específico
+        $contrato = Contrato::where('id_contrato', $id)->firstOrFail();
 
+        // Obtener la requisición asociada a ese contrato
+        $requisicion = Requisicion::where('id_requisicion', $contrato->requisicion_id)->with('detalles')->firstOrFail();
+
+        // Obtener la persona física asociada al contrato (si existe)
+        $personafisica = PersonaFisica::where('contrato_id', $id)->first();
+
+        // Obtener la persona moral asociada al contrato (si existe)
+        $personamoral = PersonaMoral::where('contrato_id', $id)->first();
+
+        // Verificar si hay una sola persona asociada al contrato
+        if ($personamoral !== null && $personafisica !== null) {
+            // Puedes agregar lógica para manejar este caso específico
+        } else {
+            // Si solo hay una persona (ya sea física o moral), asignarla a una variable
+            $persona = $personamoral !== null ? $personamoral : $personafisica;
+
+            // Crear un nuevo documento de PHPWord
+            $phpWord = new PhpWord();
+
+            // Agregar sección al documento
+            $section = $phpWord->addSection();
+
+            // Agregar encabezado
+            $header = $section->addHeader();
+            // Obtener el contenido del encabezado desde la vista
+            $encabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion','contrato','persona'))->render();
+            \PhpOffice\PhpWord\Shared\Html::addHtml($header, $encabezado, false, false);
+
+            // Agregar pie de página
+            $footer = $section->addFooter();
+            $footer->addPreserveText('Página {PAGE} de {NUMPAGES}', null, array('alignment' => 'right'));
+
+            // Agregar contenido al documento
+            $htmlView = view('Contratante.contratos.formularios.word.Cuerpo', compact('requisicion', 'logo', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
+
+            // Alinear el contenido a justificado
+            // $section->addTextBreak();
+            $section->addText('Contenido justificado', null, array('alignment' => 'both'));
+
+            // Guardar el documento en storage (o en la ubicación que desees)
+            $nombreArchivo = 'contrato_' . $id . '.docx'; // Nombre del archivo Word
+            $rutaArchivo = storage_path($nombreArchivo);
+
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+            $objWriter->save($rutaArchivo);
+
+
+            // Devolver el documento Word generado para descargar
+            return response()->download($rutaArchivo, $nombreArchivo);
+        }
+
+        // Manejar el caso donde no se encuentra ninguna persona asociada al contrato
+        // Puedes agregar lógica adicional según tus requerimientos
+    }
 }

@@ -90,6 +90,9 @@
                                             <a href="{{ route('Contratos.imprimir', $contrato->id_contrato) }}"
                                                 class="btn btn-primary"><i class="fas fa-print"></i></a>
                                         </div>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('Contratos.word', $contrato->id_contrato) }}" class="btn btn-primary"><i class="fas fa-print"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
