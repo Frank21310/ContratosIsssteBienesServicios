@@ -216,19 +216,20 @@ class ContratosController extends Controller
             // Si solo hay una persona (ya sea física o moral), asignarla a una variable
             $persona = $personamoral !== null ? $personamoral : $personafisica;
 
-            // Crear un nuevo documento de PHPWord
+            // Crear un nuevo objeto PHPWord
             $phpWord = new PhpWord();
 
-            // Agregar sección al documento
+            // Agregar una sección al documento
             $section = $phpWord->addSection();
 
-            // Agregar encabezado
-            $header = $section->addHeader();
+            // Crear el encabezado
+            $encabezado = $section->addHeader();
+
             // Obtener el contenido del encabezado desde la vista
             $encabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion', 'contrato', 'persona'))->render();
-            \PhpOffice\PhpWord\Shared\Html::addHtml($header, $encabezado, false, false);
-
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $encabezado, false, false);
             // Agregar pie de página
+
             $footer = $section->addFooter();
             $footer->addPreserveText('Página {PAGE} de {NUMPAGES}', null, array('alignment' => 'right'));
 

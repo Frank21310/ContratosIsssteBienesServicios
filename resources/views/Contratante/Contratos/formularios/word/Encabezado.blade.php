@@ -1,7 +1,19 @@
 <html>
-    <head></head>
-    <body>
-        <p>
+
+<head>
+    <style>
+        .top {
+            font-family: Montserrat;
+            text-align: center;
+            font-size: 9.8px;
+            text-align: end
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p class="top">
             CONTRATO
             @if ($requisicion->tipo_id == 1)
                 CERRADO
@@ -12,5 +24,7 @@
             PROVEEDOR:
             {{ $persona->nombre_proveedor }} VIGENCIA: {{ $contrato->vigencia_contrato }}.
         </p>
-    </body>
+    </div>
+</body>
+
 </html>
