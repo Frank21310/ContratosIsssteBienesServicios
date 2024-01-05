@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminContratos\SoloAdminContratosController;
 use App\Http\Controllers\Administrador\EmpleadosController;
+use App\Http\Controllers\Administrador\ProveedoresController;
 use App\Http\Controllers\Administrador\RolesController;
 use App\Http\Controllers\Administrador\SoloAdminController;
 use App\Http\Controllers\Administrador\UsuariosController;
@@ -60,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/Administrador/roles', RolesController::class);
     Route::resource('/Administrador/Empleados', EmpleadosController::class);
     Route::resource('/Administrador/Usuarios', UsuariosController::class);
+    Route::resource('/Administrador/Proveedores', ProveedoresController::class);
+
 })->namespace('root');
 /*
 |--------------------------------------------------------------------------

@@ -5,10 +5,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <h2 class="">Roles</h2>
+                    <h2 class="">Proveedores</h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
-                    <a id="BtnAgregar" href="{{ route('roles.create') }}" class="btn btn-primary ml-auto BotonRojo">
+                    <a id="BtnAgregar" href="{{ route('Proveedores.create') }}" class="btn btn-primary ml-auto BotonRojo">
                         <i class="fas fa-plus"></i>
                         Agregar
                     </a>
@@ -19,7 +19,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h3>Lista de Roles existentes</h3>
+                    <h3>Lista de Proveedores existentes</h3>
                 </div>
             </div>
             <div class="row">
@@ -70,24 +70,32 @@
                     <table class="table custom-table">
                         <thead class="custom-thead">
                             <tr>
-                                <th class="custom-th">ID</th>
-                                <th class="custom-th">Nombre del Rol</th>
-                                <th class="col-2 custom-th">Acciones</th>
+                                <th class="custom-th">RFC</th>
+                                <th class="custom-th">Nombre del Proveedor</th>
+                                <th class="col-2 custom-th">Pais</th>
+                                <th class="custom-th">Tipo de usuario</th>
+                                <th class="custom-th">Sector</th>
+                                <th class="custom-th">Giro</th>
+                                <th class="custom-th">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($rols as $rol)
+                            @foreach ($proveedores as $proveedor)
                                 <tr>
-                                    <td class="custom-td">{{ $rol->id_rol }}</td>
-                                    <td class="custom-td">{{ $rol->nombre_rol }}</td>
+                                    <td class="custom-td">{{ $proveedor->rfc }}</td>
+                                    <td class="custom-td">{{ $proveedor->nombre_proveedor }}</td>
+                                    <td class="custom-td">{{ $proveedor->pais }}</td>
+                                    <td class="custom-td">{{ $proveedor->tipo_usuario }}</td>
+                                    <td class="custom-td">{{ $proveedor->sector }}</td>
+                                    <td class="custom-td">{{ $proveedor->giro }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('roles.show', $rol->id_rol) }}" class="btn btn-info"><i
+                                            <a href="{{ route('Proveedores.show', $proveedor->id_proveedor ) }}" class="btn btn-info"><i
                                                     class="fas fa-eye"></i></a>
-                                            <a href="{{ route('roles.edit', $rol->id_rol) }}" class="btn btn-primary"><i
+                                            <a href="{{ route('Proveedores.edit', $proveedor->id_proveedor ) }}" class="btn btn-primary"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ route('roles.destroy', $rol->id_rol) }}"
-                                                id="delete_{{ $rol->id_rol }}" method="POST">
+                                            <form action="{{ route('Proveedores.destroy', $proveedor->id_proveedor ) }}"
+                                                id="delete_{{ $proveedor->id_proveedor }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
 
@@ -106,8 +114,8 @@
             </div>
         </div>
         <div class="card-footer">
-            @if ($rols->total() > 10)
-                {{ $rols->links() }}
+            @if ($proveedores->total() > 10)
+                {{ $proveedores->links() }}
             @endif
         </div>
     </div>

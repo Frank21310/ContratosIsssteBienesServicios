@@ -36,6 +36,13 @@
                         Usuarios
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('Proveedores.index') }}"
+                        class="nav-link {{ 'Administrador/Proveedores' == request()->path() ? 'active' : '' }}">
+                        <i class="fas fa-user"></i>
+                        Proveedores
+                    </a>
+                </li>
             @endif
             @if (Auth::user()->rol_id == 2)
                 <li class="nav-item">
