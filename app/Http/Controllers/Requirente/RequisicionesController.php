@@ -43,7 +43,7 @@ class RequisicionesController extends Controller
     public function index(Request $request)
     {
 
-        $requisiciones = Requisicion::where('estatus', ['1','4','5'])->orderBy('id_requisicion', 'DESC');
+        $requisiciones = Requisicion::where('estatus', ['1', '4', '5'])->orderBy('id_requisicion', 'DESC');
         $limit = (isset($request->limit)) ? $request->limit : 5;
 
         if (isset($request->search)) {
@@ -57,11 +57,11 @@ class RequisicionesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    
+
 
     public function create(Request $request)
     {
-        
+
         $dependenciaempleados = Dependencia::all();
         $areas  = Area::all();
         $condiciones  = Condicion::all();
@@ -100,34 +100,7 @@ class RequisicionesController extends Controller
 
     public function store(Request $request)
     {
-        $validator = FacadesValidator::make($request->all(), [
-            'area_id' => 'required',
-            'fecha_elaboracion' => 'required',
-            'no_requisicion' => 'required',
-            'lugar_entrega' => 'required',
-            'otros_gravamientos' => 'required',
-            'total' => 'required',
-            'existencia_almacen' => 'required',
-            'observaciones' => 'required',
-            'registro_sanitario' => 'required',
-            'capacitacion' => 'required',
-            'pais_id' => 'required',
-            'metodo_id' => 'required',
-            'detalles.*.num_partida' => 'required',
-            'detalles.*.cucop' => 'required',
-            'detalles.*.descripcion' => 'required',
-            'detalles.*.cantidad' => 'required|numeric|min:1',
-            'detalles.*.medida_id' => 'required',
-            'detalles.*.precio' => 'required|numeric|min:0',
-            'detalles.*.importe' => 'required|numeric|min:0',
-        ]);
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        
+
         $requisicion = Requisicion::create([
 
             'dependencia_id' => $request->dependencia_id,
@@ -136,6 +109,8 @@ class RequisicionesController extends Controller
             'no_requisicion' => $request->no_requisicion,
             'fecha_requerida' => $request->fecha_requerida,
             'lugar_entrega' => $request->lugar_entrega,
+            'subtotal' => $request->subtotal,
+            'iva' => $request->iva,
             'otros_gravamientos' => $request->otros_gravamientos,
             'total' => $request->total,
             'anexos' => $request->anexos,
@@ -162,7 +137,6 @@ class RequisicionesController extends Controller
             'autoriza' => $request->autoriza,
             'estatus' => $request->estatus,
             'tipo_id' => $request->tipo_id,
-
         ]);
 
         if ($requisicion && $request->filled('detalles') && is_array($request->detalles)) {
@@ -209,14 +183,14 @@ class RequisicionesController extends Controller
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
         return view('/Requirente/Requisiciones.show', compact('requisicion'));
     }
-    
+
     public function imprimirRequisicion($id)
     {
         $image = '/assets/img/LogoConvinado.jpg';
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
-        
+
         $pdf = Pdf::loadView('Requirente.Requisiciones.imprimir', compact('requisicion', 'image'));
-        return $pdf->setPaper('a4','landscape')->stream('requisicion_' . $id . '.pdf');
+        return $pdf->setPaper('a4', 'landscape')->stream('requisicion_' . $id . '.pdf');
     }
 
     /**
@@ -256,4 +230,3 @@ class RequisicionesController extends Controller
         }
     }
 }
-

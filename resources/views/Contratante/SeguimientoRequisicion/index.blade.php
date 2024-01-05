@@ -9,7 +9,6 @@
                 </div>
             </div>
         </div>
-
         <hr>
         <div class="card-body">
             <div class="row">
@@ -17,6 +16,7 @@
                     <h3>Requisición elaboradas</h3>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col">
                     <div class="row">
@@ -79,7 +79,7 @@
                         <tbody>
                             @foreach ($requisiciones as $requisicion)
                                 <tr>
-                                    <td class="custom-td">{{ $requisicion->id_requisicion }}</td>
+                                    <td class="custom-td">{{ $requisicion->no_requisicion }}</td>
                                     <td class="custom-td">{{ $requisicion->Dependencias->nombre_dependencia }}</td>
                                     <td class="custom-td">{{ $requisicion->fecha_elaboracion }}</td>
                                     <td class="custom-td">{{ $requisicion->solicita }}</td>
@@ -87,10 +87,18 @@
                                     <td class="custom-td">{{ $requisicion->Tipos->nombre_tipo }}</td>
                                     <td class="custom-td">{{ $requisicion->Estatus->nombre_estatus }}</td>
                                     <td class="custom-td">
+                                        @if ($requisicion->estatus == 1)
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
                                                 class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         </div>
+                                        @else
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('Contratos.create', $requisicion->id_requisicion) }}"
+                                                class="btn btn-success"><i class="fa fa-file"></i></a>
+                                        </div>
+                                            
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -98,23 +106,23 @@
                     </table>
                 </div>
             </div>
-            <div class="card-footer">
-                @if ($requisiciones->total() > 10)
-                    {{ $requisiciones->links() }}
-                @endif
-            </div>
+        </div>
+        <div class="card-footer">
+            @if ($requisiciones->count() > 0)
+                {{ $requisiciones->links() }}
+            @endif
         </div>
     </div>
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('Requisiciones.index') }}?limit=" + $(this).val() + '&search=' + $(
+            window.location.href = "{{ route('SeguimientoRequisicion.index') }}?limit=" + $(this).val() + '&search=' + $(
                 '#search').val()
         })
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('Requisiciones.index') }}?limit=" + $('#limit').val() +
+                window.location.href = "{{ route('SeguimientoRequisicion.index') }}?limit=" + $('#limit').val() +
                     '&search=' +
                     $(this).val()
             }

@@ -32,11 +32,13 @@ class ContratosController extends Controller
     public function index(Request $request)
     {
         $contratos = Contrato::select('*')->orderBy('id_contrato', 'ASC');
-        $limit = (isset($request->limit)) ? $request->limit : 4;
+        $limit = (isset($request->limit)) ? $request->limit : 3;
 
         if (isset($request->search)) {
             $contratos = $contratos->where('id_contrato', 'like', '%' . $request->search . '%')
-                ->orWhere('vigencia_contrato', 'like', '%' . $request->search . '%');
+                ->orWhere('empleado_num', 'like', '%' . $request->search . '%')
+                ->orWhere('descripcion_contrato', 'like', '%' . $request->search . '%');
+                
         }
         $contratos = $contratos->paginate($limit)->appends($request->all());
         return view('Contratante.Contratos.index', compact('contratos'));

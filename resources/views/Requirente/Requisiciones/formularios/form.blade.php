@@ -1,15 +1,4 @@
 @csrf
-
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="row">
     {{-- Dependencia --}}
     <div class="col">
@@ -21,7 +10,7 @@
     {{-- Area Requeriente  --}}
     <div class="col">
         <label>Area requirente:</label>
-        <select name="area_id" class="form-control custom-select">
+        <select name="area_id" class="form-control custom-select" required>
             <option value="">Seleccione el area</option>
             @foreach ($areas as $area)
                 <option value="{{ $area->id_area }}" 
@@ -36,19 +25,19 @@
     {{-- Fecha de elaboracion --}}
     <div class="col">
         <label>Fecha de elaboracion:</label>
-        <input type="date" name="fecha_elaboracion" class="form-control custom-input" value="{{ old('fecha_requerida') }}">
+        <input type="date" name="fecha_elaboracion" class="form-control custom-input" value="{{ old('fecha_requerida') }}" required>
     </div>
     {{-- Numero de requisicion --}}
     <div class="col">
         <label>No. requisicion: </label>
         <input type="text" name="no_requisicion" class="form-control custom-input" placeholder="100XXXX"
-            value="{{ old('no_requisicion') }}">
+            value="{{ old('no_requisicion') }}" required>
     </div>
     {{-- Fecha requerida --}}
     <div class="col">
         <label>Fecha requerida: </label>
         <input type="date" class="form-control custom-input" name="fecha_requerida"
-            value="{{ old('fecha_requerida') }}">
+            value="{{ old('fecha_requerida') }}" required>
     </div>
 </div>
 <div class="row">
@@ -56,7 +45,7 @@
     <div class="col">
         <label>Lugar de entrega: </label>
         <input type="text" name="lugar_entrega" class="form-control custom-input"
-            placeholder="Escriba la direccion del lugar de entrega...." value="{{ old('lugar_entrega') }}">
+            placeholder="Escriba la direccion del lugar de entrega...." value="{{ old('lugar_entrega') }}" required>
     </div>
 </div>
 <hr>
@@ -78,7 +67,7 @@
             <tr id="filaEjemplo">
                 <td>
                     <label>Partida:</label>
-                    <select class="form-control custom-select select-partida" name="detalles[0][num_partida]">
+                    <select class="form-control custom-select select-partida" name="detalles[0][num_partida]" required>
                         <option value="">Selecciona</option>
                         @foreach ($partidas as $partida)
                             <option value="{{ $partida->id_partida}}" >
@@ -86,27 +75,27 @@
                                 {{ $partida->id_partida}} - {{ $partida->descripcion }}
                             </option>
                         @endforeach
-                    </select>
+                     </select >
                 </td>
                 <td>
                     <label>CUCoP:</label>
                     <input type="text" class="form-control custom-input span-cucop" name="detalles[0][cucop]"
-                        readonly>
+                        readonly required>
                 </td>
                 <td>
                     <label>Descripcion:</label>
-                    <select class="form-control custom-select select-insumo" name="detalles[0][descripcion]">
+                    <select class="form-control custom-select select-insumo" name="detalles[0][descripcion]" required>
                         <option value="">Seleccione el insumo</option>
                     </select>
                 </td>
                 <td>
                     <label>Cantidad:</label>
                     <input type="number" name="detalles[0][cantidad]" min="1" placeholder="1" step="1"
-                        class="form-control custom-input" value="{{ old('cantidad') }}">
+                        class="form-control custom-input" value="{{ old('cantidad') }}" required>
                 </td>
                 <td>
                     <label>Medida:</label>
-                    <select class="form-control custom-select" name="detalles[0][medida_id]">
+                    <select class="form-control custom-select" name="detalles[0][medida_id]" required>
                         @foreach ($unidades as $unidad)
                             <option value="{{ $unidad->id_medida}}">
                                 {{ $unidad->nombre_medida }}
@@ -117,12 +106,12 @@
                 <td>
                     <label>Precio: </label>
                     <input type="number" name="detalles[0][precio]" min="0" placeholder="1.0" step="0.1"
-                        class="form-control custom-input" value="{{ old('precio') }}">
+                        class="form-control custom-input" value="{{ old('precio') }}" required>
                 </td>
                 <td>
                     <label>Importe:</label>
                     <input type="number" class="form-control custom-input importe" name="detalles[0][importe]"
-                        readonly>
+                        readonly required>
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger borrarFila"><i class="fas fa-trash "></i></button>
@@ -143,7 +132,7 @@
         <label>Sub Total: </label>
     </div>
     <div class="col-4 mx-auto p-2  d-flex align-items-end flex-column">
-        <span class="form-control subtotal custom-span" id="subtotal">0</span>
+        <span class="form-control subtotal custom-span" id="subtotal" name="subtotal">0</span>
     </div>
 </div>
 
@@ -153,7 +142,7 @@
         <label>I.V.A: </label>
     </div>
     <div class="col-4  mx-auto p-2  d-flex align-items-end flex-column">
-        <span class="form-control iva custom-span" id="iva">0</span>
+        <span class="form-control iva custom-span" id="iva" name="iva">0</span>
     </div>
 </div>
 
@@ -164,7 +153,7 @@
     </div>
     <div class="col-4  mx-auto p-2  d-flex align-items-end flex-column">
         <input name="otros_gravamientos" class="form-control input-otros-grav custom-input" id="otros_gravamientos" min="0"
-            placeholder="0.00" step="0.01" type="text" value="{{ old('otros_gravamientos') }}">
+            placeholder="0.00" step="0.01" type="text" value="{{ old('otros_gravamientos') }}" required>
     </div>
 </div>
 {{-- Total --}}
@@ -174,25 +163,23 @@
     </div>
     <div class="col-4  mx-auto p-2  d-flex align-items-end flex-column">
         <input name="total" id="total" placeholder="0.00" step="0.01" type="text"
-            class="form-control total custom-input">
+            class="form-control total custom-input" required>
     </div>
 </div>
-
-
 <hr>
 <div class="row">
     {{-- Anexos --}}
     <div class="col mx-auto p-2">
         <label>Anexos: </label>
         <input type="text" placeholder="Ingresa el nombre de los anexos que se identifique a la solicitud"
-            class="form-control custom-input" name="anexos" value="{{ old('anexos') }}">
+            class="form-control custom-input" name="anexos" value="{{ old('anexos') }}" required>
     </div>
 </div>
 <div class="row">
     {{-- Anticipos --}}
     <div class="col-2 mx-auto p-2">
         <label>Anticipo: </label>
-        <select name="aticipos" class="form-control custom-select" id="aticipos">
+        <select name="aticipos" class="form-control custom-select" id="aticipos" required>
             <option value="1">Si</option>
             <option value="0">No</option>
         </select>
@@ -202,12 +189,12 @@
         <label>Autorizacion de presupuesto: </label>
         <input type="text" placeholder="Ingresa el numero de oficio por el que se le autorizo el presupuesto"
             class="form-control custom-input" name="autorizacion_presupuesto"
-            value="{{ old('autorizacion_presupuesto') }}">
+            value="{{ old('autorizacion_presupuesto') }}" required>
     </div>
     {{-- Existencia en almacen --}}
     <div class="col-2 mx-auto p-2">
         <label>Existencia en almacen: </label>
-        <select name="existencia_almacen" class="form-control custom-select">
+        <select name="existencia_almacen" class="form-control custom-select" required>
             <option value="1">Si</option>
             <option value="0">No</option>
         </select>
@@ -218,7 +205,7 @@
     {{-- Observaciones --}}
     <div class="col mx-auto p-2">
         <label>Observaciones: </label>
-        <textarea class="form-control custom-input" name="observaciones" placeholder="Observaciones de la solicitud....." rows="3">{{ old('observaciones') }}</textarea>
+        <textarea class="form-control custom-input" name="observaciones" placeholder="Observaciones de la solicitud....." rows="3" required>{{ old('observaciones') }}</textarea>
 
     </div>
 </div>
@@ -226,7 +213,7 @@
     {{-- Registro Sanitario --}}
     <div class="col mx-auto p-2">
         <label>Registro Sanitario: </label>
-        <select class="form-control custom-select" name="registro_sanitario">
+        <select class="form-control custom-select" name="registro_sanitario" required>
             <option value="Si">Si</option>
             <option value="No">No</option>
         </select>
@@ -236,12 +223,12 @@
         <label>Normas/Nivel de inspeccion: </label>
         <input type="text" class="form-control custom-input" name="normas"
             placeholder="Ingrese las normas que sean necesarias"
-            value="{{ isset($requisicion) ? $requisicion->normas : old('normas') }}">
+            value="{{ isset($requisicion) ? $requisicion->normas : old('normas') }}" required>
     </div>
     {{-- Capacitacion --}}
     <div class="col mx-auto p-2">
         <label>Capacitacion: </label>
-        <select name="capacitacion" class="form-control custom-select">
+        <select name="capacitacion" class="form-control custom-select" required>
             <option value="{{ 1 }}">Si</option>
             <option value="{{ 0 }}">No</option>
         </select>
@@ -249,7 +236,7 @@
     {{-- Pais --}}
     <div class="col mx-auto p-2">
         <label>Pais de Origen: </label>
-        <select class="form-control custom-select" name="pais_id">
+        <select class="form-control custom-select" name="pais_id" required>
             @foreach ($paises as $pais)
                 <option value="{{ $pais->id_pais }}">
                     {{ $pais['nombre_pais'] }}</option>
@@ -259,7 +246,7 @@
     {{-- Metodos de prueba --}}
     <div class="col mx-auto p-2">
         <label>Metodos de prueba: </label>
-        <select class="form-control custom-select" name="metodo_id">
+        <select class="form-control custom-select" name="metodo_id" required>
             @foreach ($metodos as $metodo)
                 <option value="{{ $metodo->id_metodo }}">
                     {{ $metodo['nombre_metodo'] }}</option>
@@ -274,7 +261,7 @@
             {{-- Garantia --}}
             <div class="col-4">
                 <label>Tipo de garantia: </label>
-                <select class="form-control custom-select" name="garantia1_id">
+                <select class="form-control custom-select" name="garantia1_id" required>
                     @foreach ($garantias as $garantia)
                         <option value="{{ $garantia->id_garantia }}">
                             {{ $garantia->nombre_garantia }}</option>
@@ -284,7 +271,7 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_1" class="form-control custom-select">
+                <select name="porcentaje_1" class="form-control custom-select" required>
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -298,7 +285,7 @@
             {{-- Garantia --}}
             <div class="col-4">
                 <label>Tipo de garantia: </label>
-                <select class="form-control custom-select" name="garantia_2_id">
+                <select class="form-control custom-select" name="garantia_2_id" required>
                     @foreach ($garantias as $garantia)
                         <option value="{{ $garantia->id_garantia }}">
                             {{ $garantia->nombre_garantia }}</option>
@@ -308,7 +295,7 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_2" class="form-control custom-select">
+                <select name="porcentaje_2" class="form-control custom-select" required>
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -322,7 +309,7 @@
             {{-- Garantia --}}
             <div class="col-4">
                 <label>Tipo de garantia: </label>
-                <select class="form-control custom-select" name="garantia_3_id">
+                <select class="form-control custom-select" name="garantia_3_id" required>
                     @foreach ($garantias as $garantia)
                         <option value="{{ $garantia->id_garantia }}">
                             {{ $garantia->nombre_garantia }}</option>
@@ -332,7 +319,7 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_3" class="form-control custom-select">
+                <select name="porcentaje_3" class="form-control custom-select" required>
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -348,7 +335,7 @@
                 {{-- Condiciones --}}
                 <div class="col-5">
                     <label>Condiciones de entrega: </label>
-                    <select class="form-control custom-select" name="condicion_id">
+                    <select class="form-control custom-select" name="condicion_id" required>
                         @foreach ($condiciones as $condicion)
                             <option value="{{ $condicion->id_condicion }}">
                                 {{ $condicion->nombre_condicion }}</option>
@@ -363,21 +350,21 @@
         <div class="row">
             <div class="col">
                 <label>Plurianualidad: </label>
-                <select class="form-control custom-select" name="pluralidad">
+                <select class="form-control custom-select" name="pluralidad" required>
                     <option name="pluralidad" value="{{ 1 }}">Si</option>
                     <option name="pluralidad" value="{{ 0 }}">No</option>
                 </select>
             </div>
             <div class="col">
                 <label>Meses: </label>
-                <input type="text" class="form-control custom-input" name="meses" value="{{ old('meses') }}">
+                <input type="text" class="form-control custom-input" name="meses" value="{{ old('meses') }}" required>
             </div>
         </div>
         {{-- Garantia --}}
         <div class="row">
             <div class="col">
                 <label>Penas convencionales: </label>
-                <select name="penas_convencionales" class="form-control custom-select" id="penas_convencionales">
+                <select name="penas_convencionales" class="form-control custom-select" id="penas_convencionales" required>
                     <option value="{{ 1 }}">Si</option>
                     <option value="{{ 0 }}">No</option>
                 </select>
@@ -388,7 +375,7 @@
             <div class="col">
                 <label>Tiempo de fabricacion: </label>
                 <input type="text" class="form-control custom-input" name="tiempo_fabricacion"
-                    value="{{ old('tiempo_fabricacion') }}">
+                    value="{{ old('tiempo_fabricacion') }}" required>
             </div>
         </div>
     </div>
@@ -408,7 +395,7 @@
     {{-- Autoriza --}}
     <div class="col">
         <label>Autoriza: </label>
-        <input type="text" name="autoriza" class="form-control custom-input">
+        <input type="text" name="autoriza" class="form-control custom-input" required>
         <input type="text" name="estatus" class="form-control custom-input" value="1" hidden>
         <input type="text" name="tipo_id" value="4" hidden>
     </div>
@@ -418,7 +405,7 @@
 <div class="row">
     <div class="mb-3">
         <label> Subir archivos relacionados</label>
-        <input type="file" class="form-control custom-input" aria-label="file example" name="archivos" required>
+        <input type="file" class="form-control custom-input" aria-label="file example" name="archivos[]" multiple required>
         <div class="invalid-feedback">Example invalid form file feedback</div>
     </div>
 </div>

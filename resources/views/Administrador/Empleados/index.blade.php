@@ -114,8 +114,9 @@
                 </div>
             </div>
         </div>
+        
         <div class="card-footer">
-            @if ($Empleados->total() > 10)
+            @if ($Empleados->count() > 0)
                 {{ $Empleados->links() }}
             @endif
         </div>

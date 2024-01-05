@@ -32,7 +32,7 @@ class EmpleadosController extends Controller
     public function index(Request $request)
     {
         $Empleados = Empleado::select('*')->orderBy('num_empleado', 'ASC');
-        $limit = (isset($request->limit)) ? $request->limit : 4;
+        $limit = (isset($request->limit)) ? $request->limit : 2;
 
         if (isset($request->search)) {
             $Empleados = $Empleados->where('num_empleado', 'like', '%' . $request->search . '%')

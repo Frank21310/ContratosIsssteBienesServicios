@@ -172,28 +172,32 @@
     {{-- Anexos --}}
     <div class="col mx-auto p-2">
         <label>Anexos: </label>
-        <span type="text" name="anexos"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->anexos : old('anexos') }}</span>
+        <input type="text" name="anexos"
+            class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->anexos : old('anexos') }}">
     </div>
 </div>
 <div class="row">
     {{-- Anticipos --}}
     <div class="col mx-auto p-2">
         <label>Anticipo: </label>
-        <span type="text" name="aticipos"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}</span>
+        <select name="aticipos"  class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}"{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}>
+            <option value="1">Si</option>
+            <option value="0">No</option>
+        </select>
     </div>
     {{-- Autorizacion de presupuesto --}}
     <div class="col mx-auto p-2">
         <label>Autorizacion de presupuesto: </label>
-        <span type="text" name="autorizacion_presupuesto"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->autorizacion_presupuesto : old('autorizacion_presupuesto') }}</span>
+        <input type="text" name="autorizacion_presupuesto"
+            class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->autorizacion_presupuesto : old('autorizacion_presupuesto') }}"> 
     </div>
     {{-- Existencia en almacen --}}
     <div class="col mx-auto p-2">
         <label>Existencia en almacen: </label>
-        <span type="text" name="existencia_almacen"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->existencia_almacen : old('existencia_almacen') }}</span>
+        <select name="existencia_almacen"  class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}"{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}>
+            <option value="1">Si</option>
+            <option value="0">No</option>
+        </select>
     </div>
 </div>
 
@@ -201,16 +205,19 @@
     {{-- Observaciones --}}
     <div class="col mx-auto p-2">
         <label>Observaciones: </label>
-        <span type="text" name="observaciones"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->observaciones : old('observaciones') }}</span>
+        <input type="text" name="observaciones"
+            class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->observaciones : old('observaciones') }}">
     </div>
 </div>
 <div class="row">
     {{-- Registro Sanitario --}}
     <div class="col mx-auto p-2">
         <label>Registro Sanitario: </label>
-        <span type="text" name="registro_sanitario"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->registro_sanitario : old('registro_sanitario') }}</span>
+        <select name="registro_sanitario"  class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}"{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}>
+            <option value="Si">Si</option>
+            <option value="No">No</option>
+        </select>
+       
     </div>
     {{-- Normas --}}
     <div class="col-4 mx-auto p-2">
@@ -221,9 +228,10 @@
     {{-- Capacitacion --}}
     <div class="col mx-auto p-2">
         <label>Capacitacion: </label>
-        <span type="text" name="capacitacion"
-            class="form-control custom-span">{{ isset($requisicion) ? $requisicion->capacitacion : old('capacitacion') }}</span>
-
+        <select name="capacitacion"  class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}"{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}>
+            <option value="1">Si</option>
+            <option value="0">No</option>
+        </select>
     </div>
     {{-- Pais --}}
     <div class="col mx-auto p-2">
@@ -328,8 +336,10 @@
         <div class="row">
             <div class="col">
                 <label>Plurianualidad: </label>
-                <span type="text" name="pluralidad"
-                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->pluralidad : old('pluralidad') }}</span>
+                <select name="pluralidad"  class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}"{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
             </div>
             <div class="col">
                 <label>Meses: </label>
@@ -342,8 +352,10 @@
         <div class="row">
             <div class="col">
                 <label>Penas convencionales: </label>
-                <span type="text" name="penas_convencionales"
-                    class="form-control custom-span">{{ isset($requisicion) ? $requisicion->penas_convencionales : old('penas_convencionales') }}</span>
+                <select name="penas_convencionales"  class="form-control sselect" value="{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}"{{ isset($requisicion) ? $requisicion->aticipos : old('aticipos') }}>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
             </div>
         </div>
         {{-- Fabricacion --}}
@@ -381,6 +393,7 @@
         <label>Autoriza: </label>
         <input type="text" name="autoriza" class="form-control sselect"
             value="{{ isset($requisicion) ? $requisicion->autoriza : old('autoriza') }}">
+
             <input type="text" name="estatus" class="form-control custom-span"
             value="2" hidden>
     </div>

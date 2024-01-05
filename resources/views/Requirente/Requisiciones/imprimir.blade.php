@@ -57,25 +57,25 @@
     <table>
         <thead>
             <tr>
-                <th class="col-1">No. de partida</th>
-                <th class="col-1">CUCOP</th>
-                <th class="col-5">Descripción</th>
-                <th class="col-1">Cantidad solicitada</th>
-                <th class="col-1">Unidad de medida</th>
-                <th class="col-1">Precio unitario</th>
-                <th class="col-2">Importe</th>
+                <th>No. de partida</th>
+                <th>CUCOP</th>
+                <th>Descripción</th>
+                <th>Cantidad solicitada</th>
+                <th>Unidad de medida</th>
+                <th>Precio unitario</th>
+                <th>Importe</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($requisicion->detalles as $detalle)
                 <tr>
                     <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->num_partida }}</td>
-                    <td>{{ $detalle->cucop }}</td>
-                    <td>{{ $detalle->Insumos->descripcion }}</td>
-                    <td>{{ $detalle->cantidad }}</td>
-                    <td>{{ $detalle->Medidas->nombre_medida }}</td>
-                    <td>{{ '$' . $detalle->precio }}</td>
-                    <td>{{ '$' . $detalle->importe }}</td>
+                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->cucop }}</td>
+                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->Insumos->descripcion }}</td>
+                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->cantidad }}</td>
+                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->Medidas->nombre_medida }}</td>
+                    <td style="border: 1px solid #000; padding-left: 4px;">{{ '$' . $detalle->precio }}</td>
+                    <td style="border: 1px solid #000; padding-left: 4px;">{{ '$' . $detalle->importe }}</td>
                 </tr>
             @endforeach
             <tr>

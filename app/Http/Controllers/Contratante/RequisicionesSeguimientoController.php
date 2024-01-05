@@ -19,11 +19,11 @@ class RequisicionesSeguimientoController extends Controller
      */
     public function index(Request $request)
     {
-        $requisiciones = Requisicion::whereIn('estatus', ['1', '2','3','4'])->orderBy('id_requisicion', 'DESC');
-        $limit = (isset($request->limit)) ? $request->limit : 5;
+        $requisiciones = Requisicion::whereIn('estatus', ['1', '2','3','4'])->orderBy('estatus', 'ASC');
+        $limit = (isset($request->limit)) ? $request->limit : 2;
         if (isset($request->search)) {
             $requisiciones = $requisiciones->where('id_requisicion', 'like', '%' . $request->search . '%')
-                ->orWhere('no_requesicion', 'like', '%' . $request->search . '%');
+                ->orWhere('no_requisicion', 'like', '%' . $request->search . '%');
         }
         $requisiciones = $requisiciones->paginate($limit)->appends($request->all());
         return view('Contratante.SeguimientoRequisicion.index', compact('requisiciones'));

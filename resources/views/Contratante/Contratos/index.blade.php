@@ -90,8 +90,8 @@
                                             <a href="{{ route('Contratos.imprimir', $contrato->id_contrato) }}"
                                                 class="btn btn-primary"><i class="fas fa-print"></i></a>
                                         </div>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('Contratos.word', $contrato->id_contrato) }}" class="btn btn-primary"><i class="fas fa-print"></i></a>
+                                        <div style="margin-top: 1px;" class="btn-group" role="group">
+                                            <a href="{{ route('Contratos.word', $contrato->id_contrato) }}" class="btn btn-primary"><i class="fa fa-file-word"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -102,14 +102,12 @@
                 </div>
             </div>
         </div>
+
         <div class="card-footer">
-            @if ($contratos->total() > 10)
+            @if ($contratos->count() > 0)
                 {{ $contratos->links() }}
             @endif
         </div>
-
-
-
     </div>
 
     <Script type="text/javascript">

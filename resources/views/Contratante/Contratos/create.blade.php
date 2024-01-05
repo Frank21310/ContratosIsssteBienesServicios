@@ -7,7 +7,8 @@
                     <h2 class="">Contrato de {{ isset($requisicion) ? $requisicion->Tipos->nombre_tipo : old('no_requisicion') }} de la requisición No.{{ isset($requisicion) ? $requisicion->no_requisicion : old('no_requisicion') }} </h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
-                    <a id="BtnAgregar" href="" class="btn btn-primary ml-auto BotonRojo">
+                    <a id="BtnAgregar" href="{{ route('SeguimientoRequisicion.index') }}"
+                        class="btn btn-primary ml-auto BotonRojo">
                         <i class="fas fa-arrow-left"></i>
                         Volver
                     </a>

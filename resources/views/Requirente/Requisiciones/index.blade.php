@@ -106,12 +106,12 @@
                 </div>
             </div>
         </div>
-
         <div class="card-footer">
-            @if ($requisiciones->total() > 10)
+            @if ($requisiciones->count() > 0)
                 {{ $requisiciones->links() }}
             @endif
         </div>
+        
     </div>
 
     <Script type="text/javascript">

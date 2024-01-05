@@ -11,7 +11,7 @@
     <!--Tipo de contrato-->
     <div class="col-3">
         <label for="tipo_contrato">Tipo de contrato</label>
-        <select class="form-control custom-select" name="tipo_contrato_id">
+        <select class="form-control custom-select" name="tipo_contrato_id" required>
             <option>Selecciona ... </option>
             @foreach ($tiposcontratos as $tiposcontrato)
                 <option value="{{ $tiposcontrato->id_tipo_contrato}}">
@@ -120,7 +120,7 @@
         <div class="col">
             <label for="">NUMERAR Y DESCRIBIR LOS ANEXOS</label>
             <input type="text" name="ANEXOS" id="ANEXOS" class="form-control custom-input"
-                placeholder="NUMERAR Y DESCRIBIR LOS ANEXOS">
+                placeholder="NUMERAR Y DESCRIBIR LOS ANEXOS" required>
         </div>
     </div>
 @else
@@ -155,7 +155,7 @@
     <div class="col">
         <label>Nombre del proveedor</label>
         <input type="text" name="nombre_proveedor" class="form-control custom-input"
-            placeholder="Nombre de la persona moral">
+            placeholder="Nombre de la persona moral" req>
     </div>
 </div>
 <div class="row">
@@ -171,7 +171,7 @@
 
     <div class="col-7">
         <label for="">Domicilio proveedor</label>
-        <input type="text" name="domicilio" id="domicilio_proveedor" class="form-control custom-input"
+        <input type="text" name="domicilio" id="domicilio proveedor" class="form-control custom-input"
             placeholder="domicilio_proveedor" required>
     </div>
 </div>

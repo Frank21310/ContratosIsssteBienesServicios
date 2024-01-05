@@ -106,12 +106,12 @@
                 </div>
             </div>
         </div>
+
         <div class="card-footer">
-            @if ($Users->total() > 10)
+            @if ($Users->count() > 0)
                 {{ $Users->links() }}
             @endif
         </div>
-
     </div>
 
     <Script type="text/javascript">

@@ -14,14 +14,14 @@ class RequisicionesFinalizadasController extends Controller
     public function index(Request $request)
     {
         $requisiciones = Requisicion::where('estatus', '5')->orderBy('id_requisicion', 'DESC');
-        $limit = (isset($request->limit)) ? $request->limit : 5;
+        $limit = (isset($request->limit)) ? $request->limit : 2;
 
         if (isset($request->search)) {
             $requisiciones = $requisiciones->where('id_requisicion', 'like', '%' . $request->search . '%')
                 ->orWhere('no_requesicion', 'like', '%' . $request->search . '%');
         }
         $requisiciones = $requisiciones->paginate($limit)->appends($request->all());
-        return view('Contratante.SeguimientoRequisicion.index', compact('requisiciones'));
+        return view('Contratante.RequisicionesFinalizadas.index', compact('requisiciones'));
     }
 
     /**

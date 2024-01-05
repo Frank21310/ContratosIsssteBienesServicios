@@ -18,6 +18,8 @@ class Requisicion extends Model
         'no_requisicion',
         'fecha_requerida',
         'lugar_entrega',
+        'subtotal',
+        'iva',
         'otros_gravamientos',
         'total',
         'anexos',

@@ -114,11 +114,12 @@
             </div>
         </div>
         <div class="card-footer">
-            @if ($proveedores->total() > 10)
+            @if ($proveedores->count() > 0)
                 {{ $proveedores->links() }}
             @endif
         </div>
     </div>
+
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {

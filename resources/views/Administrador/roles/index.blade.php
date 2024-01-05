@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="card-footer">
-            @if ($rols->total() > 10)
+            @if ($rols->count() > 0)
                 {{ $rols->links() }}
             @endif
         </div>
