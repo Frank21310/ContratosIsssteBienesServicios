@@ -26,6 +26,12 @@
     </div>
     <div class="col-12">
         <div class="form-group">
+            <label for="">RFC</label>
+            <input type="text" class="form-control custom-input" name="rfc" value="{{(isset($Empleado))?$Empleado->rfc:old('rfc')}}" required>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
             <label for="">Cargo</label>
             <select class="form-control custom-select" name="cargo_id" value="{{(isset($Empleado))?$Empleado->cargo_id:old('cargo_id')}}" required>
                 <option value="">Seleccione un cargo</option>

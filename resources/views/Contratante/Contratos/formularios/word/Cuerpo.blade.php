@@ -19,12 +19,13 @@
             font-family: Montserrat;
             font-size: 11.9px;
         }
+
     </style>
 </head>
 
 <body>
-    <p class="Parrafo">
-    CONTRATO<strong>@if($requisicion->tipo_id == 1) CERRADO @else ABIERTO @endif</strong>PARA LA PRESTACIÓN DE SERVICIOS DE <strong>{{$contrato->descripcion_contrato}}</strong>, CON CARÁCTER @if ($requisicion->pais_id == 1)<strong>NACIONAL</strong>@else <strong>INTERNACIONAL BAJO COBERTURA DE LOS TRATADOS</strong>@endif QUE CELEBRAN POR UNA PARTE, EL EJECUTIVO FEDERAL POR CONDUCTO DEL <strong>INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES DE LOS TRABAJADORES DEL ESTADO</strong>, A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ <strong>“LA ENTIDAD”</strong>, REPRESENTADO POR LA <strong>{{$empleadosubdelegado->nombre}} {{$empleadosubdelegado->apellido_paterno}} {{$empleadosubdelegado->apellido_materno}}</strong>,
+<p class="Parrafo">
+CONTRATO<strong>@if($requisicion->tipo_id == 1) CERRADO @else ABIERTO @endif</strong>PARA LA PRESTACIÓN DE SERVICIOS DE <strong>{{$contrato->descripcion_contrato}}</strong>, CON CARÁCTER @if ($requisicion->pais_id == 1)<strong>NACIONAL</strong>@else <strong>INTERNACIONAL BAJO COBERTURA DE LOS TRATADOS</strong>@endif QUE CELEBRAN POR UNA PARTE, EL EJECUTIVO FEDERAL POR CONDUCTO DEL <strong>INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES DE LOS TRABAJADORES DEL ESTADO</strong>, A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ <strong>“LA ENTIDAD”</strong>, REPRESENTADO POR LA <strong>{{$empleadosubdelegado->nombre}} {{$empleadosubdelegado->apellido_paterno}} {{$empleadosubdelegado->apellido_materno}}</strong>,
 <strong> {{ $empleadosubdelegado->Cargos->nombre_cargo }}</strong>, POR LA OTRA,<strong> {{$persona->nombre_proveedor}}</strong>, EN LO SUCESIVO “EL PROVEEDOR”, @if ($persona !== null)
 @if ($persona->tipo_persona_id == 2)
 REPRESENTADA POR<strong> {{ $persona->representante_nombre }}</strong>, EN SU CARÁCTER DE <strong>{{ $persona->Caracter->nombre_tipo_caracter }}</strong>
@@ -34,267 +35,157 @@ REPRESENTADO POR EL ADMINISTRADOR ÚNICO <strong>{{ $contrato->AdminContratos->n
 <strong>“LAS PARTES”</strong>, ALTENOR DE LAS DECLARACIONES Y CLÁUSULAS SIGUIENTES:
 </p>
 <h5 class="Titulo">
-    <strong>DECLARACIONES</strong>
+<strong>DECLARACIONES</strong>
 </h5>
-<ol>
-<li> <strong>“LA DEPENDENCIA”</strong> DECLARA QUE:
-    <ol>
-        <li>
-                    <p>QUE ES UN ORGANISMO DESCENTRALIZADO DE LA ADMINISTRACIÓN PÚBLICA FEDERAL, CON
-                        PERSONALIDAD JURÍDICA Y PATRIMONIO PROPIOS, DE CONFORMIDAD CON LO DISPUESTO
-                        POR LOS ARTÍCULOS 1°, 3°, FRACCIÓN I, Y 45 DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN
-                        PÚBLICA FEDERAL, 5° DE LA LEY FEDERAL DE ENTIDADES PARAESTATALES, ASÍ COMO 5º, 207 Y
-                        208 DE LA LEY DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES DE LOS TRABAJADORES
-                        DEL ESTADO.
-                    </p>
-        </li>
-        <li>
-            <p>
-                SU REPRESENTANTE, LA <strong>{{ $empleadosubdelegado->nombre }}
-                    {{ $empleadosubdelegado->apellido_paterno }}
-                    {{ $empleadosubdelegado->apellido_materno }}</strong>, SE ENCUENTRA FACULTADA
-                PARA SUSCRIBIR
-                EL PRESENTE INSTRUMENTO LEGAL EN REPRESENTACIÓN DEL INSTITUTO DE SEGURIDAD Y
-                SERVICIOS
-                SOCIALES
-                DE LOS TRABAJADORES DEL ESTADO, DE CONFORMIDAD CON LO ESTABLECIDO EN LA ESCRITURA
-                PÚBLICA
-                NÚMERO
-                46,460, LIBRO 1,265 DE FECHA DIECIOCHO DE JULIO DEL AÑO DOS MIL VEINTIDÓS, PASADA
-                ANTE LA FE
-                DEL
-                LICENCIADO ALBERTO T. SÁNCHEZ COLÍN, NOTARIO PÚBLICO NÚMERO 83 DE LA CIUDAD DE
-                MÉXICO, QUIEN
-                PODRÁ
-                SER SUSTITUIDO EN CUALQUIER MOMENTO EN SU CARGO O FUNCIONES, SIN QUE ELLO IMPLIQUE
-                LA
-                NECESIDAD DE
-                ELABORAR CONVENIO MODIFICATORIO.
-            </p>
-        </li>
-        <li>
-            <p>
-                DE CONFORMIDAD CON EL ARTÍCULO 26, APARTADO B, FRACCIÓN I Y X, DEL REGLAMENTO
-                ÓRGANICO DE
-                LAS
-                DELEGACIONES ESTATALES Y REGIONALES DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES
-                DE LOS
-                TRABAJADORES DEL ESTADO SUSCRIBE EL PRESENTE INSTRUMENTO LEGAL COMO ADMINISTRADOR
-                DEL
-                CONTRATO
-                EL <strong>{{ $contrato->AdminContratos->nombre }}
-                    {{ $contrato->AdminContratos->apellido_paterno }}
-                    {{ $contrato->AdminContratos->apellido_materno }}</strong>
-                ,
-                <strong>{{ $contrato->AdminContratos->Cargos->nombre_cargo }}
-                </strong>
-                ,REGISTRO FEDERAL DE CONTRIBUYENTES
-                <strong>
-                    {{ $contrato->AdminContratos->rfc }}
-                </strong>
-                , FACULTADO PARA
-                ADMINISTRAR EL CUMPLIMIENTO DE
-                LAS OBLIGACIONES QUE DERIVEN DEL OBJETO DEL PRESENTE CONTRATO, QUIEN PODRÁ SER
-                SUSTITUIDO EN
-                CUALQUIER MOMENTO, BASTANDO PARA TALES EFECTOS UN COMUNICADO POR ESCRITO Y FIRMADO
-                POR EL
-                SERVIDOR PÚBLICO FACULTADO PARA ELLO, INFORMANDO A <strong>“EL PROVEEDOR”</strong>
-                PARA LOS
-                EFECTOS DEL
-                PRESENTE
-                CONTRATO.
-            </p>
-        </li>
-        <li>
-            <p>
-                DE CONFORMIDAD CON LOS ARTÍCULOS 34 Y 37 FRACCIONES I Y XIII DEL REGLAMENTO ÓRGANICO
-                DE LAS
-                DELEGACIONES ESTATALES Y REGIONALES DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES
-                DE LOS
-                TRABAJADORES DEL ESTADO, SUSCRIBE EL PRESENTE INSTRUMENTO LEGAL,
-                <strong>{{ $empleadomateriales->nombre }}
-                    {{ $empleadomateriales->apellido_paterno }}
-                    {{ $empleadomateriales->apellido_materno }}</strong>,
-                <strong>{{ $empleadomateriales->Cargos->nombre_cargo }} </strong>
-                , REGISTRO FEDERAL DE CONTRIBUYENTES <strong>{{ $empleadomateriales->rfc }}
-                </strong>
-                FACULTADA PARA REALIZAR LA
-                CONTRATACIÓN DE LOS SERVICIOS GENERALES Y SUPERVISIÓN DE LOS SERVICIOS REQUERIDOS
-                POR LAS ÁREAS ADMINISTRATIVAS Y LOS CENTROS DE TRABAJO DELEGACIONALES, CON CARGO A
-                LAS PARTIDAS PRESUPUESTALES QUE SEAN ADMINISTRADAS EN FORMA DESCONCENTRADA POR LA
-                DELEGACIÓN, DE CONFORMIDAD CON LOS PROCEDIMIENTOS AUTORIZADOS Y EN APEGO A LA
-                NORMATIVIDAD APLICABLE, QUIEN PODRA SER SUSTITUIDA EN CUALQUIER MOMENTO, BASTANDO
-                PARA TALES EFECTOS UN COMUNICADO POR ESCRITO, FIRMADO POR EL SERVIDOR PUBLICO
-                FACULTADO PARA ELLO, INFORMANDO A “EL PROVEDOR” PARA LOS EFECTOS DEL PRESENTE
-                CONTRATO.
-            </p>
-        </li>
-        <li>
-            <p>
-                LA ADJUDICACIÓN DEL PRESENTE CONTRATO SE REALIZÓ MEDIANTE EL PROCEDIMIENTO DE
-                <strong>
-                    {{ $requisicion->Tipos->nombre_tipo }}
-                </strong>,
-                AL AMPARO DE LO ESTABLECIDO EN LOS ARTÍCULOS 134 DE LA CONSTITUCIÓN POLÍTICA DE LOS
-                ESTADOS UNIDOS MEXICANOS; <strong>ARTÍCULOS 26 FRACCIÓN III, 40 SEGUNDO Y TERCER
-                    PÁRRAFOS;
-                    42 PRIMER
-                    Y TERCER PÁRRAFO DE LA LEY DE ADQUISICIONES, ARRENDAMIENTOS Y SERVICIOS DEL
-                    SECTOR
-                    PÚBLICO.</strong>
-            </p>
-        </li>
-        <li>
-            <p>
-                <strong>“LA DEPENDENCIA”</strong> CUENTA CON SUFICIENCIA PRESUPUESTARIA OTORGADA
-                MEDIANTE OFICIO <strong>{{ $contrato->oficio_suficiencia }}</strong>, DE
-                FECHA DE <strong>{{ $contrato->fecha_oficio_suficiencia }}</strong>, EMITIDO POR LA
-                <strong>{{ $empleadofinanzas->nombre }} {{ $empleadofinanzas->apellido_paterno }}
-                    {{ $empleadofinanzas->apellido_materno }},
-                    {{ $empleadofinanzas->Cargos->nombre_cargo }}.</strong>
-            </p>
-        </li>
-        @if ($requisicion->pluralidad == 1)
-            <ul> <!-- Agregado: Abre la lista -->
-                <li>
-                    <p>
-                        La SHCP (SECRETARIA DE HACIENDA Y CRÉDITO PÚBLICO) AUTORIZÓ LA PLURIANUALIDAD
-                        MEDIANTE
-                        EL
-                        OFICIO NÚMERO DE OFICIO
-                        <strong>{{ $contrato->oficio_plurianualidad }}</strong>.
-                    </p>
-                    @if ($requisicion->autorizacion_previa == 1)
-                        <p>
-                            EN CASO DE QUE SE TRATE DE UNA CONTRATACIÓN CUYA VIGENCIA INICIE EN EL
-                            EJERCICIO FISCAL SIGUIENTE DE AQUÉL EN QUE SE FORMALICE, SE DEBERÁ CONSIGNAR
-                            EL OFICIO DE AUTORIZACIÓN DE LA SHCP EN TÉRMINOS DE LOS ARTÍCULOS 35 DE LA
-                            LEY FEDERAL DE PRESUPUESTO Y RESPONSABILIDAD HACENDARIA Y 146 DE SU
-                            REGLAMENTO.
-                        </p>
-                    @endif
-                </li> <!-- Cerrado: Cierra el elemento <li> -->
-            </ul> <!-- Agregado: Cierra la lista -->
-        @else
-            <!-- Otro código o lógica aquí si no se cumple la condición -->
-        @endif
-        <li>
-                    <p>
-                        PARA EFECTOS FISCALES LAS AUTORIDADES HACENDARIAS DE CONFORMIDAD CON LA CONSTANCIA
-                        DE
-                        SITUACIÓN FISCAL GENERADA POR EL SAT (SISTEMA DE ADMINISTRACIÓN TRIBUTARIA) LE HAN
-                        ASIGNADO EL
-                        REGISTRO FEDERAL DE CONTRIBUYENTES: <strong>ISS6001015A3</strong> .
-                    </p>
+<p class="SubTitulo">I. <strong>“LA DEPENDENCIA”</strong> DECLARA QUE:
+</p>
+<p class="Parrafo">I.1. QUE ES UN ORGANISMO DESCENTRALIZADO DE LA ADMINISTRACIÓN PÚBLICA FEDERAL, CON PERSONALIDAD JURÍDICA Y PATRIMONIO PROPIOS, DE CONFORMIDAD CON LO DISPUESTO POR LOS ARTÍCULOS 1°, 3°, FRACCIÓN I, Y 45 DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA FEDERAL, 5° DE LA LEY FEDERAL DE ENTIDADES PARAESTATALES, ASÍ COMO 5º, 207 Y 208 DE LA LEY DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES DE LOS TRABAJADORES DEL ESTADO.   </p>
 
-        </li>
-        <li>
-                    <p>
-                        TIENE ESTABLECIDO SU DOMICILIO EN <strong>CALLE AMAPOLAS, NÚMERO 100 COLONIA
-                            REFORMA,
-                            C.P 68050
-                            OAXACA
-                            DE JUÁREZ, OAXACA</strong>, MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES
-                        DEL
-                        PRESENTE
-                        CONTRATO.
-                    </p>
-        </li>
-        @if ($requisicion->garantia1_id == 2 || ($requisicion->garantia_2_id == 2 || $requisicion->garantia_3_id == 2))
-            <li>
-                <p>
-                    DE LA REVISIÓN AL HISTORIAL DE CUMPLIMIENTO EN MATERIA DE CONTRATACIONES EN EL
-                    REGISTRO ÚNICO DE CONTRATISTAS, SE ADVIERTE QUE <strong>“EL PROVEEDOR”</strong>
-                    CUENTA CON UN GRADO DE CUMPLIMIENTO <strong>, POR LO QUE
-                        <strong>“LA DEPENDENCIA”</strong> DETERMINA PROCEDENTE EFECTUAR LA REDUCCIÓN DEL
-                        MONTO DE LA GARANTÍA POR UN PORCENTAJE DE {{ $contrato->reducción }}.</strong>
-                </p>
-            </li>
-        @else
-        @endif
-    </ol>
-</li>
-<li>
-    @if ($personafisica = null)
-        <p>
-            “EL PROVEEDOR”, por conducto de su representante declara que (TRATÁNDOSE DE PERSONA
-            MORAL):
-        </p>
-    @else
-        <p>
-            “EL PROVEEDOR” declara que (TRATÁNDOSE DE PERSONA FÍSICA):
-        </p>
-    @endif
-    <ol>
-        @if ($personafisica = null)
-            <li>
-                <p>
-                    ES UNA PERSONA MORAL LEGALMENTE CONSTITUIDA DE CONFORMIDAD CON LA LEGISLACIÓN
-                    MEXICANA, SEGÚN CONSTA EN EL TESTIMONIO QUE CONTIENE
-                    {{ $personamoral->instrumento_publico }}, CON EL FOLIO
-                    {{ $personamoral->fiolio_registro }}, DE FECHA
-                    {{ $personamoral->fecha_registro }}, PASADA ANTE LA FE DEL
-                    {{ $personamoral->registro_publico }}.
-                </p>
-            </li>
-        @else
-            <li>
-                <p>
-                    ES UNA PERSONA FÍSICA, DE NACIONALIDAD
-                    <strong>{{ $contrato->nacionalidad }}</strong> LO QUE ACREDITA CON
-                    {{ $contrato->documento_expedicion }}, EXPEDIDA POR
-                    {{ $contrato->instutucion_expedida }}.
-                </p>
-            </li>
-        @endif
-        <li>
-            REÚNE LAS CONDICIONES TÉCNICAS, JURÍDICAS Y ECONÓMICAS, Y CUENTA CON LA ORGANIZACIÓN Y
-            ELEMENTOS
-            NECESARIOS PARA SU CUMPLIMIENTO.
-        </li>
-        <li>
-            CUENTA CON SU REGISTRO FEDERAL DE CONTRIBUYENTES
-            <strong>
-                {{ $persona->rfc }}
-            </strong>
-        </li>
-        <li>
-            BAJO PROTESTA DE DECIR VERDAD, ESTÁ AL CORRIENTE EN LOS PAGOS DE SUS OBLIGACIONES
-            FISCALES, EN
-            ESPECÍFICO LAS PREVISTAS EN EL ARTÍCULO 32-D DEL CÓDIGO FISCAL FEDERAL VIGENTE, ASÍ COMO
-            DE SUS
-            OBLIGACIONES FISCALES EN MATERIA DE SEGURIDAD SOCIAL, ANTE INSTITUTO DEL FONDO NACIONAL
-            DE LA
-            VIVIENDA PARA LOS TRABAJADORES (INFONAVIT) Y INSTITUTO MEXICANO DEL SEGURO SOCIAL
-            (IMSS); LO QUE
-            ACREDITA CON LAS OPINIONES DE CUMPLIMIENTO DE OBLIGACIONES FISCALES Y EN MATERIA DE
-            SEGURIDAD
-            SOCIAL EN SENTIDO POSITIVO, EMITIDAS POR EL SAT E IMSS, RESPECTIVAMENTE, ASÍ COMO CON LA
-            CONSTANCIA DE SITUACIÓN FISCAL EN MATERIA DE APORTACIONES PATRONALES Y ENTERO DE
-            DESCUENTOS, SIN
-            ADEUDO, EMITIDA POR EL INFONAVIT, LAS CUALES SE ENCUENTRAN VIGENTES Y OBRAN EN EL
-            EXPEDIENTE
-            RESPECTIVO.
-        </li>
-        <li>
-            TIENE ESTABLECIDO SU DOMICILIO EN <strong>{{ $persona->domicilio }}</strong> MISMO QUE
-            SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
-        </li>
-    </ol>
-</li>
-<li><strong>De “LAS PARTES”:</strong>
-            <ol class="decimal">
-                <li>
-                    QUE ES SU VOLUNTAD CELEBRAR EL PRESENTE CONTRATO Y SUJETARSE A SUS TÉRMINOS Y
-                    CONDICIONES, PARA
-                    LO CUAL SE RECONOCEN LAS FACULTADES Y CAPACIDADES, MISMAS QUE NO LES HAN SIDO REVOCADAS
-                    O
-                    LIMITADAS EN FORMA ALGUNA, POR LO QUE DE COMÚN ACUERDO SE OBLIGAN DE CONFORMIDAD CON LAS
-                    SIGUIENTES:
-                </li>
-            </ol>
-</li>
-</ol>
+<p class="Parrafo">
+I.2. SU REPRESENTANTE, LA <strong>{{ $empleadosubdelegado->nombre }} {{ $empleadosubdelegado->apellido_paterno }} {{ $empleadosubdelegado->apellido_materno }}</strong>, SE ENCUENTRA FACULTADA
+PARA SUSCRIBIR EL PRESENTE INSTRUMENTO LEGAL EN REPRESENTACIÓN DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES
+DE LOS TRABAJADORES DEL ESTADO, DE CONFORMIDAD CON LO ESTABLECIDO EN LA ESCRITURA PÚBLICA NÚMERO
+46,460, LIBRO 1,265 DE FECHA DIECIOCHO DE JULIO DEL AÑO DOS MIL VEINTIDÓS, PASADA ANTE LA FE DEL
+LICENCIADO ALBERTO T. SÁNCHEZ COLÍN, NOTARIO PÚBLICO NÚMERO 83 DE LA CIUDAD DE MÉXICO, QUIEN PODRÁ
+SER SUSTITUIDO EN CUALQUIER MOMENTO EN SU CARGO O FUNCIONES, SIN QUE ELLO IMPLIQUE LA NECESIDAD DE
+ELABORAR CONVENIO MODIFICATORIO.
+</p>
+<p class="Parrafo">
+I.3. DE CONFORMIDAD CON EL ARTÍCULO 26, APARTADO B, FRACCIÓN I Y X, DEL REGLAMENTO
+ÓRGANICO DE LAS DELEGACIONES ESTATALES Y REGIONALES DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES
+DE LOS TRABAJADORES DEL ESTADO SUSCRIBE EL PRESENTE INSTRUMENTO LEGAL COMO ADMINISTRADOR
+DEL CONTRATO
+EL <strong>{{ $contrato->AdminContratos->nombre }} {{ $contrato->AdminContratos->apellido_paterno }}{{ $contrato->AdminContratos->apellido_materno }}</strong>, <strong>{{ $contrato->AdminContratos->Cargos->nombre_cargo }}</strong>
+,REGISTRO FEDERAL DE CONTRIBUYENTES <strong>{{ $contrato->AdminContratos->rfc }}</strong>, FACULTADO PARA ADMINISTRAR EL CUMPLIMIENTO DE
+LAS OBLIGACIONES QUE DERIVEN DEL OBJETO DEL PRESENTE CONTRATO, QUIEN PODRÁ SER SUSTITUIDO EN
+CUALQUIER MOMENTO, BASTANDO PARA TALES EFECTOS UN COMUNICADO POR ESCRITO Y FIRMADO POR EL
+SERVIDOR PÚBLICO FACULTADO PARA ELLO, INFORMANDO A <strong>“EL PROVEEDOR”</strong> PARA LOS
+EFECTOS DEL PRESENTE CONTRATO.
+</p>
+<p class="Parrafo">
+I.4. DE CONFORMIDAD CON LOS ARTÍCULOS 34 Y 37 FRACCIONES I Y XIII DEL REGLAMENTO ÓRGANICO
+DE LAS DELEGACIONES ESTATALES Y REGIONALES DEL INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES
+DE LOS TRABAJADORES DEL ESTADO, SUSCRIBE EL PRESENTE INSTRUMENTO LEGAL,
+<strong>{{ $empleadomateriales->nombre }} {{ $empleadomateriales->apellido_paterno }} {{ $empleadomateriales->apellido_materno }}</strong>,
+<strong>{{ $empleadomateriales->Cargos->nombre_cargo }}</strong>
+, REGISTRO FEDERAL DE CONTRIBUYENTES <strong>{{ $empleadomateriales->rfc }}</strong>
+FACULTADA PARA REALIZAR LA CONTRATACIÓN DE LOS SERVICIOS GENERALES Y SUPERVISIÓN DE LOS SERVICIOS REQUERIDOS
+POR LAS ÁREAS ADMINISTRATIVAS Y LOS CENTROS DE TRABAJO DELEGACIONALES, CON CARGO A
+LAS PARTIDAS PRESUPUESTALES QUE SEAN ADMINISTRADAS EN FORMA DESCONCENTRADA POR LA
+DELEGACIÓN, DE CONFORMIDAD CON LOS PROCEDIMIENTOS AUTORIZADOS Y EN APEGO A LA
+NORMATIVIDAD APLICABLE, QUIEN PODRA SER SUSTITUIDA EN CUALQUIER MOMENTO, BASTANDO
+PARA TALES EFECTOS UN COMUNICADO POR ESCRITO, FIRMADO POR EL SERVIDOR PUBLICO
+FACULTADO PARA ELLO, INFORMANDO A “EL PROVEDOR” PARA LOS EFECTOS DEL PRESENTE
+CONTRATO.
+</p>
+<p class="Parrafo">
+I.5. LA ADJUDICACIÓN DEL PRESENTE CONTRATO SE REALIZÓ MEDIANTE EL PROCEDIMIENTO DE <strong>{{ $requisicion->Tipos->nombre_tipo }}</strong>,
+AL AMPARO DE LO ESTABLECIDO EN LOS ARTÍCULOS 134 DE LA CONSTITUCIÓN POLÍTICA DE LOS
+ESTADOS UNIDOS MEXICANOS; <strong>ARTÍCULOS 26 FRACCIÓN III, 40 SEGUNDO Y TERCER PÁRRAFOS;
+42 PRIMER Y TERCER PÁRRAFO DE LA LEY DE ADQUISICIONES, ARRENDAMIENTOS Y SERVICIOS DEL
+SECTOR PÚBLICO.</strong>  
+</p>
+<p class="Parrafo">
+I.6. <strong>“LA DEPENDENCIA”</strong> CUENTA CON SUFICIENCIA PRESUPUESTARIA OTORGADA MEDIANTE OFICIO <strong>{{ $contrato->oficio_suficiencia }}</strong>, DE
+FECHA DE <strong>{{ $contrato->fecha_oficio_suficiencia }}</strong>, EMITIDO POR LA
+<strong>{{ $empleadofinanzas->nombre }} {{ $empleadofinanzas->apellido_paterno }} {{ $empleadofinanzas->apellido_materno }}, {{ $empleadofinanzas->Cargos->nombre_cargo }}.</strong>
+</p>
+@if ($requisicion->pluralidad == 1)
+<p class="Parrafo">
+I.7 La SHCP (SECRETARIA DE HACIENDA Y CRÉDITO PÚBLICO) AUTORIZÓ LA PLURIANUALIDAD MEDIANTE EL OFICIO NÚMERO DE OFICIO <strong>{{ $contrato->oficio_plurianualidad }}</strong>.
+</p>
+@if ($requisicion->autorizacion_previa == 1)
+<p class="Parrafo">
+I.8 EN CASO DE QUE SE TRATE DE UNA CONTRATACIÓN CUYA VIGENCIA INICIE EN EL
+EJERCICIO FISCAL SIGUIENTE DE AQUÉL EN QUE SE FORMALICE, SE DEBERÁ CONSIGNAR
+EL OFICIO DE AUTORIZACIÓN DE LA SHCP EN TÉRMINOS DE LOS ARTÍCULOS 35 DE LA
+LEY FEDERAL DE PRESUPUESTO Y RESPONSABILIDAD HACENDARIA Y 146 DE SU REGLAMENTO.
+</p>
+<p class="Parrafo">
+I.9. PARA EFECTOS FISCALES LAS AUTORIDADES HACENDARIAS DE CONFORMIDAD CON LA CONSTANCIADE SITUACIÓN FISCAL GENERADA POR EL SAT (SISTEMA DE ADMINISTRACIÓN TRIBUTARIA) LE HAN ASIGNADO EL REGISTRO FEDERAL DE CONTRIBUYENTES: <strong>ISS6001015A3</strong> .
+</p>
+<p class="Parrafo">
+I.10. TIENE ESTABLECIDO SU DOMICILIO EN <strong>CALLE AMAPOLAS, NÚMERO 100 COLONIA REFORMA, C.P 68050 OAXACA DE JUÁREZ, OAXACA</strong>, MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
+</p>
+@if ($requisicion->garantia1_id == 2 || ($requisicion->garantia_2_id == 2 || $requisicion->garantia_3_id == 2))
+<p class="Parrafo">
+I.11. DE LA REVISIÓN AL HISTORIAL DE CUMPLIMIENTO EN MATERIA DE CONTRATACIONES EN EL REGISTRO ÚNICO DE CONTRATISTAS, SE ADVIERTE QUE <strong>“EL PROVEEDOR”</strong>CUENTA CON UN GRADO DE CUMPLIMIENTO <strong>, POR LO QUE <strong>“LA DEPENDENCIA”</strong> DETERMINA PROCEDENTE EFECTUAR LA REDUCCIÓN DEL MONTO DE LA GARANTÍA POR UN PORCENTAJE DE {{ $contrato->reducción }}.</strong>
+</p>
+@else
+@endif
+@else
+<p class="Parrafo">
+I.8. PARA EFECTOS FISCALES LAS AUTORIDADES HACENDARIAS DE CONFORMIDAD CON LA CONSTANCIADE SITUACIÓN FISCAL GENERADA POR EL SAT (SISTEMA DE ADMINISTRACIÓN TRIBUTARIA) LE HAN ASIGNADO EL REGISTRO FEDERAL DE CONTRIBUYENTES: <strong>ISS6001015A3</strong> .
+</p>
+<p class="Parrafo">
+I.9. TIENE ESTABLECIDO SU DOMICILIO EN <strong>CALLE AMAPOLAS, NÚMERO 100 COLONIA REFORMA, C.P 68050 OAXACA DE JUÁREZ, OAXACA</strong>, MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
+</p>
+@if ($requisicion->garantia1_id == 2 || ($requisicion->garantia_2_id == 2 || $requisicion->garantia_3_id == 2))
+<p class="Parrafo">
+I.10. DE LA REVISIÓN AL HISTORIAL DE CUMPLIMIENTO EN MATERIA DE CONTRATACIONES EN EL REGISTRO ÚNICO DE CONTRATISTAS, SE ADVIERTE QUE <strong>“EL PROVEEDOR”</strong>CUENTA CON UN GRADO DE CUMPLIMIENTO <strong>, POR LO QUE <strong>“LA DEPENDENCIA”</strong> DETERMINA PROCEDENTE EFECTUAR LA REDUCCIÓN DEL MONTO DE LA GARANTÍA POR UN PORCENTAJE DE {{ $contrato->reducción }}.</strong>
+</p>
+@else
+@endif
+@endif
+@else
+<p class="Parrafo">
+I.7. PARA EFECTOS FISCALES LAS AUTORIDADES HACENDARIAS DE CONFORMIDAD CON LA CONSTANCIADE SITUACIÓN FISCAL GENERADA POR EL SAT (SISTEMA DE ADMINISTRACIÓN TRIBUTARIA) LE HAN ASIGNADO EL REGISTRO FEDERAL DE CONTRIBUYENTES: <strong>ISS6001015A3</strong> .
+</p>
+<p class="Parrafo">
+I.8. TIENE ESTABLECIDO SU DOMICILIO EN <strong>CALLE AMAPOLAS, NÚMERO 100 COLONIA REFORMA, C.P 68050 OAXACA DE JUÁREZ, OAXACA</strong>, MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
+</p>
+@if ($requisicion->garantia1_id == 2 || ($requisicion->garantia_2_id == 2 || $requisicion->garantia_3_id == 2))
+<p class="Parrafo">
+I.9. DE LA REVISIÓN AL HISTORIAL DE CUMPLIMIENTO EN MATERIA DE CONTRATACIONES EN EL REGISTRO ÚNICO DE CONTRATISTAS, SE ADVIERTE QUE <strong>“EL PROVEEDOR”</strong>CUENTA CON UN GRADO DE CUMPLIMIENTO <strong>, POR LO QUE <strong>“LA DEPENDENCIA”</strong> DETERMINA PROCEDENTE EFECTUAR LA REDUCCIÓN DEL MONTO DE LA GARANTÍA POR UN PORCENTAJE DE {{ $contrato->reducción }}.</strong>
+</p>
+@endif
+@endif
+
+
+@if ($personafisica = null)
+<p class="SubTitulo">
+II. “EL PROVEEDOR”, por conducto de su representante declara que (TRATÁNDOSE DE PERSONA MORAL):
+</p>
+@else
+<p class="SubTitulo">
+II. “EL PROVEEDOR” declara que (TRATÁNDOSE DE PERSONA FÍSICA):
+</p>
+@endif
+@if ($personafisica = null)
+<p>
+II.1 ES UNA PERSONA MORAL LEGALMENTE CONSTITUIDA DE CONFORMIDAD CON LA LEGISLACIÓN MEXICANA, SEGÚN CONSTA EN EL TESTIMONIO QUE CONTIENE
+{{ $personamoral->instrumento_publico }}, CON EL FOLIO {{ $personamoral->fiolio_registro }}, DE FECHA {{ $personamoral->fecha_registro }}, PASADA ANTE LA FE DEL
+{{ $personamoral->registro_publico }}.
+</p>
+@else
+<p>
+II.1. ES UNA PERSONA FÍSICA, DE NACIONALIDAD <strong>{{ $contrato->nacionalidad }}</strong> LO QUE ACREDITA CON {{ $contrato->documento_expedicion }}, EXPEDIDA POR {{ $contrato->instutucion_expedida }}.
+</p>
+@endif
+<p>
+II.2. REÚNE LAS CONDICIONES TÉCNICAS, JURÍDICAS Y ECONÓMICAS, Y CUENTA CON LA ORGANIZACIÓN Y ELEMENTOS NECESARIOS PARA SU CUMPLIMIENTO.
+</p>
+<p>
+II.3. CUENTA CON SU REGISTRO FEDERAL DE CONTRIBUYENTES <strong>{{ $persona->rfc }}</strong>.
+</p>
+<p>
+II.4. BAJO PROTESTA DE DECIR VERDAD, ESTÁ AL CORRIENTE EN LOS PAGOS DE SUS OBLIGACIONES FISCALES, EN ESPECÍFICO LAS PREVISTAS EN EL ARTÍCULO 32-D DEL CÓDIGO FISCAL FEDERAL VIGENTE, ASÍ COMO DE SUS OBLIGACIONES FISCALES EN MATERIA DE SEGURIDAD SOCIAL, ANTE INSTITUTO DEL FONDO NACIONAL DE LA
+VIVIENDA PARA LOS TRABAJADORES (INFONAVIT) Y INSTITUTO MEXICANO DEL SEGURO SOCIAL (IMSS); LO QUE ACREDITA CON LAS OPINIONES DE CUMPLIMIENTO DE OBLIGACIONES FISCALES Y EN MATERIA DE SEGURIDAD
+SOCIAL EN SENTIDO POSITIVO, EMITIDAS POR EL SAT E IMSS, RESPECTIVAMENTE, ASÍ COMO CON LA CONSTANCIA DE SITUACIÓN FISCAL EN MATERIA DE APORTACIONES PATRONALES Y ENTERO DE DESCUENTOS, SIN
+ADEUDO, EMITIDA POR EL INFONAVIT, LAS CUALES SE ENCUENTRAN VIGENTES Y OBRAN EN EL EXPEDIENTE RESPECTIVO.
+</p>
+<p>
+II.5. TIENE ESTABLECIDO SU DOMICILIO EN <strong>{{ $persona->domicilio }}</strong> MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
+</p>
+
+<p class="SubTitulo"><strong>De “LAS PARTES”:</strong></p>
+<p>
+II.6. QUE ES SU VOLUNTAD CELEBRAR EL PRESENTE CONTRATO Y SUJETARSE A SUS TÉRMINOS Y
+CONDICIONES, PARALO CUAL SE RECONOCEN LAS FACULTADES Y CAPACIDADES, MISMAS QUE NO LES HAN SIDO REVOCADAS O
+LIMITADAS EN FORMA ALGUNA, POR LO QUE DE COMÚN ACUERDO SE OBLIGAN DE CONFORMIDAD CON LAS SIGUIENTES:
+</p>
+
+
 <h5 class="SubTitulo">
     <strong>CLÁUSULAS</strong>
 </h5>

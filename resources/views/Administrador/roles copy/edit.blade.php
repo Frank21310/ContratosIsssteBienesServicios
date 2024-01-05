@@ -4,7 +4,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <h2 class="">Roles</h2>
+                    <h2 class="">Editar rol de {{$rol->nombre_rol}} </h2>
                 </div>
                 <div class="col g-col-6 d-flex justify-content-end ">
                     <a id="BtnAgregar" href="{{ route('roles.index') }}" class="btn btn-primary ml-auto BotonRojo">
@@ -16,7 +16,8 @@
         </div>
         <hr>
         <div class="card-body">
-            <form action="{{ route('roles.store') }}" method="POST" enctype="multipart/form-data" id="create">
+            <form action="{{ route('roles.update', $rol->id_rol) }}" method="POST" enctype="multipart/form-data" id="create">
+                @method('PUT')
                 @include('Administrador.roles.formularios.form')
             </form>
         </div>
@@ -25,9 +26,11 @@
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-primary ml-auto BotonGris" form="create">
                     <i class="fas fa-plus"></i>
-                    Crear
+                    Editar
                 </button>
-              </div>
+            </div>
+            
+
         </div>
     </div>
 @endsection
