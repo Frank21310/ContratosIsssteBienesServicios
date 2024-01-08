@@ -26,12 +26,16 @@
         <hr>
         <div class="card-footer">
             <div class="d-grid gap-2 col-5 mx-auto">
-                <button class="btn btn-primary ml-auto BotonRojo" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                    id="create">
+                <button class="btn btn-primary ml-auto BotonRojo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                     <i class="fas fa-plus"></i>
                     Siguiente
                 </button>
+                <button class="btn btn-success ml-auto" type="submit" form="create">
+                    <i class="fas fa-save"></i>
+                    Guardar Cambios
+                </button>
             </div>
+            
         </div>
 
         <!-- Modal -->
@@ -51,22 +55,22 @@
                                 @csrf
                                 @method('PUT')
 
-                                <button type="submit" class="btn btn-secondary BotonGris" name="tipo_id"
+                                <button type="submit" class="btn btn-secondary BotonGris"  name="tipo_id"
                                     value="1">Adjudicación directa</button>
                                 <hr>
                                 <button type="submit" class="btn btn-secondary BotonGris" name="tipo_id"
-                                    value="2">Invitación a cuando menos tres
+                                    value="2" >Invitación a cuando menos tres
                                     personas</button>
                                 <hr>
                                 <button type="submit" class="btn btn-secondary BotonGris" name="tipo_id"
-                                    value="3">Licitación pública</button>
+                                    value="3" >Licitación pública</button>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer d-grid gap-2 d-md-flex justify-content-center">
                         <button type="button" class="btn btn-secondary BotonGris" data-bs-dismiss="modal">Regresar</button>
-                        <button type="button" class="btn btn-primary BotonRojo"
-                            onclick="document.getElementById('updateTipoContratacionForm').submit()">Guardar</button>
+                        <button type="button" class="btn btn-primary BotonRojo" onclick="document.getElementById('updateTipoContratacionForm').submit()">Guardar</button>
+
                     </div>
                 </div>
             </div>

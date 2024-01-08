@@ -38,7 +38,6 @@ class ContratosController extends Controller
             $contratos = $contratos->where('id_contrato', 'like', '%' . $request->search . '%')
                 ->orWhere('empleado_num', 'like', '%' . $request->search . '%')
                 ->orWhere('descripcion_contrato', 'like', '%' . $request->search . '%');
-                
         }
         $contratos = $contratos->paginate($limit)->appends($request->all());
         return view('Contratante.Contratos.index', compact('contratos'));
@@ -180,9 +179,6 @@ class ContratosController extends Controller
             // Devolver el PDF generado
             return $pdf->setPaper('a4', 'portrait')->stream('contrato_' . $id . '.pdf');
         }
-
-        // Manejar el caso donde no se encuentra ninguna persona asociada al contrato
-        // Puedes agregar lógica adicional según tus requerimientos
     }
     public function wordContrato($id)
     {
@@ -225,23 +221,31 @@ class ContratosController extends Controller
             $section = $phpWord->addSection();
 
             // Crear el encabezado
-            $encabezado = $section->addHeader();
+            $header = $section->addHeader();
 
             // Obtener el contenido del encabezado desde la vista
-            $encabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion', 'contrato', 'persona'))->render();
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $encabezado, false, false);
+            $contenidoEncabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion', 'contrato', 'persona'))->render();
+            \PhpOffice\PhpWord\Shared\Html::addHtml($header, $contenidoEncabezado, false, false);
+            //$imagePath = __DIR__ . '\assets\img\LogoNew2.png';
+            $imagePath = 'assets/img/LogoNew2.png';
+
+            $imageStyle = array('width' => 100, 'height' => 50, 'align' => 'left');
+            $header->addImage($imagePath, $imageStyle);
+            
             // Agregar pie de página
-
             $footer = $section->addFooter();
-            $footer->addPreserveText('Página {PAGE} de {NUMPAGES}', null, array('alignment' => 'right'));
+            $footer->addPreserveText('Página {PAGE} de {NUMPAGES}', null, array('alignment' => 'center'));
+            if ($contrato->tipo_contrato_id === 1) {
+                // Agregar contenido al documento para contratos de bienes
+                $htmlView = view('Contratante.contratos.formularios.word.CuerpoBienes', compact('requisicion', 'logo', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
+                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
+            } elseif ($contrato->tipo_contrato_id === 2) {
+                // Agregar contenido al documento para contratos de servicios
+                $htmlView = view('Contratante.contratos.formularios.word.Cuerpo', compact('requisicion', 'logo', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
+                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
+            } else {
+            }
 
-            // Agregar contenido al documento
-            $htmlView = view('Contratante.contratos.formularios.word.Cuerpo', compact('requisicion', 'logo', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
-
-            // Alinear el contenido a justificado
-            // $section->addTextBreak();
-            $section->addText('Contenido justificado', null, array('alignment' => 'both'));
 
             // Guardar el documento en storage (o en la ubicación que desees)
             $nombreArchivo = 'contrato_' . $id . '.docx'; // Nombre del archivo Word

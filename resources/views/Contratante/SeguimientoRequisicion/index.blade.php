@@ -87,18 +87,34 @@
                                     <td class="custom-td">{{ $requisicion->Tipos->nombre_tipo }}</td>
                                     <td class="custom-td">{{ $requisicion->Estatus->nombre_estatus }}</td>
                                     <td class="custom-td">
+                                        <div class="btn-group" role="group">
+
+                                            <form action="{{ route('descargarArchivosRequisicion', $requisicion->id_requisicion) }}" method="GET">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
                                         @if ($requisicion->estatus == 1)
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
-                                                class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        </div>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
+                                                    class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                            </div>
                                         @else
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('Contratos.create', $requisicion->id_requisicion) }}"
-                                                class="btn btn-success"><i class="fa fa-file"></i></a>
-                                        </div>
-                                            
+                                            @if ($requisicion->estatus == 4)
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{ route('Contratos.create', $requisicion->id_requisicion) }}"
+                                                        class="btn btn-success"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            @else
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
+                                                        class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                                </div>
+                                            @endif
                                         @endif
+                                    </div>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -116,8 +132,9 @@
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('SeguimientoRequisicion.index') }}?limit=" + $(this).val() + '&search=' + $(
-                '#search').val()
+            window.location.href = "{{ route('SeguimientoRequisicion.index') }}?limit=" + $(this).val() +
+                '&search=' + $(
+                    '#search').val()
         })
 
         $('#search').on('keyup', function(e) {

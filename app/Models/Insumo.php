@@ -20,6 +20,6 @@ class Insumo extends Model
     ];
     public function PartidaInsumo(): HasOne
     {
-        return $this->hasOne(Partida::class, 'id_partida_especifica','partida_id' );
+        return $this->hasOne(Partida::class, 'id_partida','partida_id' );
     }
 }

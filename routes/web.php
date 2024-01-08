@@ -35,13 +35,14 @@ use Illuminate\Support\Facades\Auth;
 | Web Routes pages of Login and welcome home
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/Registro',function () {
+Route::get('/Registro', function () {
     return view('auth.Registro');
-} )->name('Registro');
+})->name('Registro');
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/Administrador/Empleados', EmpleadosController::class);
     Route::resource('/Administrador/Usuarios', UsuariosController::class);
     Route::resource('/Administrador/Proveedores', ProveedoresController::class);
-
 })->namespace('root');
 /*
 |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
-    
+
     Route::get('/Requirente', [SoloRequirenteController::class, 'index'])->name(' Peticiones');
 
     Route::get('/Requirente/Requisiciones/fclaveCucop', [RequisicionesController::class, 'fclaveCucop'])->name('fclaveCucop');
@@ -81,7 +81,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::resource('Requirente/Insumos', InsumosController::class);
-    
 })->namespace('Requirente');
 /*
 |----------------------------------------------------------------- ---------
@@ -89,14 +88,16 @@ Route::group(['middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
-    
+
     Route::get('/Contratante', [SoloContratanteController::class, 'index'])->name(' Contratante');
 
     Route::resource('/Contratante/SeguimientoRequisicion', RequisicionesSeguimientoController::class);
     Route::get('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'edit'])->name('SeguimientoRequisicion.edit');
-    Route::put('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'updateTipoContratacion'])->name('SeguimientoRequisicion.updateTipoContratacion');
-    Route::put('/Contratante/SeguimientoRequisicion/store', [RequisicionesSeguimientoController::class, 'store'])->name('SeguimientoRequisicion.store');
+    Route::put('/Contratante/SeguimientoRequisicion/{id}', [RequisicionesSeguimientoController::class, 'update'])->name('SeguimientoRequisicion.update');
+    Route::put('/Contratante/SeguimientoRequisicion/{id}/tipo-contratacion', [RequisicionesSeguimientoController::class, 'updateTipoContratacion'])->name('SeguimientoRequisicion.updateTipoContratacion');
 
+
+    Route::get('/descargar-archivos-requisicion/{id}', [RequisicionesSeguimientoController::class, 'descargarArchivosRequisicion'])->name('descargarArchivosRequisicion');
 
     Route::resource('/Contratante/RequisicionesFinalizadas', RequisicionesFinalizadasController::class);
 
@@ -104,9 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/Contratante/contratos/create/{requisicion_id}', [ContratosController::class, 'create'])->name('Contratos.create');
     Route::post('/Contratante/contratos/store', [ContratosController::class, 'store'])->name('Contratos.store');
     Route::get('/Contratante/contratos/{id}/imprimir', [ContratosController::class, 'imprimirContrato'])->name('Contratos.imprimir');
-    Route::get('/Contratante/contratos/{id}/generar-word',[ContratosController::class, 'wordContrato'])->name('Contratos.word');
-
-
+    Route::get('/Contratante/contratos/{id}/generar-word', [ContratosController::class, 'wordContrato'])->name('Contratos.word');
 })->namespace('Contratante');
 /*
 |----------------------------------------------------------------- ---------
@@ -114,9 +113,8 @@ Route::group(['middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
-    
-    Route::get('/AdminContratos', [SoloAdminContratosController::class, 'index'])->name(' AdminContratos');
 
+    Route::get('/AdminContratos', [SoloAdminContratosController::class, 'index'])->name(' AdminContratos');
 })->namespace('admincontratos');
 /*
 |----------------------------------------------------------------- ---------
@@ -124,9 +122,8 @@ Route::group(['middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
-    
-    Route::get('/Finanzas', [SoloFinanzasController::class, 'index'])->name(' Finanzas');
 
+    Route::get('/Finanzas', [SoloFinanzasController::class, 'index'])->name(' Finanzas');
 })->namespace('Finanzas');
 /*
 |----------------------------------------------------------------- ---------
@@ -134,7 +131,6 @@ Route::group(['middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
-    
-    Route::get('/Anormativa', [SoloAreaNormativaController::class, 'index'])->name(' Anormativa');
 
+    Route::get('/Anormativa', [SoloAreaNormativaController::class, 'index'])->name(' Anormativa');
 })->namespace('Anormativa');

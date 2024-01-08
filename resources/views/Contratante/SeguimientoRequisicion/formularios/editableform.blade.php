@@ -59,67 +59,72 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($requisicion->detalles as $detalle)
-                <tr id="filaEjemplo">
+            @foreach ($detalles as $index => $detalle)
 
-                    <td>
-                        <label>Partida:</label>
-                        <select class="form-control select-partida sselect" name="detalles[0][num_partida]"
-                            readonly>
-                            <option value="">Selecciona</option>
-                            @foreach ($partidas as $partida)
-                                <option value="{{ $partida->id_partida }}" class="form-control"
-                                    @if ($detalle->num_partida == $partida->id_partida) selected @endif>
-                                    {{ $partida->id_partida }} - {{ $partida->descripcion }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <label>CUCoP:</label>
-                        <input type="text" class="form-control span-cucop sselect" name="detalles[0][cucop]"
-                            value="{{ $detalle->cucop }}" readonly>
-                    </td>
-                    <td>
-                        <label>Descripcion:</label>
-                        <input type="text" class="form-control sselect" name="descripcion"
-                            value="{{ $detalle->Insumos->descripcion }}">
-                    </td>
-                    <td>
-                        <label>Cantidad:</label>
-                        <input type="number" name="detalles[0][cantidad]" min="0" placeholder="1.0"
-                            step="0.01" class="form-control sselect" value="{{ $detalle->cantidad }}">
-                    </td>
-                    <td>
-                        <label>Medida:</label>
-                        <select class="form-control sselect" name="detalles[0][medida_id]">
-                            @foreach ($unidades as $unidad)
-                                <option value="{{ $unidad->id_medida }}" class="form-control"
-                                    @if ($detalle->medida_id == $unidad->id_medida) selected @endif>
-                                    {{ $unidad->nombre_medida }}
-                                </option>
-                            @endforeach
-
-                        </select>
-                    </td>
-                    <td>
-                        <label>Precio: </label>
-                        <input type="number" name="detalles[0][precio]" min="0" placeholder="1.0" step="0.01"
-                            class="form-control sselect" value="{{ $detalle->precio }}">
-                    </td>
-                    <td>
-                        <label>Importe:</label>
-                        <input type="number" class="form-control importe custom-input" name="detalles[0][importe]"
-                            value="{{ $detalle->importe }}" readonly>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-danger borrarFila"><i class="fas fa-trash "></i></button>
-                </tr>
+            <tr id="filaEjemplo">
+                <td>
+                    <label>Partida:</label>
+                    <select class="form-control custom-select select-partida" name="detalles[{{ $index }}][num_partida]" required>
+                        <option value="">Selecciona</option>
+                        @foreach ($partidas as $partida)
+                            <option value="{{ $partida->id_partida }}" @if ($detalle->num_partida == $partida->id_partida) selected @endif>
+                                {{ $partida->id_partida }} - {{ $partida->descripcion }}
+                            </option>
+                        @endforeach
+                    </select>
+                </td>
+                <td>
+                    <label>CUCoP:</label>
+                    <input type="text" class="form-control custom-input span-cucop" name="detalles[{{ $index }}][cucop]"
+                        readonly required value="{{ $detalle->cucop }}">
+                </td>
+                <td>
+                    <label>Descripcion:</label>
+                    <select class="form-control custom-select select-insumo" name="detalles[{{ $index }}][descripcion]" required>
+                        <option value="{{ $detalle->descripcion }}">{{ $detalle->Insumos->descripcion }}</option>
+                        @foreach ($cucops as $insumo)
+                            <option value="{{ $insumo->id }}" @if ($detalle->descripcion == $insumo->id) selected @endif>
+                                {{ $insumo->descripcion }}
+                            </option>
+                        @endforeach
+                    </select>
+                </td>
+                
+                <td>
+                    <label>Cantidad:</label>
+                    <input type="number" name="detalles[{{ $index }}][cantidad]" min="1" placeholder="1" step="1"
+                        class="form-control custom-input" value="{{ old('detalles.' . $index . '.cantidad', $detalle->cantidad) }}" required>
+                </td>
+                <td>
+                    <label>Medida:</label>
+                    <select class="form-control custom-select" name="detalles[{{ $index }}][medida_id]" required>
+                        @foreach ($unidades as $unidad)
+                            <option value="{{ $unidad->id_medida}}" @if ($unidad->id_medida == $detalle->medida_id) selected @endif>
+                                {{ $unidad->nombre_medida }}
+                            </option>
+                        @endforeach
+                    </select>
+                </td>
+                <td>
+                    <label>Precio: </label>
+                    <input type="number" name="detalles[{{ $index }}][precio]" min="0" placeholder="1.0" step="0.1"
+                        class="form-control custom-input" value="{{ old('detalles.' . $index . '.precio') }}" required>
+                </td>
+                <td>
+                    <label>Importe:</label>
+                    <input type="number" class="form-control custom-input importe" name="detalles[{{ $index }}][importe]"
+                        readonly required>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger borrarFila"><i class="fas fa-trash "></i></button>
+                </td>
+            </tr>
             @endforeach
+
         </tbody>
     </table>
     <div class="d-grid gap-2 p-4 col-3 mx-auto">
-        <button type="button" id="agregarFila" class="btn btn-primary BotonGris">Añadir</button>
+        <button type="button" id="agregarFila" class="btn btn-primary BotonGris">Añadir Fila</button>
     </div>
 </div>
 
@@ -406,7 +411,6 @@
         function calcularTotales() {
             var subtotal = 0;
 
-            // Iterar sobre cada fila
             $("#tablaDetalles tbody tr").each(function(index) {
                 var importe = parseFloat($(this).find(".importe").val()) || 0;
                 subtotal += importe;
@@ -478,9 +482,8 @@
                         );
 
                         $.each(data, function(index, item) {
-                            select.append('<option value="' + item
-                                .descripcion_insumo + '">' +
-                                item.descripcion_insumo + '</option>');
+                            select.append('<option value="' + item.id_cucop + '">' +
+                                item.descripcion + '</option>');
                         });
                     }
                 });
