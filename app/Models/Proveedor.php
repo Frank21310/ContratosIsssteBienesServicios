@@ -15,7 +15,7 @@ class Proveedor extends Model
         'persona_id',
         'nombre',
         'rfc',
-        'nacionlidad',
+        'nacionalidad',
         'domicilio_id',
         'documento_expedicion',
         'institucion_expedida',
@@ -25,7 +25,7 @@ class Proveedor extends Model
         'fecha_registro',
         'representante',
         'caracter_id',
-        'instrumento_notarial_represntante'
+        'instrumento_notarial_representante'
     ];
     public function Personas(): HasOne
     {

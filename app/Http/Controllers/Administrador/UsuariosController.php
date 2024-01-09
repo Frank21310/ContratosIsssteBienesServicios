@@ -77,10 +77,9 @@ class UsuariosController extends Controller
             'password' => Hash::make($data['password']),
             'rol_id' => $data['id_rol'],
         ]);
+        return redirect()
+        ->route('Usuarios.index');
 
-        $users = User::all(); // Obtener todos los usuarios
-
-        return view('Administrador.Usuarios.index', compact('users'));
     }
 
     /**

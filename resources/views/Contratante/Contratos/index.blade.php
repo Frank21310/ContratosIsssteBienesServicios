@@ -102,7 +102,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card-footer">
             @if ($contratos->count() > 0)
                 {{ $contratos->links() }}

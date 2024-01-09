@@ -47,8 +47,8 @@
     CONTRATO<strong>@if ($requisicion->tipo_id == 1) CERRADO @else ABIERTO @endif</strong>PARA LA PRESTACIÓN DE SERVICIOS DE <strong>{{ $contrato->descripcion_contrato }}</strong>, CON CARÁCTER
 @if ($requisicion->pais_id == 1) <strong>NACIONAL</strong>@else <strong>INTERNACIONAL BAJO COBERTURA DE LOS TRATADOS</strong>@endif QUE CELEBRAN POR UNA PARTE, EL EJECUTIVO FEDERAL POR CONDUCTO DEL <strong>INSTITUTO DE SEGURIDAD Y SERVICIOS SOCIALES DE LOS TRABAJADORES DEL ESTADO</strong>, A QUIEN EN LO SUCESIVO SE LE
 DENOMINARÁ <strong>“LA ENTIDAD”</strong>, REPRESENTADO POR LA <strong>{{ $empleadosubdelegado->nombre }} {{ $empleadosubdelegado->apellido_paterno }} {{ $empleadosubdelegado->apellido_materno }}</strong>,
-<strong> {{ $empleadosubdelegado->Cargos->nombre_cargo }}</strong>, POR LA OTRA, <strong>{{ $persona->nombre_proveedor }}</strong>, EN LO SUCESIVO “EL PROVEEDOR”, @if ($persona !== null)
-@if ($persona->tipo_persona_id == 2) REPRESENTADA POR<strong> {{ $persona->representante_nombre }}</strong>, EN SU CARÁCTER DE <strong>{{ $persona->Caracter->nombre_tipo_caracter }}</strong>
+<strong> {{ $empleadosubdelegado->Cargos->nombre_cargo }}</strong>, POR LA OTRA, <strong>{{ $contrato->Proveedor->nombre_proveedor }}</strong>, EN LO SUCESIVO “EL PROVEEDOR”, @if ($contrato->Proveedor !== null)
+@if ($contrato->Proveedor->tipo_persona_id == 2) REPRESENTADA POR<strong> {{ $contrato->Proveedor->representante_nombre }}</strong>, EN SU CARÁCTER DE <strong>{{ $contrato->Proveedor->Caracter->nombre_tipo_caracter }}</strong>
 @endif
 @endif
 REPRESENTADO POR EL ADMINISTRADOR ÚNICO <strong>{{ $contrato->AdminContratos->nombre }} {{ $contrato->AdminContratos->apellido_paterno }} {{ $contrato->AdminContratos->apellido_materno }}</strong>, A QUIENES DE MANERA CONJUNTA SE LESDENOMINARÁ <strong>“LAS PARTES”</strong>, ALTENOR DE LAS DECLARACIONES Y CLÁUSULAS SIGUIENTES:
@@ -139,18 +139,18 @@ I.9. DE LA REVISIÓN AL HISTORIAL DE CUMPLIMIENTO EN MATERIA DE CONTRATACIONES E
 </p>
 @endif
 @endif
-@if ($personafisica = null)
+@if ($contrato->Proveedor->persona_id = 2)
 <p class="SubTitulo">
-II. “EL PROVEEDOR”, por conducto de su representante declara que (TRATÁNDOSE DE PERSONA MORAL):
+II. “EL PROVEEDOR”, por conducto de su representante declara que:
 </p>
 @else
 <p class="SubTitulo">
-II. “EL PROVEEDOR” declara que (TRATÁNDOSE DE PERSONA FÍSICA):
+II. “EL PROVEEDOR” declara que:
 </p>
 @endif
-@if ($personafisica = null)
+@if ($contrato->Proveedorpersona_id = 2)
 <p>
-II.1 ES UNA PERSONA MORAL LEGALMENTE CONSTITUIDA DE CONFORMIDAD CON LA LEGISLACIÓN MEXICANA, SEGÚN CONSTA EN EL TESTIMONIO QUE CONTIENE {{ $personamoral->instrumento_publico }}, CON EL FOLIO {{ $personamoral->fiolio_registro }}, DE FECHA {{ $personamoral->fecha_registro }}, PASADA ANTE LA FE DEL {{ $personamoral->registro_publico }}.
+II.1 ES UNA PERSONA MORAL LEGALMENTE CONSTITUIDA DE CONFORMIDAD CON LA LEGISLACIÓN MEXICANA, SEGÚN CONSTA EN EL TESTIMONIO QUE CONTIENE {{ $contrato->Proveedor->instrumento_publico }}, CON EL FOLIO {{ $contrato->Proveedor->fiolio_registro }}, DE FECHA {{ $contrato->Proveedor->fecha_registro }}, PASADA ANTE LA FE DEL {{ $contrato->Proveedor->registro_publico }}.
 </p>
 @else
 <p>
@@ -161,7 +161,7 @@ II.1. ES UNA PERSONA FÍSICA, DE NACIONALIDAD <strong>{{ $contrato->nacionalidad
 II.2. REÚNE LAS CONDICIONES TÉCNICAS, JURÍDICAS Y ECONÓMICAS, Y CUENTA CON LA ORGANIZACIÓN Y ELEMENTOS NECESARIOS PARA SU CUMPLIMIENTO.
 </p>
 <p>
-II.3. CUENTA CON SU REGISTRO FEDERAL DE CONTRIBUYENTES <strong>{{ $persona->rfc }}</strong>.
+II.3. CUENTA CON SU REGISTRO FEDERAL DE CONTRIBUYENTES <strong>{{ $contrato->Proveedor->rfc }}</strong>.
 </p>
 <p>
 II.4. BAJO PROTESTA DE DECIR VERDAD, ESTÁ AL CORRIENTE EN LOS PAGOS DE SUS OBLIGACIONES FISCALES, EN ESPECÍFICO LAS PREVISTAS EN EL ARTÍCULO 32-D DEL CÓDIGO FISCAL FEDERAL VIGENTE, ASÍ COMO DE SUS OBLIGACIONES FISCALES EN MATERIA DE SEGURIDAD SOCIAL, ANTE INSTITUTO DEL FONDO NACIONAL DE LA VIVIENDA PARA LOS TRABAJADORES (INFONAVIT) Y INSTITUTO MEXICANO DEL SEGURO SOCIAL (IMSS); LO QUE ACREDITA CON
@@ -169,7 +169,7 @@ LAS OPINIONES DE CUMPLIMIENTO DE OBLIGACIONES FISCALES Y EN MATERIA DE SEGURIDAD
 FISCAL EN MATERIA DE APORTACIONES PATRONALES Y ENTERO DE DESCUENTOS, SIN ADEUDO, EMITIDA POR EL INFONAVIT, LAS CUALES SE ENCUENTRAN VIGENTES Y OBRAN EN EL EXPEDIENTE RESPECTIVO.
 </p>
 <p>
-II.5. TIENE ESTABLECIDO SU DOMICILIO EN <strong>{{ $persona->domicilio }}</strong> MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
+II.5. TIENE ESTABLECIDO SU DOMICILIO EN <strong>{{ $contrato->Proveedor->domicilio }}</strong> MISMO QUE SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
 </p>
 <p class="SubTitulo"><strong>De “LAS PARTES”:</strong></p>
 <p>
@@ -1068,10 +1068,10 @@ POR:
 <tbody>
 <tr>
 <td class="cuerpotablafinal">
-<p>{{ $persona->representante_nombre }}</p>
-<p>{{ $persona->nombre_proveedor }}</p>
+<p>{{ $contrato->Proveedor->representante }}</p>
+<p>{{ $contrato->Proveedor->nombre }}</p>
 </td>
-<td>{{ $persona->rfc }}</td>
+<td>{{ $contrato->Proveedor->rfc }}</td>
 </tr>
 </tbody>
 </table>

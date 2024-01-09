@@ -29,7 +29,6 @@
             top: 0.7cm;
             right: 1.8cm;
             left: 1.8cm;
-            /** Extra personal styles **/
             color: rgb(0, 0, 0);
             font-family: 'Montserrat', sans-serif;
             font-weight: bold;
@@ -208,7 +207,6 @@
 </head>
 
 <body>
-    <!-- Parte superior 🫥 -->
     <header>
         <table class="table">
             <tbody>
@@ -218,8 +216,7 @@
                             style="margin: .5cm 2.5cm 0.49cm -.25cm;">
                     </td>
                     <td>
-                        <p style="text-align: justify;">
-                            CONTRATO
+                        <p style="text-align: justify;">CONTRATO
                             @if ($requisicion->tipo_id = 1)
                                 CERRADO
                             @else
@@ -227,7 +224,7 @@
                             @endif No. {{ $requisicion->no_requisicion }} PARA LA
                             PRESTACION DEL SERVICIO DE {{ $contrato->descripcion_contrato }}.
                             PROVEEDOR:
-                            {{ $persona->nombre_proveedor }} VIGENCIA: {{ $contrato->vigencia_contrato }}.
+                            {{ $contrato->Proveedor->nombre }} VIGENCIA: {{ $contrato->vigencia_contrato }}.
                         </p>
                     </td>
                 </tr>
@@ -275,19 +272,17 @@
                     </strong>
                     , POR LA OTRA,
                     <strong>
-                        {{ $persona->nombre_proveedor }}
+                        {{ $contrato->Proveedor->nombre_proveedor }}
                     </strong>, EN LO SUCESIVO “EL PROVEEDOR”,
-                    @if ($persona !== null)
-                        @if ($persona->tipo_persona_id == 2)
-                            REPRESENTADA POR
-                            <strong>
-                                {{ $persona->representante_nombre }}
-                            </strong>
-                            , EN SU CARÁCTER DE
-                            <strong>
-                                {{ $persona->Caracter->nombre_tipo_caracter }}
-                            </strong>
-                        @endif
+                    @if ($contrato->Proveedor->persona_id == 2)
+                        REPRESENTADA POR
+                        <strong>
+                            {{ $contrato->Proveedor->representante_nombre }}
+                        </strong>
+                        , EN SU CARÁCTER DE
+                        <strong>
+                            {{ $contrato->Proveedor->Caracter->nombre_tipo_caracter }}
+                        </strong>
                     @endif
                     REPRESENTADO POR EL
                     ADMINISTRADOR
@@ -487,26 +482,25 @@
                         </ol>
                     </li>
                     <li>
-                        @if ($personafisica = null)
+                        @if ($contrato->Proveedor->persona_id = 2)
                             <p>
-                                “EL PROVEEDOR”, por conducto de su representante declara que (TRATÁNDOSE DE PERSONA
-                                MORAL):
+                                “EL PROVEEDOR”, por conducto de su representante declara que:
                             </p>
                         @else
                             <p>
-                                “EL PROVEEDOR” declara que (TRATÁNDOSE DE PERSONA FÍSICA):
+                                “EL PROVEEDOR” declara que:
                             </p>
                         @endif
                         <ol>
-                            @if ($personafisica = null)
+                            @if ($contrato->Proveedor->persona_id = 2)
                                 <li>
                                     <p>
                                         ES UNA PERSONA MORAL LEGALMENTE CONSTITUIDA DE CONFORMIDAD CON LA LEGISLACIÓN
                                         MEXICANA, SEGÚN CONSTA EN EL TESTIMONIO QUE CONTIENE
-                                        {{ $personamoral->instrumento_publico }}, CON EL FOLIO
-                                        {{ $personamoral->fiolio_registro }}, DE FECHA
-                                        {{ $personamoral->fecha_registro }}, PASADA ANTE LA FE DEL
-                                        {{ $personamoral->registro_publico }}.
+                                        {{ $contrato->Proveedor->instrumento_publico }}, CON EL FOLIO
+                                        {{ $contrato->Proveedor->fiolio_registro }}, DE FECHA
+                                        {{ $contrato->Proveedor->fecha_registro }}, PASADA ANTE LA FE DEL
+                                        {{ $contrato->Proveedor->registro_publico }}.
 
                                     </p>
                                 </li>
@@ -529,7 +523,7 @@
                             <li>
                                 CUENTA CON SU REGISTRO FEDERAL DE CONTRIBUYENTES
                                 <strong>
-                                    {{ $persona->rfc }}
+                                    {{ $contrato->Proveedor->rfc }}
                                 </strong>
                             </li>
                             <li>
@@ -551,7 +545,8 @@
                                 RESPECTIVO.
                             </li>
                             <li>
-                                TIENE ESTABLECIDO SU DOMICILIO EN <strong>{{ $persona->domicilio }}</strong> MISMO QUE
+                                TIENE ESTABLECIDO SU DOMICILIO EN
+                                <strong>{{ $contrato->Proveedor->domicilio }}</strong> MISMO QUE
                                 SEÑALA PARA LOS FINES Y EFECTOS LEGALES DEL PRESENTE CONTRATO.
                             </li>
                         </ol>
@@ -994,7 +989,6 @@
                 CONTRACTUALES Y DARÁ INICIO A LOS TRÁMITES PARA LA CANCELACIÓN DE LA GARANTÍA CUMPLIMIENTO DEL CONTRATO,
                 LO QUE COMUNICARÁ A “EL PROVEEDOR”.
             </p>
-
             <strong>C) GARANTÍA PARA RESPONDER POR VICIOS OCULTOS.</strong>
             <p>
                 “EL PROVEEDOR” DEBERÁ RESPONDER POR LOS DEFECTOS, VICIOS OCULTOS Y POR LA CALIDAD DE LOS SERVICIOS
@@ -1214,16 +1208,15 @@
                 DERECHOS DE PROPIEDAD INDUSTRIAL A NIVEL NACIONAL E INTERNACIONAL, CON MOTIVO DEL CUMPLIMIENTO DE LAS
                 OBLIGACIONES DEL PRESENTE CONTRATO, POR LO QUE SE OBLIGA A RESPONDER PERSONAL E ILIMITADAMENTE DE LOS
                 DAÑOS Y PERJUICIOS QUE PUDIERA CAUSAR A “LA DEPENDENCIA O ENTIDAD” O A TERCEROS.
-
+            </p>
+            <p>
                 DE PRESENTARSE ALGUNA RECLAMACIÓN EN CONTRA DE “LA DEPENDENCIA O ENTIDAD”, POR CUALQUIERA DE LAS CAUSAS
                 ANTES MENCIONADAS, “EL PROVEEDOR”, SE OBLIGA A SALVAGUARDAR LOS DERECHOS E INTERESES DE “LA DEPENDENCIA
                 O ENTIDAD” DE CUALQUIER CONTROVERSIA, LIBERÁNDOLA DE TODA RESPONSABILIDAD DE CARÁCTER CIVIL, PENAL,
                 MERCANTIL, FISCAL O DE CUALQUIER OTRA ÍNDOLE, SACÁNDOLA EN PAZ Y A SALVO.
-
-                EN CASO DE QUE “LA DEPENDENCIA O ENTIDAD” TUVIESE QUE EROGAR RECURSOS POR CUALQUIERA DE ESTOS CONCEPTOS,
-                “EL PROVEEDOR” SE OBLIGA A REEMBOLSAR DE MANERA INMEDIATA LOS RECURSOS EROGADOS POR AQUELLA.
-
             </p>
+            <p> EN CASO DE QUE “LA DEPENDENCIA O ENTIDAD” TUVIESE QUE EROGAR RECURSOS POR CUALQUIERA DE ESTOS CONCEPTOS,
+                “EL PROVEEDOR” SE OBLIGA A REEMBOLSAR DE MANERA INMEDIATA LOS RECURSOS EROGADOS POR AQUELLA.</p>
             <h6>
                 VIGÉSIMA PRIMERA. CONFIDENCIALIDAD Y PROTECCIÓN DE DATOS PERSONALES.
             </h6>
@@ -1234,7 +1227,8 @@
                 LAS LEYES GENERAL Y FEDERAL, RESPECTIVAMENTE, DE TRANSPARENCIA Y ACCESO A LA INFORMACIÓN PÚBLICA, LEY
                 GENERAL DE PROTECCIÓN DE DATOS PERSONALES EN POSESIÓN DE SUJETOS OBLIGADOS, Y DEMÁS LEGISLACIÓN
                 APLICABLE.
-
+            </p>
+            <p>
                 PARA EL TRATAMIENTO DE LOS DATOS PERSONALES QUE “LAS PARTES” RECABEN CON MOTIVO DE LA CELEBRACIÓN DEL
                 PRESENTE CONTRATO, DEBERÁ DE REALIZARSE CON BASE EN LO PREVISTO EN LOS AVISOS DE PRIVACIDAD RESPECTIVOS.
 
@@ -1350,51 +1344,81 @@
                 </li>
 
             </ol>
-            PARA EL CASO DE OPTAR POR LA RESCISIÓN DEL CONTRATO, “LA DEPENDENCIA O ENTIDAD” COMUNICARÁ POR ESCRITO A “EL
-            PROVEEDOR” EL INCUMPLIMIENTO EN QUE HAYA INCURRIDO, PARA QUE EN UN TÉRMINO DE 5 (CINCO) DÍAS HÁBILES
-            CONTADOS A PARTIR DEL DÍA SIGUIENTE DE LA NOTIFICACIÓN, EXPONGA LO QUE A SU DERECHO CONVENGA Y APORTE EN SU
-            CASO LAS PRUEBAS QUE ESTIME PERTINENTES.
+            <p>
+                PARA EL CASO DE OPTAR POR LA RESCISIÓN DEL CONTRATO, “LA DEPENDENCIA O ENTIDAD” COMUNICARÁ POR ESCRITO A
+                “EL
+                PROVEEDOR” EL INCUMPLIMIENTO EN QUE HAYA INCURRIDO, PARA QUE EN UN TÉRMINO DE 5 (CINCO) DÍAS HÁBILES
+                CONTADOS A PARTIR DEL DÍA SIGUIENTE DE LA NOTIFICACIÓN, EXPONGA LO QUE A SU DERECHO CONVENGA Y APORTE EN
+                SU
+                CASO LAS PRUEBAS QUE ESTIME PERTINENTES.
+            </p>
 
-            TRANSCURRIDO DICHO TÉRMINO “LA DEPENDENCIA O ENTIDAD”, EN UN PLAZO DE 15 (QUINCE) DÍAS HÁBILES SIGUIENTES,
-            TOMANDO EN CONSIDERACIÓN LOS ARGUMENTOS Y PRUEBAS QUE HUBIERE HECHO VALER “EL PROVEEDOR”, DETERMINARÁ DE
-            MANERA FUNDADA Y MOTIVADA DAR O NO POR RESCINDIDO EL CONTRATO, Y COMUNICARÁ A “EL PROVEEDOR” DICHA
-            DETERMINACIÓN DENTRO DEL CITADO PLAZO.
+            <p>
+                TRANSCURRIDO DICHO TÉRMINO “LA DEPENDENCIA O ENTIDAD”, EN UN PLAZO DE 15 (QUINCE) DÍAS HÁBILES
+                SIGUIENTES,
+                TOMANDO EN CONSIDERACIÓN LOS ARGUMENTOS Y PRUEBAS QUE HUBIERE HECHO VALER “EL PROVEEDOR”, DETERMINARÁ DE
+                MANERA FUNDADA Y MOTIVADA DAR O NO POR RESCINDIDO EL CONTRATO, Y COMUNICARÁ A “EL PROVEEDOR” DICHA
+                DETERMINACIÓN DENTRO DEL CITADO PLAZO.
+            </p>
 
-            CUANDO SE RESCINDA EL CONTRATO, SE FORMULARÁ EL FINIQUITO CORRESPONDIENTE, A EFECTO DE HACER CONSTAR LOS
-            PAGOS QUE DEBA EFECTUAR “LA DEPENDENCIA O ENTIDAD” POR CONCEPTO DEL CONTRATO HASTA EL MOMENTO DE RESCISIÓN,
-            O LOS QUE RESULTEN A CARGO DE “EL PROVEEDOR”.
+            <p>
+                CUANDO SE RESCINDA EL CONTRATO, SE FORMULARÁ EL FINIQUITO CORRESPONDIENTE, A EFECTO DE HACER CONSTAR LOS
+                PAGOS QUE DEBA EFECTUAR “LA DEPENDENCIA O ENTIDAD” POR CONCEPTO DEL CONTRATO HASTA EL MOMENTO DE
+                RESCISIÓN,
+                O LOS QUE RESULTEN A CARGO DE “EL PROVEEDOR”.
 
-            INICIADO UN PROCEDIMIENTO DE CONCILIACIÓN “LA DEPENDENCIA O ENTIDAD” PODRÁ SUSPENDER EL TRÁMITE DEL
-            PROCEDIMIENTO DE RESCISIÓN.
+            </p>
+            <p>
+                INICIADO UN PROCEDIMIENTO DE CONCILIACIÓN “LA DEPENDENCIA O ENTIDAD” PODRÁ SUSPENDER EL TRÁMITE DEL
+                PROCEDIMIENTO DE RESCISIÓN.
+            </p>
 
-            SI PREVIAMENTE A LA DETERMINACIÓN DE DAR POR RESCINDIDO EL CONTRATO SE REALIZA LA PRESTACIÓN DE LOS
-            SERVICIOS, EL PROCEDIMIENTO INICIADO QUEDARÁ SIN EFECTO, PREVIA ACEPTACIÓN Y VERIFICACIÓN DE “LA DEPENDENCIA
-            O ENTIDAD” DE QUE CONTINÚA VIGENTE LA NECESIDAD DE LA PRESTACIÓN DE LOS SERVICIOS, APLICANDO, EN SU CASO,
-            LAS PENAS CONVENCIONALES CORRESPONDIENTES.
+            <p>
+                SI PREVIAMENTE A LA DETERMINACIÓN DE DAR POR RESCINDIDO EL CONTRATO SE REALIZA LA PRESTACIÓN DE LOS
+                SERVICIOS, EL PROCEDIMIENTO INICIADO QUEDARÁ SIN EFECTO, PREVIA ACEPTACIÓN Y VERIFICACIÓN DE “LA
+                DEPENDENCIA
+                O ENTIDAD” DE QUE CONTINÚA VIGENTE LA NECESIDAD DE LA PRESTACIÓN DE LOS SERVICIOS, APLICANDO, EN SU
+                CASO,
+                LAS PENAS CONVENCIONALES CORRESPONDIENTES.
+            </p>
 
-            “LA DEPENDENCIA O ENTIDAD” PODRÁ DETERMINAR NO DAR POR RESCINDIDO EL CONTRATO, CUANDO DURANTE EL
-            PROCEDIMIENTO ADVIERTA QUE LA RESCISIÓN DEL MISMO PUDIERA OCASIONAR ALGÚN DAÑO O AFECTACIÓN A LAS FUNCIONES
-            QUE TIENE ENCOMENDADAS. EN ESTE SUPUESTO, “LA DEPENDENCIA O ENTIDAD” ELABORARÁ UN DICTAMEN EN EL CUAL
-            JUSTIFIQUE QUE LOS IMPACTOS ECONÓMICOS O DE OPERACIÓN QUE SE OCASIONARÍAN CON LA RESCISIÓN DEL CONTRATO
-            RESULTARÍAN MÁS INCONVENIENTES.
+            <p>
+                “LA DEPENDENCIA O ENTIDAD” PODRÁ DETERMINAR NO DAR POR RESCINDIDO EL CONTRATO, CUANDO DURANTE EL
+                PROCEDIMIENTO ADVIERTA QUE LA RESCISIÓN DEL MISMO PUDIERA OCASIONAR ALGÚN DAÑO O AFECTACIÓN A LAS
+                FUNCIONES
+                QUE TIENE ENCOMENDADAS. EN ESTE SUPUESTO, “LA DEPENDENCIA O ENTIDAD” ELABORARÁ UN DICTAMEN EN EL CUAL
+                JUSTIFIQUE QUE LOS IMPACTOS ECONÓMICOS O DE OPERACIÓN QUE SE OCASIONARÍAN CON LA RESCISIÓN DEL CONTRATO
+                RESULTARÍAN MÁS INCONVENIENTES.
+            </p>
 
-            DE NO RESCINDIRSE EL CONTRATO, “LA DEPENDENCIA O ENTIDAD” ESTABLECERÁ CON “EL PROVEEDOR”, OTRO PLAZO, QUE LE
-            PERMITA SUBSANAR EL INCUMPLIMIENTO QUE HUBIERE MOTIVADO EL INICIO DEL PROCEDIMIENTO, APLICANDO LAS SANCIONES
-            CORRESPONDIENTES. EL CONVENIO MODIFICATORIO QUE AL EFECTO SE CELEBRE DEBERÁ ATENDER A LAS CONDICIONES
-            PREVISTAS POR LOS DOS ÚLTIMOS PÁRRAFOS DEL ARTÍCULO 52 DE LA “LAASSP”.
+            <p>
+                DE NO RESCINDIRSE EL CONTRATO, “LA DEPENDENCIA O ENTIDAD” ESTABLECERÁ CON “EL PROVEEDOR”, OTRO PLAZO,
+                QUE LE
+                PERMITA SUBSANAR EL INCUMPLIMIENTO QUE HUBIERE MOTIVADO EL INICIO DEL PROCEDIMIENTO, APLICANDO LAS
+                SANCIONES
+                CORRESPONDIENTES. EL CONVENIO MODIFICATORIO QUE AL EFECTO SE CELEBRE DEBERÁ ATENDER A LAS CONDICIONES
+                PREVISTAS POR LOS DOS ÚLTIMOS PÁRRAFOS DEL ARTÍCULO 52 DE LA “LAASSP”.
+            </p>
 
-            NO OBSTANTE, DE QUE SE HUBIERE FIRMADO EL CONVENIO MODIFICATORIO A QUE SE REFIERE EL PÁRRAFO ANTERIOR, SI SE
-            PRESENTA DE NUEVA CUENTA EL INCUMPLIMIENTO, “LA DEPENDENCIA O ENTIDAD” QUEDARÁ EXPRESAMENTE FACULTADA PARA
-            OPTAR POR EXIGIR EL CUMPLIMIENTO DEL CONTRATO, O RESCINDIRLO, APLICANDO LAS SANCIONES QUE PROCEDAN.
+            <p>
+                NO OBSTANTE, DE QUE SE HUBIERE FIRMADO EL CONVENIO MODIFICATORIO A QUE SE REFIERE EL PÁRRAFO ANTERIOR,
+                SI SE
+                PRESENTA DE NUEVA CUENTA EL INCUMPLIMIENTO, “LA DEPENDENCIA O ENTIDAD” QUEDARÁ EXPRESAMENTE FACULTADA
+                PARA
+                OPTAR POR EXIGIR EL CUMPLIMIENTO DEL CONTRATO, O RESCINDIRLO, APLICANDO LAS SANCIONES QUE PROCEDAN.
+            </p>
 
-            SI SE LLEVARA A CABO LA RESCISIÓN DEL CONTRATO, Y EN EL CASO DE QUE A “EL PROVEEDOR” SE LE HUBIERAN
-            ENTREGADO PAGOS PROGRESIVOS, ÉSTE DEBERÁ DE REINTEGRARLOS MÁS LOS INTERESES CORRESPONDIENTES, CONFORME A LO
-            INDICADO EN EL ARTÍCULO 51, PÁRRAFO CUARTO, DE LA “LAASSP”.
+            <p>
+                SI SE LLEVARA A CABO LA RESCISIÓN DEL CONTRATO, Y EN EL CASO DE QUE A “EL PROVEEDOR” SE LE HUBIERAN
+                ENTREGADO PAGOS PROGRESIVOS, ÉSTE DEBERÁ DE REINTEGRARLOS MÁS LOS INTERESES CORRESPONDIENTES, CONFORME A
+                LO
+                INDICADO EN EL ARTÍCULO 51, PÁRRAFO CUARTO, DE LA “LAASSP”.
+            </p>
 
-            LOS INTERESES SE CALCULARÁN SOBRE EL MONTO DE LOS PAGOS PROGRESIVOS EFECTUADOS Y SE COMPUTARÁN POR DÍAS
-            NATURALES DESDE LA FECHA DE SU ENTREGA HASTA LA FECHA EN QUE SE PONGAN EFECTIVAMENTE LAS CANTIDADES A
-            DISPOSICIÓN DE “LA DEPENDENCIA O ENTIDAD”.
-
+            <p>
+                LOS INTERESES SE CALCULARÁN SOBRE EL MONTO DE LOS PAGOS PROGRESIVOS EFECTUADOS Y SE COMPUTARÁN POR DÍAS
+                NATURALES DESDE LA FECHA DE SU ENTREGA HASTA LA FECHA EN QUE SE PONGAN EFECTIVAMENTE LAS CANTIDADES A
+                DISPOSICIÓN DE “LA DEPENDENCIA O ENTIDAD”.
             </p>
             <h6>
                 VIGÉSIMA QUINTA. RELACIÓN Y EXCLUSIÓN LABORAL
@@ -1548,13 +1572,13 @@
                         <tr class="">
                             <td class="col-6">
                                 <p>
-                                    {{ $persona->representante_nombre }}
+                                    {{ $contrato->Proveedor->representante }}
                                 </p>
                                 <p>
-                                    {{ $persona->nombre_proveedor }}
+                                    {{ $contrato->Proveedor->nombre }}
                                 </p>
                             </td>
-                            <td>{{ $persona->rfc }}</td>
+                            <td>{{ $contrato->Proveedor->rfc }}</td>
                         </tr>
                     </tbody>
                 </table>

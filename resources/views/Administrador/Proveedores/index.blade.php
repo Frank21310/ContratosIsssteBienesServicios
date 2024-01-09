@@ -72,10 +72,8 @@
                             <tr>
                                 <th class="custom-th">RFC</th>
                                 <th class="custom-th">Nombre del Proveedor</th>
-                                <th class="col-2 custom-th">Pais</th>
-                                <th class="custom-th">Tipo de usuario</th>
-                                <th class="custom-th">Sector</th>
-                                <th class="custom-th">Giro</th>
+                                <th class="custom-th">Persona Proveedor</th>
+                                <th class="col-2 custom-th">Domicilio</th>
                                 <th class="custom-th">Acciones</th>
                             </tr>
                         </thead>
@@ -83,15 +81,13 @@
                             @foreach ($proveedores as $proveedor)
                                 <tr>
                                     <td class="custom-td">{{ $proveedor->rfc }}</td>
-                                    <td class="custom-td">{{ $proveedor->nombre_proveedor }}</td>
-                                    <td class="custom-td">{{ $proveedor->pais }}</td>
-                                    <td class="custom-td">{{ $proveedor->tipo_usuario }}</td>
-                                    <td class="custom-td">{{ $proveedor->sector }}</td>
-                                    <td class="custom-td">{{ $proveedor->giro }}</td>
+                                    <td class="custom-td">{{ $proveedor->nombre }}</td>
+                                    <td class="custom-td">{{ $proveedor->Personas->nombre_persona }}</td>
+                                    <td class="custom-td">{{ $proveedor->Domicilios->calle}}, {{ $proveedor->Domicilios->municipio}}, {{ $proveedor->Domicilios->codigo_postal}}, {{ $proveedor->Domicilios->estado}}, {{ $proveedor->Domicilios->pais}}</td>
+
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('Proveedores.show', $proveedor->id_proveedor ) }}" class="btn btn-info"><i
-                                                    class="fas fa-eye"></i></a>
+                        
                                             <a href="{{ route('Proveedores.edit', $proveedor->id_proveedor ) }}" class="btn btn-primary"><i
                                                     class="fas fa-pencil-alt"></i></a>
                                             <form action="{{ route('Proveedores.destroy', $proveedor->id_proveedor ) }}"

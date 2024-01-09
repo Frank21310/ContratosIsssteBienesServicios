@@ -11,10 +11,10 @@
     <!--Tipo de contrato-->
     <div class="col-3">
         <label for="tipo_contrato">Tipo de contrato</label>
-        <select class="form-control custom-select" name="tipo_contrato_id" required>
+        <select class="form-control custom-select" name="tipo_contrato_id">
             <option>Selecciona ... </option>
             @foreach ($tiposcontratos as $tiposcontrato)
-                <option value="{{ $tiposcontrato->id_tipo_contrato}}">
+                <option value="{{ $tiposcontrato->id_tipo_contrato }}">
                     {{ $tiposcontrato->nombre_tipo_contrato }}
                 </option>
             @endforeach
@@ -94,20 +94,21 @@
             <label>Reduccion del monto de la garantia ya que cuenta con
                 <strong>{{ $porcentaje_garantia }}</strong></label>
             <input type="text" name="reduccion" id="reduccion" class="form-control custom-input"
-                placeholder="Garantia de reduccion" >
+                placeholder="Garantia de reduccion">
         </div>
     @endif
     <div class="col">
         <label>La contratacion es previa a la autorizacion de su presupuesto</label>
         <div class="form-check">
-            <input class="form-check-input custom-input" type="radio" name="autorizacion_previa" id="autorizacion_previa" value="1">
+            <input class="form-check-input custom-input" type="radio" name="autorizacion_previa"
+                id="autorizacion_previa" value="1">
             <label class="form-check-label" for="flexRadioDefault1">
                 Si es previa
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input custom-input" type="radio" name="autorizacion_previa" id="autorizacion_previa" value="0"
-                checked>
+            <input class="form-check-input custom-input" type="radio" name="autorizacion_previa"
+                id="autorizacion_previa" value="0" checked>
             <label class="form-check-label" for="flexRadioDefault2">
                 No es previa
             </label>
@@ -131,148 +132,17 @@
         <h4>Datos del proveedor</h4>
     </div>
 </div>
-<div class="row">
-    <div class="col-6">
-        <label>Tipo de persona</label>
-        <select name="tipo_persona_id" id="tipo_proveedor" class="form-select custom-select" required
-        onchange="mostrarCampos()">
-            <option value="">Selecciona el tipo..</option>
-            @foreach ($tipopersona as $tipoperson)
-                <option value="{{ $tipoperson->id_tipo_persona}}">
-                    {{ $tipoperson->nombre_tipo_persona }}
-                </option>
-            @endforeach
-        </select>
 
-    </div>
-    <div class="col-6">
-        <label for="">RFC del proveedor</label>
-        <input type="text" name="rfc" id="rfc_proveedor" class="form-control custom-input"
-            placeholder="RFC" required>
-    </div>
-</div>
 <div class="row">
-    <div class="col">
-        <label>Nombre del proveedor</label>
-        <input type="text" name="nombre_proveedor" class="form-control custom-input"
-            placeholder="Nombre de la persona moral" req>
-    </div>
-</div>
-<div class="row">
-    <div class="col-5">
-        <label for="">Nacionalidad del proveedor</label>
-        <select name="nacionalidad" id="nacionalidad_proveedor" class="form-select custom-select" required>
+    <div class="d-grid gap-2 col-8 mx-auto">
+        <label>Selecciona el proveedor</label>
+        <select name="proveedor" id="tipo_proveedor" class="form-select custom-select">
             <option value="">Selecciona el tipo..</option>
-            <option value="Mexicana">Mexicana</option>
-            <option value="Extragnera">Extragnera</option>
-            <option value="Otra">Otra</option>
-        </select>
-    </div>
-
-    <div class="col-7">
-        <label for="">Domicilio proveedor</label>
-        <input type="text" name="domicilio" id="domicilio proveedor" class="form-control custom-input"
-            placeholder="domicilio_proveedor" required>
-    </div>
-</div>
-
-<!--Si es persona fisica-->
-<div class="row" id="campos_persona_fisica" style="display: none;">
-    <!-- Campos para Persona Fisica -->
-    <div class="col">
-        <label>Documento de acreditacion:</label>
-        <input type="text" name="documento_expedicion" id="documento_acreditacion_proveedor"
-            class="form-control custom-input" placeholder="Documento de acreditacion" >
-    </div>
-    <div class="col">
-        <label>Expedida por:</label>
-        <input type="text" name="instutucion_expedida" id="acreditacion_proveedor"
-            class="form-control custom-input" placeholder="Institucion que acredita" >
-    </div>
-</div>
-<!--Si es persona moral-->
-<div class="row" id="campos_persona_moral" style="display: none;">
-    <!-- Campos para Persona Moral -->
-    <div class="col">
-        <label for="">Instrumento publico que da origen</label>
-        <input type="text" name="instrumento_publico" id="instrumento_proveedor_moral"
-            class="form-control custom-input" placeholder="Instrumento publico que da origen" >
-    </div>
-    <div class="col">
-        <label for="">Registro publico</label>
-        <input type="text" name="registro_publico" id="nombre_registro_publico"
-            class="form-control custom-input" placeholder="Registro publico" >
-    </div>
-    <div class="col">
-        <label for="">Folio de registro publico</label>
-        <input type="text" name="fiolio_registro" id="folio_registro_publico"
-            class="form-control custom-input" placeholder="Folio" >
-    </div>
-    <div class="col">
-        <label for="">Fecha de registro publico</label>
-        <input type="text" name="fecha_registro" id="fecha_registro_publico"
-            class="form-control custom-input" placeholder="Fecha" >
-    </div>
-</div>
-<!--Si es persona moral-->
-<div class="row" id="datos_proveedor_moral" style="display: none;">
-    <div class="col" >
-        <label>Nombre del representante</label>
-        <input type="text" name="repesentante_nombre" id="nombre_proveedor_representante"
-            class="form-control custom-input" placeholder="Nombre de la persona representante" >
-    </div>
-    <div class="col">
-        <label for="">Caracter del representante del proveedor</label>
-        <select name="tipo_caracter_id" id="tipo_proveedor" class="form-select custom-select" 
-        onchange="mostrarCampos()">
-            <option value="">Selecciona el tipo..</option>
-            @foreach ($tipocaracters as $tipocaracter)
-                <option value="{{ $tipocaracter->id_tipo_caracter}}">
-                    {{ $tipocaracter->nombre_tipo_caracter }}
+            @foreach ($proveedores as $proveedor)
+                <option value="{{ $proveedor->id_proveedor }}">
+                    {{ $proveedor->nombre }}
                 </option>
             @endforeach
         </select>
     </div>
-    <div class="col">
-        <label for="">Instrumento notarial o poder otorgado</label>
-        <input type="text" name="instrumento_notarial" id="instrumento_proveedor"
-            class="form-control custom-input" placeholder="Instrumento publico que da orgien" >
-    </div>
 </div>
-<!--Si es persona moral datos del representante-->
-<div class="row" id="representante_moral" style="display: none;">
-    <div class="col">
-        <label for="">Instrumento publico que da orgien al repesentante </label>
-        <input type="text" name="instrumento_proveedor" id="instrumento_proveedor"
-            class="form-control custom-input" placeholder="Instrumento publico que da orgien" >
-    </div>
-
-</div>
-
-<script>
-    function mostrarCampos() {
-        var tipoSeleccionado = document.getElementById("tipo_proveedor").value;
-
-        if (tipoSeleccionado === "1") {
-
-            document.getElementById("campos_persona_fisica").style.display = "block";
-            document.getElementById("campos_persona_moral").style.display = "none";
-            document.getElementById("datos_proveedor_moral").style.display = "none";
-            document.getElementById("representante_moral").style.display = "none";
-
-        } else if (tipoSeleccionado === "2") {
-            document.getElementById("campos_persona_fisica").style.display = "none";
-            document.getElementById("campos_persona_moral").style.display = "block";
-            document.getElementById("datos_proveedor_moral").style.display = "block";
-            document.getElementById("representante_moral").style.display = "block";
-        } else {
-
-            document.getElementById("campos_persona_fisica").style.display = "none";
-            document.getElementById("campos_persona_moral").style.display = "none";
-            document.getElementById("datos_proveedor_moral").style.display = "none";
-            document.getElementById("representante_moral").style.display = "none";
-
-
-        }
-    }
-</script>

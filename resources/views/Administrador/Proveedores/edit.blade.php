@@ -18,7 +18,7 @@
         <div class="card-body">
             <form action="{{ route('Proveedores.update', $proveedor->id_proveedor) }}" method="POST" enctype="multipart/form-data" id="create">
                 @method('PUT')
-                @include('Administrador.Proveedores.formularios.form')
+                @include('Administrador.Proveedores.formularios.vistaform')
             </form>
         </div>
         <hr>

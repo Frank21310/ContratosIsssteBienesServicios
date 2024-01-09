@@ -104,6 +104,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/Contratante/contratos/index', [ContratosController::class, 'index'])->name('Contratos.index');
     Route::get('/Contratante/contratos/create/{requisicion_id}', [ContratosController::class, 'create'])->name('Contratos.create');
     Route::post('/Contratante/contratos/store', [ContratosController::class, 'store'])->name('Contratos.store');
+    Route::post('/Contratante/contratos/proveedor', [ContratosController::class, 'proveedor'])->name('Contratos.proveedor');
+
     Route::get('/Contratante/contratos/{id}/imprimir', [ContratosController::class, 'imprimirContrato'])->name('Contratos.imprimir');
     Route::get('/Contratante/contratos/{id}/generar-word', [ContratosController::class, 'wordContrato'])->name('Contratos.word');
 })->namespace('Contratante');

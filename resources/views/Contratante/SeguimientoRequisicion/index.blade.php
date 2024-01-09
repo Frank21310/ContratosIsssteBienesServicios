@@ -88,32 +88,32 @@
                                     <td class="custom-td">{{ $requisicion->Estatus->nombre_estatus }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
-
-                                            <form action="{{ route('descargarArchivosRequisicion', $requisicion->id_requisicion) }}" method="GET">
+                                            <form
+                                                action="{{ route('descargarArchivosRequisicion', $requisicion->id_requisicion) }}"
+                                                method="GET">
                                                 @csrf
                                                 <button type="submit" class="btn btn-primary">
                                                     <i class="fa fa-download" aria-hidden="true"></i>
                                                 </button>
                                             </form>
-                                        @if ($requisicion->estatus == 1)
-                                            <div class="btn-group" role="group">
+                                            @if ($requisicion->estatus == 1 || $requisicion->estatus == 4)
+
                                                 <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
                                                     class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                            </div>
-                                        @else
-                                            @if ($requisicion->estatus == 4)
-                                                <div class="btn-group" role="group">
-                                                    <a href="{{ route('Contratos.create', $requisicion->id_requisicion) }}"
-                                                        class="btn btn-success"><i class="fa fa-file"></i></a>
-                                                </div>
+
+                                                @if ($requisicion->tipo_id == 4)
+
+                                                @else
+                                                <a href="{{ route('Contratos.create', $requisicion->id_requisicion) }}"
+                                                    class="btn btn-success"><i class="fa fa-file"></i></a>
+                                                @endif
                                             @else
-                                                <div class="btn-group" role="group">
-                                                    <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
-                                                        class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                                </div>
+                                                <a href="{{ route('Contratos.create', $requisicion->id_requisicion) }}"
+                                                    class="btn btn-success"><i class="fa fa-file"></i></a>
+                                                <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"
+                                                    class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                             @endif
-                                        @endif
-                                    </div>
+                                        </div>
 
                                     </td>
                                 </tr>

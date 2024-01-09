@@ -10,10 +10,11 @@ class Contrato extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_contrato';
-    protected $table = 'contrato';
+    protected $table = 'contratos';
     protected $fillable = [
         'requisicion_id',
         'tipo_contrato_id',
+        'descripcion_contrato',
         'vigencia_contrato',
         'empleado_num', 
         'oficio_suficiencia',
@@ -34,6 +35,10 @@ class Contrato extends Model
     public function AdminContratos(): BelongsTo
     {
         return $this->belongsTo(Empleado::class, 'empleado_num', 'num_empleado');
+    }
+    public function Proveedor(): BelongsTo
+    {
+        return $this->belongsTo(Proveedor::class, 'proveedor', 'id_proveedor');
     }
     
 }

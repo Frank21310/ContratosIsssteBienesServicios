@@ -400,7 +400,7 @@
             value="{{ isset($requisicion) ? $requisicion->autoriza : old('autoriza') }}">
 
             <input type="text" name="estatus" class="form-control custom-span"
-            value="2" hidden>
+            value="4" hidden>
     </div>
 </div>
 

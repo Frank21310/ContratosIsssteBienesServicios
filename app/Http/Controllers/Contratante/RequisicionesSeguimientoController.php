@@ -24,7 +24,7 @@ class RequisicionesSeguimientoController extends Controller
     public function index(Request $request)
     {
         $requisiciones = Requisicion::whereIn('estatus', ['1', '2', '3', '4'])->orderBy('estatus', 'ASC');
-        $limit = (isset($request->limit)) ? $request->limit : 2;
+        $limit = (isset($request->limit)) ? $request->limit : 4;
         if (isset($request->search)) {
             $requisiciones = $requisiciones->where('id_requisicion', 'like', '%' . $request->search . '%')
                 ->orWhere('no_requisicion', 'like', '%' . $request->search . '%');
@@ -162,7 +162,7 @@ class RequisicionesSeguimientoController extends Controller
                 break;
             case 3:
                 $requisicion->tipo_id = '3';
-                $requisicion->estatus = '4';
+                $requisicion->estatus = '2';
                 $requisicion->save();
                 return redirect()->route('SeguimientoRequisicion.index');
                 break;
