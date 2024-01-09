@@ -15,7 +15,7 @@ class ClavesController extends Controller
     {
         $CUCops = Insumo::select('*')->orderBy('clave_cucop', 'ASC');
         $limit = (isset($request->limit)) ? $request->limit : 10;
- 
+
         if (isset($request->search)) {
             $CUCops = $CUCops
                 ->where('clave_cucop', 'like', '%' . $request->search . '%')
@@ -26,54 +26,37 @@ class ClavesController extends Controller
         }
         $CUCops = $CUCops->paginate($limit)->appends($request->all());
         return view('Administrador.Claves.index', compact('CUCops'));
- 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    public function procesarArchivo(Request $request)
+{
+    if ($request->hasFile('archivo_csv')) {
+        $archivo = $request->file('archivo_csv');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $manejador_archivo = fopen($archivo, 'r');
+        $titulos = fgetcsv($manejador_archivo); // Obtener los títulos
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        while (($fila = fgetcsv($manejador_archivo, 0, ',')) !== false) {
+            $datos = array_combine($titulos, $fila);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            $id_cucop = $datos['id_cucop']; // Supongamos que el título de la columna del ID es 'id'
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+            $insumo = Insumo::updateOrCreate(
+                ['id_cucop' => $id_cucop],
+                [
+                    'clave_cucop' => $datos['clave_cucop'],
+                    'partida_id' => $datos['partida_id'],
+                    'descripcion' => $datos['descripcion'],
+                    'CABM' => $datos['CABM'],
+                    'tipo_contratacion' => $datos['tipo_contratacion'],
+                ]
+            );
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        fclose($manejador_archivo);
+
+        return redirect()->back()->with('success', 'Insumos agregados exitosamente.');
     }
+}
+
 }

@@ -21,6 +21,47 @@
                 <div class="col">
                     <h3>Insumos</h3>
                 </div>
+                <div class="col g-col-6 d-flex justify-content-end">
+                    <a id="BtnAgregar" href="#" class="btn btn-primary ml-auto BotonRojo" data-toggle="modal"
+                        data-target="#Clavesnuevas">
+                        <i class="fas fa-plus"></i>
+                        Actualizar CUCOP
+                    </a>
+                </div>
+
+                <div id="Clavesnuevas" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Subir archivo CSV</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('Claves.procesarArchivo') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                        <form action="{{ route('Claves.procesarArchivo') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input type="file" name="archivo_csv" class="form-control mt-2" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-primary BotonRojo mt-2" id="submitButton" disabled>Subir archivo CSV</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -103,16 +144,28 @@
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('Insumos.index') }}?limit=" + $(this).val() + '&search=' + $(
+            window.location.href = "{{ route('Claves.index') }}?limit=" + $(this).val() + '&search=' + $(
                 '#search').val()
         })
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('Insumos.index') }}?limit=" + $('#limit').val() +
+                window.location.href = "{{ route('Claves.index') }}?limit=" + $('#limit').val() +
                     '&search=' +
                     $(this).val()
             }
         })
+        document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('inputGroupFile03');
+    const submitButton = document.getElementById('submitButton');
+
+    fileInput.addEventListener('change', function() {
+        if (this.files.length !== 0 && this.files[0].name.endsWith('.csv')) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    });
+});
     </Script>
 @endsection

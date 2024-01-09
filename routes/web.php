@@ -65,10 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/Administrador/Empleados', EmpleadosController::class);
     Route::resource('/Administrador/Usuarios', UsuariosController::class);
     Route::resource('/Administrador/Proveedores', ProveedoresController::class);
-    Route::resource('/Administrador/Claves', ClavesController::class);
-
-
-
+    Route::get('/Administrador/Claves', [ClavesController::class, 'index'])->name('Claves.index');
+    Route::post('/Administrador/procesar-archivo', [ClavesController::class, 'procesarArchivo'])->name('Claves.procesarArchivo');
 })->namespace('root');
 /*
 |--------------------------------------------------------------------------
