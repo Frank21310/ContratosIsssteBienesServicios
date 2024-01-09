@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Proveedor extends Model
 {
@@ -11,16 +12,31 @@ class Proveedor extends Model
     protected $primaryKey = 'id_proveedor';
     protected $table = 'proveedores';
     protected $fillable = [
-        'id_proveedor',
-        'nombre_proveedor',
+        'persona_id',
+        'nombre',
         'rfc',
-        'pais',
-        'entidad_federativa',
-        'estratificacion',
-        'tipo_usuario',
-        'sector',
-        'giro',
-        'grado_cumplimiento'
+        'nacionlidad',
+        'domicilio_id',
+        'documento_expedicion',
+        'institucion_expedida',
+        'instrumento_publico',
+        'registro_publico',
+        'folio_registro',
+        'fecha_registro',
+        'representante',
+        'caracter_id',
+        'instrumento_notarial_represntante'
     ];
-
+    public function Personas(): HasOne
+    {
+        return $this->hasOne(Persona::class, 'id_persona', 'persona_id');
+    }
+    public function Domicilios(): HasOne
+    {
+        return $this->hasOne(Domicilio::class, 'id_domicilio', 'domicilio_id');
+    }
+    public function Caracter(): HasOne
+    {
+        return $this->hasOne(TipoCaracter::class, 'id_caracter', 'caracter_id');
+    }
 }

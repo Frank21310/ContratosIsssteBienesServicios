@@ -29,6 +29,9 @@ return new class extends Migration
             $table->string('oficio_plurianualidad');
             $table->string('reduccion');
             $table->string('autorizacion_previa');
+            $table->foreignId('proveedor')
+                ->references('id_proveedor')
+                ->on('proveedores');
             $table->timestamps();
         });
     }

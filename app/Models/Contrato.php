@@ -21,6 +21,7 @@ class Contrato extends Model
         'oficio_plurianualidad',
         'reduccion',
         'autorizacion_previa',
+        'proveedor'
     ];
     public function Requisiciones(): BelongsTo
     {

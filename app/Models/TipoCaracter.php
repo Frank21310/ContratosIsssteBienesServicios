@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TipoCaracter extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_tipo_caracter';
+    protected $primaryKey = 'id_caracter';
     protected $table = 'tipocaracter';
     protected $fillable = [
-        'nombre_tipo_caracter',
+        'nombre_caracter',
     ];
 }

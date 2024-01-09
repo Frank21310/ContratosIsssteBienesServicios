@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipopersona', function (Blueprint $table) {
-            $table->id('id_tipo_persona');
-            $table->string('nombre_tipo_persona')->nullable();
+        Schema::create('domicilios', function (Blueprint $table) {
+            $table->id('id_domicilio');
+            $table->string('calle');
+            $table->string('municipio');
+            $table->string('codigo_postal');
+            $table->string('estado');
+            $table->string('pais');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipopersona');
+        Schema::dropIfExists('domicilios');
     }
 };
