@@ -104,6 +104,7 @@ class RequisicionesSeguimientoController extends Controller
     public function update(Request $request, string $id)
     {
         $requisicion = Requisicion::where('id_requisicion', $id)->firstOrFail();
+        $oldNoRequisicion = $requisicion->no_requisicion;
         $requisicion->no_requisicion = $request->no_requisicion;
         $requisicion->lugar_entrega = $request->lugar_entrega;
         $requisicion->otros_gravamientos = $request->otros_gravamientos;
@@ -135,6 +136,24 @@ class RequisicionesSeguimientoController extends Controller
             $detalle->precio = $request->input('precio')[$index];
             $detalle->importe = $request->input('importe')[$index];
             $detalle->save();
+        }
+        if ($oldNoRequisicion !== $requisicion->no_requisicion) {
+            $oldFolderPath = 'requisicion/' . $oldNoRequisicion;
+            $newFolderPath = 'requisicion/' . $requisicion->no_requisicion;
+    
+            // Renombrar la carpeta utilizando el sistema de archivos de Laravel
+            Storage::disk('local')->move($oldFolderPath, $newFolderPath);
+        }
+    
+        // Subir los archivos a la carpeta local con el nuevo nombre
+        $requisitionFolder = 'requisicion/' . $requisicion->no_requisicion;
+        Storage::disk('local')->makeDirectory($requisitionFolder);
+    
+        if ($request->hasFile('archivos')) {
+            foreach ($request->file('archivos') as $archivo) {
+                $fileName = $archivo->getClientOriginalName();
+                $path = $archivo->storeAs($requisitionFolder, $fileName, 'local');
+            }
         }
 
         return redirect()->route('SeguimientoRequisicion.edit', ['id' => $id]);

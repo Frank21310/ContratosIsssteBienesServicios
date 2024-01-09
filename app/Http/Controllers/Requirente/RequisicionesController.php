@@ -57,8 +57,6 @@ class RequisicionesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-
-
     public function create(Request $request)
     {
 
@@ -161,7 +159,7 @@ class RequisicionesController extends Controller
             return redirect()->back()->with('error', 'Hubo un error al crear la requisición. Por favor, inténtalo de nuevo.');
         }
 
-
+        /*ALMACENAMIENTO CON AMAZON
         $requisitionFolder = 'requisicion/' . $requisicion->id_requisicion;
         Storage::disk('s3')->makeDirectory($requisitionFolder);
 
@@ -170,6 +168,16 @@ class RequisicionesController extends Controller
             foreach ($request->file('archivos') as $archivo) {
                 $fileName = $archivo->getClientOriginalName();
                 $path = $archivo->storeAs($requisitionFolder, $fileName, 's3');
+            }
+        }*/
+        $requisitionFolder = 'requisicion/' . $requisicion->no_requisicion;
+        Storage::disk('local')->makeDirectory($requisitionFolder);
+
+        // Subir los archivos a la carpeta local
+        if ($request->hasFile('archivos')) {
+            foreach ($request->file('archivos') as $archivo) {
+                $fileName = $archivo->getClientOriginalName();
+                $path = $archivo->storeAs($requisitionFolder, $fileName, 'local');
             }
         }
         return redirect()
