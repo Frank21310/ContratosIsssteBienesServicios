@@ -37,6 +37,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('Claves.index') }}"
+                        class="nav-link {{ 'Administrador/Claves' == request()->path() ? 'active' : '' }}">
+                        <i class="fas fa-file me-2"></i>
+                        Insumos
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('Proveedores.index') }}"
                         class="nav-link {{ 'Administrador/Proveedores' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-user"></i>
@@ -110,7 +117,7 @@
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <strong>{{ Auth::user()->Empleados->nombre }} {{ Auth::user()->Empleados->apellido_paterno }}</strong>
+                <strong>{{ Auth::user()->Empleados->nombre }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item"

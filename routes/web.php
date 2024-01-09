@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminContratos\SoloAdminContratosController;
+use App\Http\Controllers\Administrador\ClavesController;
 use App\Http\Controllers\Administrador\EmpleadosController;
+use App\Http\Controllers\Administrador\InsumoController;
 use App\Http\Controllers\Administrador\ProveedoresController;
 use App\Http\Controllers\Administrador\RolesController;
 use App\Http\Controllers\Administrador\SoloAdminController;
@@ -63,6 +65,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/Administrador/Empleados', EmpleadosController::class);
     Route::resource('/Administrador/Usuarios', UsuariosController::class);
     Route::resource('/Administrador/Proveedores', ProveedoresController::class);
+    Route::resource('/Administrador/Claves', ClavesController::class);
+
+
+
 })->namespace('root');
 /*
 |--------------------------------------------------------------------------
@@ -95,8 +101,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/Contratante/SeguimientoRequisicion/{id}/edit', [RequisicionesSeguimientoController::class, 'edit'])->name('SeguimientoRequisicion.edit');
     Route::put('/Contratante/SeguimientoRequisicion/{id}', [RequisicionesSeguimientoController::class, 'update'])->name('SeguimientoRequisicion.update');
     Route::put('/Contratante/SeguimientoRequisicion/{id}/tipo-contratacion', [RequisicionesSeguimientoController::class, 'updateTipoContratacion'])->name('SeguimientoRequisicion.updateTipoContratacion');
-
-
     Route::get('/descargar-archivos-requisicion/{id}', [RequisicionesSeguimientoController::class, 'descargarArchivosRequisicion'])->name('descargarArchivosRequisicion');
 
     Route::resource('/Contratante/RequisicionesFinalizadas', RequisicionesFinalizadasController::class);
@@ -105,7 +109,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/Contratante/contratos/create/{requisicion_id}', [ContratosController::class, 'create'])->name('Contratos.create');
     Route::post('/Contratante/contratos/store', [ContratosController::class, 'store'])->name('Contratos.store');
     Route::post('/Contratante/contratos/proveedor', [ContratosController::class, 'proveedor'])->name('Contratos.proveedor');
-
     Route::get('/Contratante/contratos/{id}/imprimir', [ContratosController::class, 'imprimirContrato'])->name('Contratos.imprimir');
     Route::get('/Contratante/contratos/{id}/generar-word', [ContratosController::class, 'wordContrato'])->name('Contratos.word');
 })->namespace('Contratante');
