@@ -25,7 +25,7 @@ class SoloRequirenteController extends Controller
      */
     public function index()
     {
-        return view('requierente');
+        return view('home');
 
     }
 

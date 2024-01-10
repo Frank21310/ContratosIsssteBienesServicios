@@ -26,7 +26,7 @@ class SoloContratanteController extends Controller
 
     public function index()
     {
-        return view('Contratante');   
+        return view('home');   
     }
 
     

@@ -26,7 +26,7 @@ class SoloAdminController extends Controller
     
         public function index()
         {
-            return view('administrador');   
+            return view('home');   
         }
         
     }

@@ -38,20 +38,25 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('Claves.procesarArchivo') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('Claves.procesarArchivo') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="input-group mb-3">
-                                        <form action="{{ route('Claves.procesarArchivo') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
+                                        <form action="{{ route('Claves.procesarArchivo') }}" method="POST"
+                                            enctype="multipart/form-data" id="uploadForm">
                                             @csrf
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="file" name="archivo_csv" class="form-control mt-2" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                                                    <input type="file" name="archivo_csv" class="form-control mt-2"
+                                                        id="inputGroupFile03" aria-describedby="inputGroupFileAddon03"
+                                                        aria-label="Upload">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col">
-                                                    <button type="submit" class="btn btn-primary BotonRojo mt-2" id="submitButton" disabled>Subir archivo CSV</button>
+                                                    <button type="submit" class="btn btn-primary BotonRojo mt-2"
+                                                        id="submitButton" >Subir archivo CSV</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -155,17 +160,6 @@
                     $(this).val()
             }
         })
-        document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('inputGroupFile03');
-    const submitButton = document.getElementById('submitButton');
-
-    fileInput.addEventListener('change', function() {
-        if (this.files.length !== 0 && this.files[0].name.endsWith('.csv')) {
-            submitButton.disabled = false;
-        } else {
-            submitButton.disabled = true;
-        }
-    });
-});
+        
     </Script>
 @endsection

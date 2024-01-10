@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrador;
 use App\Http\Controllers\Controller;
 use App\Models\Insumo;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClavesController extends Controller
 {
@@ -29,34 +30,47 @@ class ClavesController extends Controller
     }
 
     public function procesarArchivo(Request $request)
-{
-    if ($request->hasFile('archivo_csv')) {
-        $archivo = $request->file('archivo_csv');
+    {
+        if ($request->hasFile('archivo_csv')) {
+            $file = $request->file('archivo_csv');
 
-        $manejador_archivo = fopen($archivo, 'r');
-        $titulos = fgetcsv($manejador_archivo); // Obtener los títulos
+            // Procesar el archivo CSV
+            $csvData = array_map('str_getcsv', file($file));
+            $keys = array_shift($csvData); // Obtener los encabezados
 
-        while (($fila = fgetcsv($manejador_archivo, 0, ',')) !== false) {
-            $datos = array_combine($titulos, $fila);
+            foreach ($csvData as $row) {
+                $data = array_combine($keys, $row);
 
-            $id_cucop = $datos['id_cucop']; // Supongamos que el título de la columna del ID es 'id'
+                // Verificar si existe la clave_cucop en la tabla
+                $insumo = Insumo::where('clave_cucop', $data['clave_cucop'])->first();
 
-            $insumo = Insumo::updateOrCreate(
-                ['id_cucop' => $id_cucop],
-                [
-                    'clave_cucop' => $datos['clave_cucop'],
-                    'partida_id' => $datos['partida_id'],
-                    'descripcion' => $datos['descripcion'],
-                    'CABM' => $datos['CABM'],
-                    'tipo_contratacion' => $datos['tipo_contratacion'],
-                ]
-            );
+                if ($insumo) {
+                    // Si existe, actualizar los valores
+                    $insumo->update([
+                        'partida_id' => $data['partida_id'],
+                        'descripcion' => $data['descripcion'],
+                        'CABM' => $data['CABM'],
+                        'tipo_contratacion' => $data['tipo_contratacion'],
+                        // ... otros campos que desees actualizar
+                    ]);
+                } else {
+                    // Si no existe, crear un nuevo registro
+                    Insumo::create([
+                        'clave_cucop' => $data['clave_cucop'],
+                        'partida_id' => $data['partida_id'],
+                        'descripcion' => $data['descripcion'],
+                        'CABM' => $data['CABM'],
+                        'tipo_contratacion' => $data['tipo_contratacion'],
+                        // ... otros campos que desees insertar
+                    ]);
+                }
+            }
+
+            // Redireccionar o mostrar un mensaje de éxito
+            return redirect()->back()->with('success', 'Archivo procesado correctamente.');
         }
 
-        fclose($manejador_archivo);
-
-        return redirect()->back()->with('success', 'Insumos agregados exitosamente.');
+        // Manejar el caso en que no se haya proporcionado un archivo
+        return redirect()->back()->with('error', 'No se ha seleccionado un archivo.');
     }
-}
-
 }
