@@ -55,6 +55,10 @@ class Requisicion extends Model
     {
         return $this->hasOne(Pais::class, 'id_pais', 'pais_id');
     }
+    public function Soli(): HasOne
+    {
+        return $this->hasOne(Empleado::class, 'num_empleado', 'solicita');
+    }
 
     public function Dependencias(): HasOne
     {
@@ -71,6 +75,14 @@ class Requisicion extends Model
     public function Garantias(): HasOne
     {
         return $this->hasOne(Garantia::class, 'id_garantia', 'garantia1_id');
+    }
+    public function Garantia2(): HasOne
+    {
+        return $this->hasOne(Garantia::class, 'id_garantia', 'garantia_2_id');
+    }
+    public function Garantia3(): HasOne
+    {
+        return $this->hasOne(Garantia::class, 'id_garantia', 'garantia_3_id');
     }
     public function Condiciones(): HasOne
     {

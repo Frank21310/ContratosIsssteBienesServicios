@@ -24,8 +24,8 @@
 <div class="row">
     {{-- Fecha de elaboracion --}}
     <div class="col">
-        <label>Fecha de elaboracion:</label>
-        <input type="date" name="fecha_elaboracion" class="form-control custom-input" value="{{ old('fecha_requerida') }}" required>
+        <label>Fecha de elaboración:</label>
+        <input type="date" name="fecha_elaboracion" id="fecha_elaboracion" class="form-control custom-input" required>
     </div>
     {{-- Numero de requisicion --}}
     <div class="col">
@@ -105,7 +105,7 @@
                 </td>
                 <td>
                     <label>Precio: </label>
-                    <input type="number" name="detalles[0][precio]" min="0" placeholder="1.0" step="0.1"
+                    <input type="number" name="detalles[0][precio]" min="0" placeholder="$ 1" step="1"
                         class="form-control custom-input" value="{{ old('precio') }}" required>
                 </td>
                 <td>
@@ -132,7 +132,7 @@
         <label>Sub Total: </label>
     </div>
     <div class="col-4 mx-auto p-2  d-flex align-items-end flex-column">
-        <span class="form-control subtotal custom-span" id="subtotal" name="subtotal">0</span>
+        <span class="form-control subtotal custom-span" id="subtotal" name="subtotal" >0</span>
     </div>
 </div>
 
@@ -261,7 +261,8 @@
             {{-- Garantia --}}
             <div class="col-4">
                 <label>Tipo de garantia: </label>
-                <select class="form-control custom-select" name="garantia1_id" required>
+                <select class="form-control custom-select" name="garantia1_id" >
+                    <option value=""></option>
                     @foreach ($garantias as $garantia)
                         <option value="{{ $garantia->id_garantia }}">
                             {{ $garantia->nombre_garantia }}</option>
@@ -271,7 +272,8 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_1" class="form-control custom-select" required>
+                <select name="porcentaje_1" class="form-control custom-select" >
+                    <option value=""></option>
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -285,7 +287,8 @@
             {{-- Garantia --}}
             <div class="col-4">
                 <label>Tipo de garantia: </label>
-                <select class="form-control custom-select" name="garantia_2_id" required>
+                <select class="form-control custom-select" name="garantia_2_id" >
+                    <option value=""></option>
                     @foreach ($garantias as $garantia)
                         <option value="{{ $garantia->id_garantia }}">
                             {{ $garantia->nombre_garantia }}</option>
@@ -295,7 +298,8 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_2" class="form-control custom-select" required>
+                <select name="porcentaje_2" class="form-control custom-select" >
+                    <option value=""></option>
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -309,7 +313,8 @@
             {{-- Garantia --}}
             <div class="col-4">
                 <label>Tipo de garantia: </label>
-                <select class="form-control custom-select" name="garantia_3_id" required>
+                <select class="form-control custom-select" name="garantia_3_id" >
+                    <option value=""></option>
                     @foreach ($garantias as $garantia)
                         <option value="{{ $garantia->id_garantia }}">
                             {{ $garantia->nombre_garantia }}</option>
@@ -319,7 +324,8 @@
             {{-- Porcentaje --}}
             <div class="col-3">
                 <label>Porcentaje: </label>
-                <select name="porcentaje_3" class="form-control custom-select" required>
+                <select name="porcentaje_3" class="form-control custom-select" >
+                    <option value=""></option>
                     <option value="{{ '100%' }}">100%</option>
                     <option value="{{ '75%' }}">75%</option>
                     <option value="{{ '50%' }}">50%</option>
@@ -425,8 +431,9 @@
                 subtotal += importe;
             });
 
-            var iva = subtotal * 0.16;
+            
             var otrosGravamientos = parseFloat($("#otros_gravamientos").val()) || 0;
+            var iva = subtotal * 0.16;
             var total = subtotal + iva + otrosGravamientos;
 
             $("#subtotal").text(subtotal.toFixed(2));
@@ -513,6 +520,24 @@
         $("#otros_gravamientos").on("change", function() {
             calcularTotales();
         });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener el elemento del campo de fecha
+        var fechaElaboracion = document.getElementById('fecha_elaboracion');
+
+        // Crear un nuevo objeto de fecha para obtener la fecha actual
+        var fechaActual = new Date();
+
+        // Formatear la fecha actual al formato requerido para el campo de fecha
+        var dia = fechaActual.getDate();
+        var mes = fechaActual.getMonth() + 1; // El mes se indexa desde 0
+        var año = fechaActual.getFullYear();
+
+        // Formatear la fecha en el formato 'YYYY-MM-DD' para establecerla como valor predeterminado
+        var fechaFormateada = año + '-' + (mes < 10 ? '0' + mes : mes) + '-' + (dia < 10 ? '0' + dia : dia);
+
+        // Establecer la fecha formateada como el valor del campo de fecha
+        fechaElaboracion.value = fechaFormateada;
     });
 </script>
 @push('scripts')

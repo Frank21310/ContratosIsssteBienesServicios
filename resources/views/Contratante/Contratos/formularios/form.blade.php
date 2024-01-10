@@ -35,7 +35,6 @@
             line-height: 0.3527p;
             font-size: 10px;
             word-spacing: 0.5px;
-
         }
 
         main {

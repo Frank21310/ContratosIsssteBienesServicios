@@ -160,16 +160,16 @@ class RequisicionesController extends Controller
         }
 
         /*ALMACENAMIENTO CON AMAZON
-        $requisitionFolder = 'requisicion/' . $requisicion->id_requisicion;
-        Storage::disk('s3')->makeDirectory($requisitionFolder);
-
-        // Subir los archivos a la carpeta en S3
-        if ($request->hasFile('archivos')) {
-            foreach ($request->file('archivos') as $archivo) {
-                $fileName = $archivo->getClientOriginalName();
-                $path = $archivo->storeAs($requisitionFolder, $fileName, 's3');
-            }
-        }*/
+         $requisitionFolder = 'requisicion/' . $requisicion->id_requisicion;
+         Storage::disk('s3')->makeDirectory($requisitionFolder);
+ 
+         // Subir los archivos a la carpeta en S3
+         if ($request->hasFile('archivos')) {
+             foreach ($request->file('archivos') as $archivo) {
+                 $fileName = $archivo->getClientOriginalName();
+                 $path = $archivo->storeAs($requisitionFolder, $fileName, 's3');
+             }
+         }*/
         $requisitionFolder = 'requisicion/' . $requisicion->no_requisicion;
         Storage::disk('local')->makeDirectory($requisitionFolder);
 
@@ -186,6 +186,9 @@ class RequisicionesController extends Controller
     /**
      * Display the specified resource.
      */
+    /**
+     * Display the specified resource.
+     */
     public function show(string $id)
     {
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
@@ -194,11 +197,11 @@ class RequisicionesController extends Controller
 
     public function imprimirRequisicion($id)
     {
-        $image = '/assets/img/LogoConvinado.jpg';
+        $image = 'assets/img/LogoNew2.png';
         $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
 
         $pdf = Pdf::loadView('Requirente.Requisiciones.imprimir', compact('requisicion', 'image'));
-        return $pdf->setPaper('a4', 'landscape')->stream('requisicion_' . $id . '.pdf');
+        return $pdf->setPaper('Letter', 'landscape')->stream('requisicion_' . $id . '.pdf');
     }
 
     /**

@@ -92,10 +92,12 @@
                                                 action="{{ route('descargarArchivosRequisicion', $requisicion->id_requisicion) }}"
                                                 method="GET">
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary">
+                                                <button type="submit" class="btn btn-info">
                                                     <i class="fa fa-download" aria-hidden="true"></i>
                                                 </button>
                                             </form>
+                                            <a href="{{ route('requisiciones.imprimir', $requisicion->id_requisicion) }}"
+                                                class="btn btn-secondary"><i class="fas fa-print"></i></a>
                                             @if ($requisicion->estatus == 1 || $requisicion->estatus == 4)
 
                                                 <a href="{{ route('SeguimientoRequisicion.edit', $requisicion->id_requisicion) }}"

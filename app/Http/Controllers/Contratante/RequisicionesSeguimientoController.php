@@ -9,6 +9,7 @@ use App\Models\Insumo;
 use App\Models\Medida;
 use App\Models\Partida;
 use App\Models\Requisicion;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -126,15 +127,26 @@ class RequisicionesSeguimientoController extends Controller
         $requisicion->estatus = $request->estatus;
         $requisicion->save();
 
-        $detalles = DetalleRequisicion::where('requisicion_id', $requisicion->id)->get();
-        foreach ($detalles as $index => $detalle) {
-            $detalle->num_partida = $request->input('num_partida')[$index];
-            $detalle->cucop = $request->input('cucop')[$index];
-            $detalle->descripcion = $request->input('descripcion')[$index];
-            $detalle->cantidad = $request->input('cantidad')[$index];
-            $detalle->medida_id = $request->input('medida_id')[$index];
-            $detalle->precio = $request->input('precio')[$index];
-            $detalle->importe = $request->input('importe')[$index];
+        foreach ($request->input('detalles') as $index => $detalleData) {
+            $numPartida = $detalleData['num_partida']; // Suponiendo que 'num_partida' sea una clave única para identificar detalles
+        
+            $detalle = DetalleRequisicion::where('num_partida', $numPartida)
+                ->where('requisicion_id', $requisicion->id_requisicion)
+                ->first();
+        
+            if (!$detalle) {
+                $detalle = new DetalleRequisicion();
+                $detalle->requisicion_id = $requisicion->id_requisicion; // Asigna el ID de la requisición al nuevo detalle
+            }
+        
+            $detalle->num_partida = $numPartida;
+            $detalle->cucop = $detalleData['cucop'];
+            $detalle->descripcion = $detalleData['descripcion'];
+            $detalle->cantidad = $detalleData['cantidad'];
+            $detalle->medida_id = $detalleData['medida_id'];
+            $detalle->precio = $detalleData['precio'];
+            $detalle->importe = $detalleData['importe'];
+        
             $detalle->save();
         }
         if ($oldNoRequisicion !== $requisicion->no_requisicion) {
@@ -249,5 +261,13 @@ class RequisicionesSeguimientoController extends Controller
             // Manejar el caso en que la carpeta no exista
             return alert('Carpeta no existente');
         }
+    }
+    public function imprimirRequisicion($id)
+    {
+        $image = 'assets/img/LogoNew2.png';
+        $requisicion = Requisicion::with('detalles')->where('id_requisicion', $id)->firstOrFail();
+
+        $pdf = Pdf::loadView('Requirente.Requisiciones.imprimir', compact('requisicion', 'image'));
+        return $pdf->setPaper('Letter', 'landscape')->stream('requisicion_' . $id . '.pdf');
     }
 }

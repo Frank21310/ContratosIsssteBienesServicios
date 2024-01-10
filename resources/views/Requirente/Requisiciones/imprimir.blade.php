@@ -2,243 +2,361 @@
 <html>
 
 <head>
+    <title>Documento con estructura básica</title>
+    <style>
+        /** Define the margins of your page **/
+        @page {
+            margin: 1.5cm;
+        }
 
-    <title>Requisición</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        footer {
+            position: fixed;
+            bottom: -60px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+        }
 
+        div {
+            border: .5px solid black;
+            padding: -10px 5px -10px 5px;
+            margin: 1px;
+        }
+
+        p {
+            color: rgb(0, 0, 0);
+            font-family: Montserrat;
+            font-size: 10px;
+            padding: none;
+
+        }
+
+        table {
+            width: 100%;
+            
+        }
+
+        .tabboder {
+            border: .5px solid black;
+            margin: none;
+
+        }
+        .top{
+            margin: 0px;
+            padding: none;
+
+        }
+
+        td {
+            padding: none;
+
+        }
+    </style>
 </head>
 
 <body>
-    <div style="display: flex;">
-        <div
-            style="border: 2px solid #000; margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:60%;">
-            <label>Nombre de la dependencia o entidad: </label>
-            <span>{{ $requisicion->Dependencias->nombre_dependencia }}</span>
+    <header>
+        <div style="border: none; justify-content: center; ">
+            <p style="size: 15px; text-align: center;">REQUISICIÓN DE BIENES Y SERVICIOS </p>
         </div>
-        <div
-            style="border: 2px solid #000; margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:40%;">
-            <label>Área requirente: </label>
-            <span>{{ $requisicion->Areas->nombre_area }}</span>
-        </div>
-    </div>
-    <br>
-    <div style="display: flex;">
-        <div
-            style="border: 2px solid #000; margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:40%;">
-            <label>Fecha de elaboración: </label>
-            <span>{{ $requisicion->fecha_requerida }}</span>
-        </div>
-        <div
-            style="border: 2px solid #000; margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:20%;">
-            <label>No. de requisición: </label>
-            <span>{{ $requisicion->no_requisicion }}</span>
-        </div>
-        <div style=" margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:10%;">
+        <img src="{{ $image }}" alt="Logo" width="250">
+    </header>
 
-        </div>
-        <div
-            style="border: 2px solid #000; margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:30%;">
-            <label>Fecha requerida: </label>
-            <span>{{ $requisicion->fecha_requerida }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div
-            style="border: 2px solid #000; margin-bottom: 5px; padding-left: 4px; padding-right: 4px; margin-left: 5px; width:100%;">
-            <label>Lugar de entrega: </label>
-            <span>{{ $requisicion->lugar_entrega }}</span>
-        </div>
-    </div>
-
-    <br>
-
-    <table>
-        <thead>
+    <main>
+        <table>
             <tr>
-                <th>No. de partida</th>
-                <th>CUCOP</th>
-                <th>Descripción</th>
-                <th>Cantidad solicitada</th>
-                <th>Unidad de medida</th>
-                <th>Precio unitario</th>
-                <th>Importe</th>
+                <td colspan="3">
+                    <div style="padding: 0px;">
+                        <p style="padding: 0px;">Nombre de la dependencia o entidad:
+                            {{ $requisicion->Dependencias->nombre_dependencia }}</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>
+                            Área requirente: {{ $requisicion->Areas->nombre_area }}
+                        </p>
+                    </div>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach ($requisicion->detalles as $detalle)
-                <tr>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->num_partida }}</td>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->cucop }}</td>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->Insumos->descripcion }}</td>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->cantidad }}</td>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ $detalle->Medidas->nombre_medida }}</td>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ '$' . $detalle->precio }}</td>
-                    <td style="border: 1px solid #000; padding-left: 4px;">{{ '$' . $detalle->importe }}</td>
+            <tr>
+                <td>
+                    <div>
+                        <p>
+                            Fecha de elaboración: {{ $requisicion->fecha_requerida }}
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>No. de requisición: {{ $requisicion->no_requisicion }}</p>
+                    </div>
+                </td>
+                <td colspan="1"></td>
+                <td>
+                    <div>
+                        <p>Fecha requerida:{{ $requisicion->fecha_requerida }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div>
+                        <p>Lugar de entrega: {{ $requisicion->lugar_entrega }}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <thead>
+                <tr class="top">
+                    <th class="tabboder">
+                        <p>No. de partida</p>
+                    </th>
+                    <th class="tabboder">
+                        <p>CUCOP</p>
+                    </th>
+                    <th class="tabboder">
+                        <p>Descripción</p>
+                    </th>
+                    <th class="tabboder">
+                        <p>Cantidad solicitada</p>
+                    </th>
+                    <th class="tabboder">
+                        <p>Unidad de medida</p>
+                    </th>
+                    <th class="tabboder">
+                        <p>Precio unitario</p>
+                    </th>
+                    <th class="tabboder">
+                        <p>Importe</p>
+                    </th>
                 </tr>
-            @endforeach
+            </thead>
+            <tbody>
+                @foreach ($requisicion->detalles as $detalle)
+                    <tr class="top">
+                        <td class="tabboder">
+                            <p>{{ $detalle->num_partida }}</p>
+                        </td>
+                        <td class="tabboder">
+                            <p>{{ $detalle->cucop }}</p>
+                        </td>
+                        <td class="tabboder">
+                            <p>{{ $detalle->Insumos->descripcion }}</p>
+                        </td>
+                        <td class="tabboder">
+                            <p>{{ $detalle->cantidad }}</p>
+                        </td>
+                        <td class="tabboder">
+                            <p>{{ $detalle->Medidas->nombre_medida }}</p>
+                        </td>
+                        <td class="tabboder">
+                            <p>{{ '$' . $detalle->precio }}</p>
+                        </td>
+                        <td class="tabboder">
+                            <p>{{ '$' . $detalle->importe }}</p>
+                        </td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <td colspan="4"></td>
+                    <td colspan="1" class="tabboder">
+                        <p>Subtotal:</p>
+                    </td>
+                    <td colspan="2" class="tabboder">
+                        <p>{{ '$' . $requisicion->subtotal }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <p>Anexos: {{ $requisicion->anexos }}</p>
+                        </div>
+                    </td>
+                    <td colspan="2"></td>
+                    <td colspan="1" class="tabboder">
+                        <p>I.V.A.:</p>
+                    </td>
+                    <td colspan="2" class="tabboder">
+                        <p>{{ '$' . $requisicion->iva }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <p>Anticipo: {{ $requisicion->anticipo }}</p>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <p>Autorización del presupuesto: {{ $requisicion->autorizacion_presupuesto }}</p>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <p>Existencia en almacen: @if ($requisicion->existencia_almacen == 1)
+                                    Si
+                                @else
+                                    No
+                                @endif
+                            </p>
+                        </div>
+                    </td>
+                    <td colspan="1" class="tabboder">
+                        <p>Otros gravámenes: </p>
+                    </td>
+                    <td colspan="2" class="tabboder">
+                        <p>{{ '$' . $requisicion->otros_gravamientos }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div>
+                            <p>Observaciones: {{ $requisicion->observaciones }}</p>
+                        </div>
+                    </td>
+                    <td colspan="1" class="tabboder">
+                        <p>Total: </p>
+                    </td>
+                    <td colspan="2" class="tabboder">
+                        <p>{{ '$' . $requisicion->total }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
             <tr>
-                <td colspan="5"></td>
-                <td colspan="1">Subtotal:</td>
-                <td colspan="2">0</td>
+                <td colspan="1">
+                    <div>
+                        <p>Registro sanitario: {{ $requisicion->registro_sanitario }}</p>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div>
+                        <p>Normas / niveles de inspección: {{ $requisicion->normas }}</p>
+                    </div>
+                </td>
+
+                <td colspan="1">
+                    <div>
+                        <p>Capacitación: {{ $requisicion->normas }}</p>
+                    </div>
+                </td>
+                <td colspan="1">
+                </td>
+                <td colspan="1">
+                    <div>
+                        <p>País de origen: {{ $requisicion->normas }}</p>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td colspan="1" class="">Anexos:</td>
-                <td colspan="1" class="">{{ $requisicion->anexos }} </td>
-
-                <td colspan="3"></td>
-                <td colspan="1">I.V.A.:</td>
-                <td colspan="2">0</td>
+                <td colspan="1">
+                    <div>
+                        <p>Metodos de prueba {{ $requisicion->Metodos->nombre_metodo }}</p>
+                    </div>
+                </td>
             </tr>
-        </tbody>
-    </table>
-
-    <br>
-
-
-    <div style="display: flex;">
-        <div class="col c21" style="border: 1px solid #000; padding: 5px;">
-            <label>Anticipo: </label>
-            <span>{{ $requisicion->anticipo }}</span>
-        </div>
-        <div class="col c22" style="border: 1px solid #000; padding: 5px;">
-            <label>Autorización del presupuesto: </label>
-            <span>{{ $requisicion->autorizacion_presupuesto }}</span>
-        </div>
-        <div class="col c23" style="border: 1px solid #000; padding: 5px;">
-            <label>Existencia en almacen: </label>
-            <span>{{ $requisicion->autorizacion_presupuesto }}</span>
-        </div>
-        <div class="col c24" style="border: 1px solid #000; padding: 5px;">
-            <label>Otros gravámenes: </label>
-            <span>{{ $requisicion->autorizacion_presupuesto }}</span>
-        </div>
-    </div>
-    <div class=" f2">
-        <div class="col c25" style="border: 1px solid #000; padding: 5px;">
-            <label>Observaciones: </label>
-            <span>{{ $requisicion->observaciones }}</span>
-        </div>
-        <div class="col c26" style="border: 1px solid #000; padding: 5px;">
-            <label>Total: </label>
-            <span>{{ $requisicion->total }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div class="col c27" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Registro sanitario: </label>
-            <span>{{ $requisicion->registro_sanitario }}</span>
-        </div>
-        <div class="col c28" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Normas / niveles de inspección:</label>
-            <span>{{ $requisicion->normas }}</span>
-        </div>
-        <div class="col c29" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Capacitación:</label>
-            <span>{{ $requisicion->normas }}</span>
-        </div>
-        <div class="col c30" style="border: 1px solid #000; padding-left: 4px;">
-            <label>País de origen:</label>
-            <span>{{ $requisicion->normas }}</span>
-        </div>
-    </div>
-
-    <div style="display: flex;">
-        <div class="col c21" style="border: 1px solid #000; padding: 5px;">
-            <label>Anticipo: </label>
-            <span>{{ $requisicion->anticipo }}</span>
-        </div>
-        <div class="col c22" style="border: 1px solid #000; padding: 5px;">
-            <label>Autorización del presupuesto: </label>
-            <span>{{ $requisicion->autorizacion_presupuesto }}</span>
-        </div>
-        <div class="col c23" style="border: 1px solid #000; padding: 5px;">
-            <label>Existencia en almacen: </label>
-            <span>{{ $requisicion->autorizacion_presupuesto }}</span>
-        </div>
-        <div class="col c24" style="border: 1px solid #000; padding: 5px;">
-            <label>Otros gravámenes: </label>
-            <span>{{ $requisicion->autorizacion_presupuesto }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div class="col c25" style="border: 1px solid #000; padding: 5px;">
-            <label>Observaciones: </label>
-            <span>{{ $requisicion->observaciones }}</span>
-        </div>
-        <div class="col c26" style="border: 1px solid #000; padding: 5px;">
-            <label>Total: </label>
-            <span>{{ $requisicion->total }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div class="col c32" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Tipo de garantía: </label>
-            <span>{{ $requisicion->Garantias->nombre_garantia }}</span>
-        </div>
-        <div class="col c33" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Porcentaje: </label>
-            <span>{{ $requisicion->porcentaje }}</span>
-        </div>
-        <div class="col c34" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Plurianualidad: </label>
-            <span>{{ $requisicion->Metodos->nombre_metodo }}</span>
-        </div>
-        <div class="col c35" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Meses: </label>
-            <span>{{ $requisicion->Metodos->nombre_metodo }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div class="col c36" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Tipo de garantía: </label>
-            <span>{{ $requisicion->Garantias->nombre_garantia }}</span>
-        </div>
-        <div class="col c37" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Porcentaje: </label>
-            <span>{{ $requisicion->porcentaje }}</span>
-        </div>
-        <div class="col c38" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Penas convencionales: </label>
-            <span>{{ $requisicion->Metodos->nombre_metodo }}</span>
-        </div>
-        <div class="col c39" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Porcentaje: </label>
-            <span>{{ $requisicion->Metodos->nombre_metodo }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div class="col c40" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Tipo de garantía: </label>
-            <span>{{ $requisicion->Garantias->nombre_garantia }}</span>
-        </div>
-        <div class="col c41" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Porcentaje: </label>
-            <span>{{ $requisicion->porcentaje }}</span>
-        </div>
-        <div class="col c42" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Tiempo de fabricación: </label>
-            <span>{{ $requisicion->Metodos->nombre_metodo }}</span>
-        </div>
-    </div>
-    <div style="display: flex;">
-        <div class="col c43" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Condiciones de entrega: </label>
-            <span>{{ $requisicion->condiciones_entrega }}</span>
-        </div>
-    </div>
-
-    <div style="display: flex;">
-        <div class="col c43" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Solicita: </label>
-            <span>{{ $requisicion->solicitada }}</span>
-        </div>
-        <div class="col c43" style="border: 1px solid #000; padding-left: 4px;">
-            <label>Autoriza: </label>
-            <span>{{ $requisicion->autoriza }}</span>
-        </div>
-    </div>
+            <tr>
+                <td colspan="2">
+                    <div>
+                        <p>Tipo de garantía: {{ $requisicion->Garantias->nombre_garantia }}</p>
+                    </div>
+                </td>
+                <td colspan="1">
+                    <div>
+                        <p>Porcentaje: {{ $requisicion->porcentaje_1 }}</p>
+                    </div>
+                </td>
+                <td colspan="1">
+                </td>
+                <td colspan="1">
+                    <div>
+                        <p>Plurianualidad:
+                            @if ($requisicion->pluralidad == 1)
+                                Si
+                            @else
+                                No
+                            @endif
+                        </p>
+                    </div>
+                </td>
+                <td colspan="1">
+                    <div>
+                        <p>Meses: </p>
+                        <p>{{ $requisicion->meses }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div>
+                        <p>Tipo de garantía: @if ($requisicion->garantia_2_id == null)
+                            @else
+                                {{ $requisicion->Garantia2->nombre_garantia }}
+                            @endif
+                        </p>
+                    </div>
+                </td>
+                <td colspan="1">
+                    <div>
+                        <p>Porcentaje: {{ $requisicion->porcentaje_2 }}</p>
+                    </div>
+                </td>
+                <td colspan="1">
+                </td>
+                <td colspan="2">
+                    <div>
+                        <p>Penas convencionales: {{ $requisicion->Metodos->nombre_metodo }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div>
+                        <p>Tipo de garantía: @if ($requisicion->garantia_3_id == null)
+                            @else
+                                {{ $requisicion->Garantia3->nombre_garantia }}
+                            @endif
+                        </p>
+                    </div>
+                </td>
+                <td colspan="1">
+                    <div>
+                        <p>Porcentaje: {{ $requisicion->porcentaje_3 }}</p>
+                    </div>
+                </td>
+                <td colspan="1">
+                </td>
+                <td colspan="3">
+                    <div>
+                        <p>Tiempo de fabricación: {{ $requisicion->Metodos->nombre_metodo }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div>
+                        <p>Condiciones de entrega: {{ $requisicion->condiciones_entrega }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <p>Solicita: {{ $requisicion->Soli->nombre }} {{ $requisicion->Soli->apellido_paterno }}
+                            {{ $requisicion->Soli->apellido_materno }}</p>
+                    </div>
+                </td>
+                <td colspan="3">
+                    <div>
+                        <p>Autoriza: {{ $requisicion->autoriza }}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </main>
 </body>
 
 </html>

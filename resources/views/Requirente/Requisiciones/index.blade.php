@@ -82,18 +82,18 @@
                         <tbody class="custom-thead">
                             @foreach ($requisiciones as $requisicion)
                                 <tr>
-                                    <td class="custom-td">{{ $requisicion->id_requisicion }}</td>
+                                    <td class="custom-td">{{ $requisicion->no_requisicion }}</td>
                                     <td class="custom-td">{{ $requisicion->Dependencias->nombre_dependencia }}</td>
                                     <td class="custom-td">{{ $requisicion->fecha_elaboracion }}</td>
                                     <td class="custom-td">{{ $requisicion->solicita }}</td>
                                     <td class="custom-td">{{ $requisicion->autoriza }}</td>
                                     <td class="custom-td">Pendiente</td>
                                     <td class="custom-td">
-                                        <div class="btn-group" role="group">
+                                        <!-- <div class="btn-group" role="group">
                                             <a href="{{ route('Requisiciones.show', $requisicion->id_requisicion) }}"
                                                 class="btn btn-info"><i class="fas fa-eye"></i></a>
 
-                                        </div>
+                                        </div> -->
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('requisiciones.imprimir', $requisicion->id_requisicion) }}"
                                                 class="btn btn-primary"><i class="fas fa-print"></i></a>
