@@ -34,8 +34,8 @@ class ProveedoresController extends Controller
         $limit = (isset($request->limit)) ? $request->limit : 4;
 
         if (isset($request->search)) {
-            $proveedores = $proveedores->where('id_proveedor', 'like', '%' . $request->search . '%')
-                ->orWhere('nombre_proveedor', 'like', '%' . $request->search . '%');
+            $proveedores = $proveedores->where('rfc', 'like', '%' . $request->search . '%')
+                ->orWhere('nombre', 'like', '%' . $request->search . '%');
         }
         $proveedores = $proveedores->paginate($limit)->appends($request->all());
         return view('Administrador.Proveedores.index', compact('proveedores'));

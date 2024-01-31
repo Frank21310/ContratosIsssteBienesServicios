@@ -83,8 +83,14 @@
                                     <td class="custom-td">{{ $proveedor->rfc }}</td>
                                     <td class="custom-td">{{ $proveedor->nombre }}</td>
                                     <td class="custom-td">{{ $proveedor->Personas->nombre_persona }}</td>
-                                    <td class="custom-td">{{ $proveedor->Domicilios->calle}}, {{ $proveedor->Domicilios->municipio}}, {{ $proveedor->Domicilios->codigo_postal}}, {{ $proveedor->Domicilios->estado}}, {{ $proveedor->Domicilios->pais}}</td>
-
+                                    <td class="custom-td">
+                                        {{ optional($proveedor->Domicilios)->calle }},
+                                        {{ optional($proveedor->Domicilios)->municipio }},
+                                        {{ optional($proveedor->Domicilios)->codigo_postal }},
+                                        {{ optional($proveedor->Domicilios)->estado }},
+                                        {{ optional($proveedor->Domicilios)->pais }}
+                                    </td>
+                                    
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
                         
@@ -119,13 +125,13 @@
 
     <Script type="text/javascript">
         $('#limit').on('change', function() {
-            window.location.href = "{{ route('roles.index') }}?limit=" + $(this).val() + '&search=' + $('#search')
+            window.location.href = "{{ route('Proveedores.index') }}?limit=" + $(this).val() + '&search=' + $('#search')
                 .val()
         })
 
         $('#search').on('keyup', function(e) {
             if (e.keyCode == 13) {
-                window.location.href = "{{ route('roles.index') }}?limit=" + $('#limit').val() + '&search=' + $(
+                window.location.href = "{{ route('Proveedores.index') }}?limit=" + $('#limit').val() + '&search=' + $(
                     this).val()
             }
         })
