@@ -1,27 +1,6 @@
 @csrf
 
 <div class="row mb-3">
-    <label for="empleado_num" class="col-md-4 col-form-label text-md-end">{{ __('Empleado') }}</label>
-
-    <div class="col-md-6">
-        <select class="form-control select-partida custom-select" name="empleado_num" readonly>
-            <option value="">Selecciona</option>
-            @foreach ($empleados as $empleado)
-                <option value="{{ $empleado->empleado_num }}" class="form-control"
-                    @if ($empleado->empleado_num == $empleado->empleado_num) selected @endif>
-                    {{ $empleado->nombre }} {{ $empleado->apellido_paterno }}
-                </option>
-            @endforeach
-        </select>
-        @error('empleado_num')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-</div>
-
-<div class="row mb-3">
     <label for="id_rol" class="col-md-4 col-form-label text-md-end">{{ __('Rol') }}</label>
 
     <div class="col-md-6">
@@ -29,7 +8,7 @@
             <option value="" disabled selected>Seleccionar Rol</option>
             @foreach ($roles as $rol)
                 <option value="{{ $rol->id_rol }}" class="form-control"
-                    @if ($rol->id_rol == $rol->id_rol) selected @endif>
+                    @if ($rol->id_rol == $User->rol_id) selected @endif>
                     {{ $rol->nombre_rol}}
                 </option>
             @endforeach

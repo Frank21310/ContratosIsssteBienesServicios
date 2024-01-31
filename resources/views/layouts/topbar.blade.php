@@ -17,7 +17,7 @@
         <ul class="nav justify-content-end">
             @guest
                 <li class="nav-item">
-                    <a class="nav-link fw-bold text-white " aria-current="page" href="{{ route('login') }}">Iniciar Sesion</a>
+                    <a class="nav-link fw-bold text-white " aria-current="page" href="{{ route('login') }}">Iniciar Sesión</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold text-white " aria-current="page" href="{{ route('Registro') }}">Registrarse</a>

@@ -84,12 +84,12 @@
                                     <td class="custom-td">{{ $User->Roles->nombre_rol }}</td>
                                     <td class="custom-td">
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('Usuarios.show', $User->empleado_num) }}"
+                                            <a href="{{ route('Usuarios.show', $User->id) }}"
                                                 class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('Usuarios.edit', $User->empleado_num) }}"
+                                            <a href="{{ route('Usuarios.edit', $User->id) }}"
                                                 class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ route('Usuarios.destroy', $User->empleado_num) }}"
-                                                id="delete_{{ $User->empleado_num }}" method="POST">
+                                            <form action="{{ route('Usuarios.destroy', $User->id) }}"
+                                                id="delete_{{ $User->id }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"
@@ -97,6 +97,7 @@
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
+                                            
                                         </div>
                                     </td>
                                 </tr>

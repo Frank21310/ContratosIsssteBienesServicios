@@ -8,8 +8,13 @@
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bienvenido</title>
-    <!-- Vite -->
-    @vite(['resources/js/app.js', 'resources/sass/app.scss','resources/css/app.css'])
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script src="{{ asset('assets/js/app.jss') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/sass/app.scss') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 </head>
 
 <body>
@@ -53,7 +58,7 @@
                                             <div class="d-grid gap-4 col-6 mx-auto">
                                                 <a href="{{ route('login') }}" class="btn btn-outline-dark fw-bold BotonRojo"
                                                     role="button" aria-disabled="true">Iniciar
-                                                    Sesion</a>
+                                                    Sesión</a>
                                                 <a href="{{ route('Registro') }}" class="btn btn-outline-dark fw-bold BotonRojo"
                                                     tabindex="-1" role="button" aria-disabled="true">Registrarse</a>
                                             </div>

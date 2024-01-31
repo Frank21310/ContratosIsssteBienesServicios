@@ -20,7 +20,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h3 mb-3">Iniciar Sesion</h1>
+                                        <h1 class="h3 mb-3">Iniciar Sesión</h1>
                                     </div>
                                     <form method="POST" action="{{ route('login') }}" >
                                         @csrf
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="d-grid gap-4 col-6 mx-auto py-3">
                                             <button type="submit" class="btn btn-outline-dark BotonRojo ">
-                                                {{ __('Iniciar Sesion') }}
+                                                {{ __('Iniciar Sesión') }}
                                             </button>
                                     </form>
                                 </div>
@@ -73,3 +73,4 @@
         </div>
     </div>
 @endsection
+

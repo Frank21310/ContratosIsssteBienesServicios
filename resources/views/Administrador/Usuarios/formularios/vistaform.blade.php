@@ -6,7 +6,7 @@
 
     <div class="col-md-6">
         <span id="empleado_num" class="form-control custom-span" name="empleado_num" >
-            {{ isset($Users) ? $Users->Empleados->nombre : old('nombre_rol') }}
+            {{ isset($Users) ? $Users->Empleados->nombre : old('empleado_num') }}
         </span>
 
     </div>
@@ -16,8 +16,8 @@
     <label for="id_rol" class="col-md-4 col-form-label text-md-end">{{ __('Rol') }}</label>
 
     <div class="col-md-6">
-        <span id="id_rol" class="form-control custom-span" name="id_rol" >
-            {{ isset($Users) ? $Users->Roles->nombre_rol : old('nombre_rol') }}
+        <span id="id_rol" class="form-control custom-span" name="rol_id" >
+            {{ isset($Users) ? $Users->Roles->nombre_rol : old('rol_id') }}
         </span>
     </div>
 </div>

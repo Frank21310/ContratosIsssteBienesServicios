@@ -138,11 +138,60 @@
         <label>Selecciona el proveedor</label>
         <select name="proveedor" id="tipo_proveedor" class="form-select custom-select">
             <option value="">Selecciona el tipo..</option>
-            @foreach ($proveedores as $proveedor)
-                <option value="{{ $proveedor->id_proveedor }}">
-                    {{ $proveedor->nombre }}
+            @foreach ($proveedores as $proveedorItem)
+                <option value="{{ $proveedorItem->id_proveedor }}">
+                    {{ $proveedorItem->nombre }}
                 </option>
             @endforeach
         </select>
     </div>
 </div>
+
+<div id="info_proveedor">
+    <!-- Aquí se mostrará la información del proveedor seleccionado -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tipo_proveedor').change(function () {
+            var proveedorId = $(this).val();
+
+            if (proveedorId) {
+                $('#info_proveedor').html('<p>Cargando información...</p>'); // Mensaje de carga
+
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route("obtenerInformacionProveedor", ":proveedor") }}'.replace(':proveedor', proveedorId),
+                    success: function (data) {
+                        var domicilioInfo = '';
+                        if (data.domicilios) { // Cambiado de data.Domicilios a data.domicilios
+                            domicilioInfo = '<p><strong>Calle:</strong> ' + data.domicilios.calle + '</p>' +
+                                            '<p><strong>Municipio:</strong> ' + data.domicilios.municipio + '</p>' +
+                                            '<p><strong>Código Postal:</strong> ' + data.domicilios.codigo_postal + '</p>' +
+                                            '<p><strong>Estado:</strong> ' + data.domicilios.estado + '</p>' +
+                                            '<p><strong>País:</strong> ' + data.domicilios.pais + '</p>';
+                        }
+                         var personaInfo = '';
+                        if (data.personas) {
+                            personaInfo = '<p><strong>Tipo de Persona:</strong> ' + data.personas.nombre_persona + '</p>';
+                        }
+                                        
+                        $('#info_proveedor').html('<p><strong>Nombre:</strong> ' + data.nombre + '</p>' +
+                                                  '<p><strong>RFC:</strong> ' + data.rfc + '</p>' +
+                                                  '<p><strong>Nacionalidad:</strong> ' + data.nacionalidad + '</p>' +
+                                                 personaInfo + domicilioInfo);
+
+                    },
+                    error: function () {
+                        $('#info_proveedor').html('<p>Error al obtener la información del proveedor</p>');
+                    }
+                });
+            } else {
+                $('#info_proveedor').html('<p>Selecciona un proveedor</p>');
+            }
+        });
+    });
+</script>
+
+

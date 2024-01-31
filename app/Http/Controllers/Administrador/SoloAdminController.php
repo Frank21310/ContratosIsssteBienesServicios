@@ -26,7 +26,9 @@ class SoloAdminController extends Controller
     
         public function index()
         {
-            return view('home');   
+            $totalUsuarios = User::count();
+            $totalEmpleados = Empleado::count();
+            return view('home', compact('totalUsuarios', 'totalEmpleados'));   
         }
         
     }

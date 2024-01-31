@@ -109,6 +109,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/Contratante/contratos/proveedor', [ContratosController::class, 'proveedor'])->name('Contratos.proveedor');
     Route::get('/Contratante/contratos/{id}/imprimir', [ContratosController::class, 'imprimirContrato'])->name('Contratos.imprimir');
     Route::get('/Contratante/contratos/{id}/generar-word', [ContratosController::class, 'wordContrato'])->name('Contratos.word');
+    Route::get('/contratos/export/excel', [ContratosController::class, 'exportExcel'])->name('contratos.export.excel');
+    Route::get('/Contratos/contratos/obtener-informacion-proveedor/{proveedor}', [ContratosController::class, 'obtenerInformacionProveedor'])->name('obtenerInformacionProveedor');
+
+
 })->namespace('Contratante');
 /*
 |----------------------------------------------------------------- ---------

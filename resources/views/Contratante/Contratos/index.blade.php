@@ -98,6 +98,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-grid gap-2 d-md-block">
+            <a href="{{ route('contratos.export.excel') }}" class="btn btn-success">Descargar Excel</a>
+            </div>
 
                 </div>
             </div>
@@ -106,6 +109,7 @@
             @if ($contratos->count() > 0)
                 {{ $contratos->links() }}
             @endif
+            
         </div>
     </div>
 

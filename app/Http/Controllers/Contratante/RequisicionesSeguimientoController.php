@@ -219,12 +219,16 @@ class RequisicionesSeguimientoController extends Controller
 
     public function descargarArchivosRequisicion($id)
     {
-        $requisitionFolder = 'requisicion/' . $id . '/';
+        // Obtener la requisición por ID
+    $requisicion = Requisicion::findOrFail($id);
+
+    // Construir la ruta de la carpeta utilizando el campo no_requisicion
+    $requisitionFolder = 'requisicion/' . $requisicion->no_requisicion . '/';
 
         // Verificar si la carpeta existe en S3
-        if (Storage::disk('s3')->exists($requisitionFolder)) {
+        if (Storage::disk('local')->exists($requisitionFolder)) {
             // Obtener la lista de archivos en la carpeta de S3
-            $archivos = Storage::disk('s3')->files($requisitionFolder);
+            $archivos = Storage::disk('local')->files($requisitionFolder);
 
             if (count($archivos) > 0) {
                 // Crear un archivo ZIP temporal para almacenar los archivos
@@ -235,7 +239,7 @@ class RequisicionesSeguimientoController extends Controller
                     // Agregar cada archivo al archivo ZIP
                     foreach ($archivos as $archivo) {
                         $nombreArchivo = basename($archivo);
-                        $archivoContenido = Storage::disk('s3')->get($archivo);
+                        $archivoContenido = Storage::disk('local')->get($archivo);
                         $zip->addFromString($nombreArchivo, $archivoContenido);
                     }
 
@@ -250,16 +254,16 @@ class RequisicionesSeguimientoController extends Controller
                     return alert('Se produjo un error al obtener la respuesta.');
                 }
             } else {
-                return redirect()->route('SeguimientoRequisicion.index');
-
                 // Manejar el caso en que la carpeta esté vacía
-                return alert('Carpeta vacia');
+                 return redirect()->route('SeguimientoRequisicion.index')->with('mensaje', 'Carpeta vacía');
+
+
+
+                
             }
         } else {
-            return redirect()->route('SeguimientoRequisicion.index');
-
             // Manejar el caso en que la carpeta no exista
-            return alert('Carpeta no existente');
+                return redirect()->route('SeguimientoRequisicion.index')->with('mensaje', 'Carpeta no existente');
         }
     }
     public function imprimirRequisicion($id)

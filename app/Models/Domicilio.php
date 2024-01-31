@@ -18,5 +18,10 @@ class Domicilio extends Model
         'estado',
         'pais',
     ];
+    // Relación inversa con Proveedor
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class, 'domicilio_id', 'id_proveedor');
+    }
 
 }

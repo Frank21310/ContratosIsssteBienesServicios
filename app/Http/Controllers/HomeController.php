@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Empleado;
+use App\Models\Proveedor;
+use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalUsuarios = User::count();
+        $totalEmpleados = Empleado::count();
+        $totalProveedores = Proveedor::count();
+
+    
+        return view('home', compact('totalUsuarios', 'totalEmpleados', 'totalProveedores'));
     }
 }

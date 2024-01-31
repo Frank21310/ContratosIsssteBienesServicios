@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Contratante;
 
+use App\Exports\ContratosExport;
 use App\Http\Controllers\Controller;
 use App\Models\Contrato;
 use App\Models\Domicilio;
 use App\Models\Empleado;
-use App\Models\Partida;
 use App\Models\Persona;
 use App\Models\PersonaFisica;
 use App\Models\PersonaMoral;
@@ -17,7 +17,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\IOFactory;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpWord\PhpWord;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 
 class ContratosController extends Controller
@@ -164,32 +167,12 @@ class ContratosController extends Controller
         $requisicion = Requisicion::where('id_requisicion', $contrato->requisicion_id)->with('detalles')->firstOrFail();
 
         // Cargar la vista del contrato con la información obtenida
-        $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'));
+        $pdf = Pdf::loadView('Contratante.Contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'));
         $pdf->render();
 
         // Devolver el PDF generado
         return $pdf->setPaper('a4', 'portrait')->stream('contrato_' . $id . '.pdf');
 
-        /* Obtener la persona física asociada al contrato (si existe)
-        $personafisica = PersonaFisica::where('contrato_id', $id)->first();
-
-        // Obtener la persona moral asociada al contrato (si existe)
-        $personamoral = PersonaMoral::where('contrato_id', $id)->first();
-
-        // Verificar si hay una sola persona asociada al contrato
-        if ($personamoral !== null && $personafisica !== null) {
-            // Puedes agregar lógica para manejar este caso específico
-        } else {
-            // Si solo hay una persona (ya sea física o moral), asignarla a una variable
-            $persona = $personamoral !== null ? $personamoral : $personafisica;
-
-            // Cargar la vista del contrato con la información obtenida
-            $pdf = Pdf::loadView('Contratante.contratos.formularios.form', compact('requisicion', 'image', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'));
-            $pdf->render();
-
-            // Devolver el PDF generado
-            return $pdf->setPaper('a4', 'portrait')->stream('contrato_' . $id . '.pdf');
-        }*/
     }
     public function wordContrato(Request $request,$id)
     {
@@ -226,100 +209,62 @@ class ContratosController extends Controller
 
         // Columna 2: Contenido del formulario
         $cell2 = $table->addCell(4500);
-        $contenidoEncabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion', 'contrato'))->render();
+        $contenidoEncabezado = view('Contratante.Contratos.formularios.word.Encabezado', compact('requisicion', 'contrato'))->render();
         \PhpOffice\PhpWord\Shared\Html::addHtml($cell2, $contenidoEncabezado, false, false);
 
         // Agregar pie de página
         $footer = $section->addFooter();
         $footer->addPreserveText('Página {PAGE} de {NUMPAGES}', null, array('alignment' => 'center'));
 
-        if ($contrato->tipo_contrato_id === 1) {
+        if ($contrato->tipo_contrato_id == 1) {
             // Agregar contenido al documento para contratos de bienes
-            $htmlView = view('Contratante.contratos.formularios.word.CuerpoBienes', compact('requisicion', 'logo', 'contrato', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
+            $htmlView = view('Contratante.Contratos.formularios.word.Cuerpobienes', compact('requisicion', 'logo', 'contrato', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
-        } elseif ($contrato->tipo_contrato_id === 2) {
+        } elseif ($contrato->tipo_contrato_id == 2) {
             // Agregar contenido al documento para contratos de servicios
-            $htmlView = view('Contratante.contratos.formularios.word.Cuerpo', compact('requisicion', 'logo', 'contrato', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
+            $htmlView = view('Contratante.Contratos.formularios.word.Cuerpo', compact('requisicion', 'logo', 'contrato', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
         } else {
+                $section->addText('No se ha asignado un contenido para este tipo de contrato.', null, array('alignment' => 'center'));
+
         }
 
-// Subir los archivos a la carpeta local con el nuevo nombre
-$requisitionFolder = 'requisicion/' . $requisicion->no_requisicion;
-Storage::disk('local')->makeDirectory($requisitionFolder);
-
-if ($request->hasFile('archivos')) {
-    foreach ($request->file('archivos') as $archivo) {
-        $fileName = $archivo->getClientOriginalName();
-        $path = $archivo->storeAs($requisitionFolder, $fileName, 'local');
-    }
-}
-
-// Guardar el documento en la misma carpeta
-$nombreArchivo = 'contrato_' . $id . '.docx'; // Nombre del archivo Word
-$rutaArchivo = storage_path('app/' . $requisitionFolder . '/' . $nombreArchivo); // Ruta completa
-$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-
-// Utilizar FileStream para guardar el archivo en una ubicación específica
-$streamWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-$streamWriter->save($rutaArchivo);
-
-// Devolver el documento Word generado para descargar
-return response()->download($rutaArchivo, $nombreArchivo);
+        // Subir los archivos a la carpeta local con el nuevo nombre
+        $requisitionFolder = 'requisicion/' . $requisicion->no_requisicion;
+        Storage::disk('local')->makeDirectory($requisitionFolder);
+        
+        if ($request->hasFile('archivos')) {
+            foreach ($request->file('archivos') as $archivo) {
+                $fileName = $archivo->getClientOriginalName();
+                $path = $archivo->storeAs($requisitionFolder, $fileName, 'local');
+            }
+        }
+        
+        // Guardar el documento en la misma carpeta
+        $nombreArchivo = 'contrato_' . $id . '.docx'; // Nombre del archivo Word
+        $rutaArchivo = storage_path('app/' . $requisitionFolder . '/' . $nombreArchivo); // Ruta completa
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        
+        // Utilizar FileStream para guardar el archivo en una ubicación específica
+        $streamWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $streamWriter->save($rutaArchivo);
+        
+        // Devolver el documento Word generado para descargar
+        return response()->download($rutaArchivo, $nombreArchivo);
         // Devolver el documento Word generado para descargar
         return response()->download(storage_path($rutaArchivo), $nombreArchivo);
 
-        /* Obtener la persona física asociada al contrato (si existe)
-        $personafisica = PersonaFisica::where('contrato_id', $id)->first();
-
-        // Obtener la persona moral asociada al contrato (si existe)
-        $personamoral = PersonaMoral::where('contrato_id', $id)->first();
-
-        // Verificar si hay una sola persona asociada al contrato
-        if ($personamoral !== null && $personafisica !== null) {
-            // Puedes agregar lógica para manejar este caso específico
-        } else {
-            // Si solo hay una persona (ya sea física o moral), asignarla a una variable
-            $persona = $personamoral !== null ? $personamoral : $personafisica;
-
-            // Crear un nuevo objeto PHPWord
-            $phpWord = new PhpWord();
-
-            // Agregar una sección al documento
-            $section = $phpWord->addSection();
-
-            // Crear el encabezado
-            $header = $section->addHeader();
-
-            // Obtener el contenido del encabezado desde la vista
-            $contenidoEncabezado = view('Contratante.contratos.formularios.word.Encabezado', compact('requisicion', 'contrato', 'persona'))->render();
-            \PhpOffice\PhpWord\Shared\Html::addHtml($header, $contenidoEncabezado, false, false);
-            //$imagePath = __DIR__ . '\assets\img\LogoNew2.png';
-            $imagePath = 'assets/img/LogoNew2.png';
-
-            $imageStyle = array('width' => 100, 'height' => 50, 'align' => 'left');
-            $header->addImage($imagePath, $imageStyle);
-
-            // Agregar pie de página
-            $footer = $section->addFooter();
-            $footer->addPreserveText('Página {PAGE} de {NUMPAGES}', null, array('alignment' => 'center'));
-            if ($contrato->tipo_contrato_id === 1) {
-                // Agregar contenido al documento para contratos de bienes
-                $htmlView = view('Contratante.contratos.formularios.word.CuerpoBienes', compact('requisicion', 'logo', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
-                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
-            } elseif ($contrato->tipo_contrato_id === 2) {
-                // Agregar contenido al documento para contratos de servicios
-                $htmlView = view('Contratante.contratos.formularios.word.Cuerpo', compact('requisicion', 'logo', 'contrato', 'persona', 'empleadosubdelegado', 'empleadomateriales', 'empleadofinanzas'))->render();
-                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $htmlView, false, true);
-            } else {
-            }
-            // Guardar el documento en storage 
-            $nombreArchivo = 'contrato_' . $id . '.docx'; // Nombre del archivo Word
-            $rutaArchivo = storage_path($nombreArchivo);
-            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-            $objWriter->save($rutaArchivo);
-            // Devolver el documento Word generado para descargar
-            return response()->download($rutaArchivo, $nombreArchivo);
-        }*/
     }
+    
+    public function exportExcel()
+    {
+        return Excel::download(new ContratosExport, 'contratos.xlsx');
+    }
+        public function obtenerInformacionProveedor($proveedor)
+{
+    $proveedor = Proveedor::with('Personas', 'Domicilios', 'Caracter')->find($proveedor);
+    
+
+    return response()->json($proveedor);
+}
 }

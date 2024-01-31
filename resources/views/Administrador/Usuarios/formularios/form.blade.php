@@ -1,4 +1,13 @@
 @csrf
+@if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 <div class="d-grid gap-2 col-8 mx-auto">
     <div class="row mb-3">
         <label for="empleado_num" class="col-md-4 col-form-label text-md-end">{{ __('Empleado') }}</label>
@@ -24,7 +33,7 @@
         <label for="id_rol" class="col-md-4 col-form-label text-md-end">{{ __('Rol') }}</label>
     
         <div class="col-md-6">
-            <select id="id_rol" class="custom-select form-control @error('id_rol') is-invalid @enderror" name="id_rol" required autocomplete="id_rol" autofocus>
+            <select id="id_rol" class="custom-select form-control @error('id_rol') is-invalid @enderror" name="rol_id" required autocomplete="id_rol" autofocus>
                 <option value="" disabled selected>Seleccionar Rol</option>
                 @foreach($roles as $rol)
                     <option value="{{ $rol->id_rol }}">{{ $rol->nombre_rol }}</option>

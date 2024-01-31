@@ -271,12 +271,12 @@
                     </strong>
                     , POR LA OTRA,
                     <strong>
-                        {{ $contrato->Proveedor->nombre_proveedor }}
+                        {{ $contrato->Proveedor->nombre }}
                     </strong>, EN LO SUCESIVO “EL PROVEEDOR”,
                     @if ($contrato->Proveedor->persona_id == 2)
                         REPRESENTADA POR
                         <strong>
-                            {{ $contrato->Proveedor->representante_nombre }}
+                            {{ $contrato->Proveedor->representante }}
                         </strong>
                         , EN SU CARÁCTER DE
                         <strong>

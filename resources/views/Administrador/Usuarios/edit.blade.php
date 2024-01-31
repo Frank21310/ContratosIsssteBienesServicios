@@ -16,7 +16,7 @@
         </div>
         <hr>
         <div class="card-body">
-            <form action="{{ route('Usuarios.update', $User->empleado_num) }}" method="POST" enctype="multipart/form-data" id="create">
+            <form action="{{ route('Usuarios.update', $User->id) }}" method="POST" enctype="multipart/form-data" id="create">
                 @method('PUT')
                 @include('Administrador.Usuarios.formularios.editform')
             </form>
@@ -29,8 +29,6 @@
                     Editar
                 </button>
             </div>
-            
-
         </div>
     </div>
 @endsection

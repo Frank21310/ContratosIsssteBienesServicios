@@ -66,20 +66,20 @@ class UsuariosController extends Controller
     {
         $data = $request->validate([
             'empleado_num' => ['required', 'string', 'max:255'],
+            'rol_id' => ['required', 'integer'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'id_rol' => ['required', 'integer'],
         ]);
 
         User::create([
+
             'empleado_num' => $data['empleado_num'],
+            'rol_id' => $data['rol_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'rol_id' => $data['id_rol'],
         ]);
         return redirect()
         ->route('Usuarios.index');
-
     }
 
     /**
@@ -87,7 +87,7 @@ class UsuariosController extends Controller
      */
     public function show(string $id)
     {
-        $Users = User::where('empleado_num', $id)->firstOrFail();
+        $Users = User::where('id', $id)->firstOrFail();
         return view('Administrador.Usuarios.show', compact('Users'));
     }
 
@@ -98,8 +98,7 @@ class UsuariosController extends Controller
     {
         $empleados = Empleado::all();
         $roles = Rol::all();
-
-        $User = User::where('empleado_num', $id)->firstOrFail();
+        $User = User::where('id', $id)->firstOrFail();
         return view('Administrador.Usuarios.edit', compact('User', 'empleados', 'roles'));
     }
 
@@ -108,27 +107,23 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'empleado_num' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'id_rol' => ['required', 'integer'],
-        ]);
-
         $user = User::findOrFail($id);
 
-        $user->update([
-            'empleado_num' => $data['empleado_num'],
-            'email' => $data['email'],
-            'rol_id' => $data['id_rol'],
+        $data = $request->validate([
+            'id_rol' => ['required', 'integer'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $users = User::all(); // Obtener todos los usuarios
+        $user->update([
+            'rol_id' => $data['id_rol'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
-        return view('Administrador.Usuarios.index', compact('users'));
+        return redirect()
+        ->route('Usuarios.index');
     }
-
-
-
     /**
      * Remove the specified resource from storage.
      */
@@ -141,7 +136,7 @@ class UsuariosController extends Controller
 
             return redirect()->route('Usuarios.index');
         } catch (\Exception $e) {
-            // Maneja la excepciÃ³n aquÃ­ (puedes mostrar un mensaje de error, registrar la excepciÃ³n, etc.)
+            // Maneja la excepci¨®n aqu¨ª (puedes mostrar un mensaje de error, registrar la excepci¨®n, etc.)
             return redirect()->route('Usuarios.index')->with('error', 'No se pudo eliminar el registro.');
         }
     }

@@ -27,14 +27,17 @@ class Handler extends ExceptionHandler
             //
         });
     }
+     /*
+     
     public function render($request, Throwable $exception)
-{
-    if ($this->isHttpException($exception)) {
-        // Si es un error HTTP, por ejemplo, 404, 500, etc.
-        return $this->renderHttpException($exception);
-    } else {
-        // Renderizar una vista genérica para otros tipos de errores
-        return response()->view('layouts.errores', [], 500);
-    }
-}
+    {
+        if ($this->isHttpException($exception)) {
+            // Si es un error HTTP, por ejemplo, 404, 500, etc.
+            return $this->renderHttpException($exception);
+        } else {
+            // Renderizar una vista genérica para otros tipos de errores
+            return response()->view('layouts.errores', [], 500);
+        }
+        
+    }*/
 }
