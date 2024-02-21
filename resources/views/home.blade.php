@@ -47,6 +47,21 @@
             </div>
         </div>
     @endif
+    @if (Auth::user()->rol_id == 2)
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body cuadrorojo">
+                            <h5 class="card-title">Requisciones Realizadas</h5>
+                            <p class="card-text">{{ $totalRequisicionesUsuario }}</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    @endif
   </section>
 
 @endsection

@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
@@ -136,7 +137,7 @@ class UsuariosController extends Controller
 
             return redirect()->route('Usuarios.index');
         } catch (\Exception $e) {
-            // Maneja la excepci¨®n aqu¨ª (puedes mostrar un mensaje de error, registrar la excepci¨®n, etc.)
+            // Maneja la excepciï¿½ï¿½n aquï¿½ï¿½ (puedes mostrar un mensaje de error, registrar la excepciï¿½ï¿½n, etc.)
             return redirect()->route('Usuarios.index')->with('error', 'No se pudo eliminar el registro.');
         }
     }

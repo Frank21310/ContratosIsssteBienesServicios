@@ -53,8 +53,7 @@
             @endif
             @if (Auth::user()->rol_id == 2)
                 <li class="nav-item">
-                    <a href="{{ url('/home') }}"
-                        class="nav-link {{ 'home' == request()->path() ? 'active' : '' }}">
+                    <a href="{{ url('/home') }}" class="nav-link {{ 'home' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Inicio
                     </a>
@@ -77,8 +76,7 @@
             @endif
             @if (Auth::user()->rol_id == 3)
                 <li class="nav-item">
-                    <a href="{{ url('/home') }}"
-                        class="nav-link {{ 'home' == request()->path() ? 'active' : '' }}">
+                    <a href="{{ url('/home') }}" class="nav-link {{ 'home' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Inicio
                     </a>
@@ -109,6 +107,50 @@
                         class="nav-link {{ '/Contratante/Contratos' == request()->path() ? 'active' : '' }}">
                         <i class="fas fa-home bi me-2 "></i>
                         Contratos
+                    </a>
+                </li>
+            @endif
+            @if (Auth::user()->rol_id == 4)
+                <li class="nav-item">
+                    <a href="{{ route('Requisiciones.index') }}"
+                        class="nav-link  {{ '/Requirente/Requisiciones' == Request::is('Requirente/Requisiciones*') ? 'active' : '' }}">
+                        <i class="fas fa-plus bi me-2"></i>
+                        Peticiones
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#menurequisiciones" data-toggle="collapse" aria-expanded="true" class="nav-link">
+                        <i class="fas fa-file-alt"></i>
+                        Requisiciones</a>
+                    <ul class="collapse list-unstyled" id="menurequisiciones">
+                        <li class="nav-item">
+                            <a href="{{ route('SeguimientoRequisicion.index') }}"
+                                class="nav-link {{ '/Contratante/SeguimientoRequisicion' == request()->path() ? 'active' : '' }}">
+                                <i class="fas fa-pen"></i>
+                                Seguimiento
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('RequisicionesFinalizadas.index') }}"
+                                class="nav-link {{ '/Contratante/RequisicionesFinalizadas' == request()->path() ? 'active' : '' }}">
+                                <i class="fas fa-check"></i>
+                                Finalizadas
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('Contratos.index') }}"
+                        class="nav-link {{ '/Contratante/Contratos' == request()->path() ? 'active' : '' }}">
+                        <i class="fas fa-home bi me-2 "></i>
+                        Contratos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('Proveedores.index') }}"
+                        class="nav-link {{ 'Administrador/Proveedores' == request()->path() ? 'active' : '' }}">
+                        <i class="fas fa-user"></i>
+                        Proveedores
                     </a>
                 </li>
             @endif
